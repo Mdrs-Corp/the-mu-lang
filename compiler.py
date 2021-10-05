@@ -32,9 +32,10 @@ def comp(line):
     else:
         print('Not executed : '+line)
 def calc(string):
-    
+    return string
         
 script=open("exemple.µ","r").read()
 lines=script.split(sep="\n")  
 for line in lines:
     comp(line)
+while True:comp(input(">µ>"))
