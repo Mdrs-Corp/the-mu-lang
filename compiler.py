@@ -1,41 +1,42 @@
 
-class file:
-    jean="J E A N"
-    pass
+vars = {}
 
 def comp(line):
-    if line.startswith("make "):
-        name=5+line[5:].find(" ")
-        print("Created variable "+line[5:name]+" to "+line[name+1:])
-        setattr(file,line[5:name] , line[name+1:])
-    elif line.startswith("yield "):
-        for var in dir(file):
-            if var in line[6:]:
-                print(f"{var} is {getattr(file,var)}")
-    elif line.startswith("set "):
-        line=line.split(sep=" ")
-        print(f"{line[1]} is now {calc(line[2])}")
-        setattr(file,line[1],line[2])
-    elif line.startswith("do "):
-        debut_nb=fin_nb=3
-        while line[fin_nb] in "0123456789":
-            fin_nb+=1
-        nb=int(line[debut_nb:fin_nb])
-        for i in range(nb):
-            comp(line[fin_nb+1:])
-    elif line[0]=="§":
+    line = line.split(sep = " ")
+    if line[0] == "make":
+        name = line[1]
+        value = line[2]
+        vars[name] = value
+        print("Created variable " + name + " to " + value)
+    elif line[0] == "yield":
+        var = line[1]
+        if var in vars:
+            print(f"{var} is {vars[var]}")
+        else:
+            print(f"{var} not found")
+    elif line[0] == "set":
+        var = line[1]
+        if var in vars:
+            vars[var] = calc(line[2])
+            print(f"{var} set to {vars[var]}")
+        else:
+            print(f"{var} not found")
+    elif line[0] == "do":
+        for i in range(int(line[1])):
+            comp(" ".join(line[2:]))
+    elif line[0] == "§":
         pass
-    elif line=="?":
-        for elem in dir(file):
-            if not (elem.startswith("__") and elem.endswith("__")):
-                print(elem,":",getattr(file,elem))
+    elif line[0] == "?":
+        for name in vars:
+                print(name, ":", vars[name])
     else:
-        print('Not executed : '+line)
+        print('Not executed : ' + " ".join(line))
+
 def calc(string):
     return string
-        
-script=open("exemple.µ","r").read()
-lines=script.split(sep="\n")  
+
+script = open("exemple.µ","r").read()
+lines = script.split(sep = "\n")
 for line in lines:
     comp(line)
 while True:comp(input(">µ>"))
