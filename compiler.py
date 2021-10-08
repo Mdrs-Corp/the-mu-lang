@@ -1,4 +1,5 @@
-
+from sys import argv
+import types
 vars = {}
 
 def comp(line):
@@ -6,7 +7,7 @@ def comp(line):
     if line[0] == "make":
         name = line[1]
         value = line[2]
-        vars[name] = value
+        vars[name] = types.Var(value)
         print("Created variable " + name + " to " + value)
     elif line[0] == "yield":
         var = line[1]
@@ -32,11 +33,15 @@ def comp(line):
     else:
         print('Not executed : ' + " ".join(line))
 
-def calc(string):
-    return string
+if __name__==__main__: 
+	# Condition vraie ssi on utilise pas le programme dans un import
+	if len(argv)>=2:
+		script=open(argv[1],"r").read() # ~/$ python3 compiler.py programme.µ
+	else:
+		script = open("exemple.µ","r").read()
 
-script = open("exemple.µ","r").read()
-lines = script.split(sep = "\n")
-for line in lines:
-    comp(line)
-while True:comp(input(">µ>"))
+	lines = script.split(sep = "\n")
+	for line in lines:
+		comp(line)
+	while True:comp(input(">µ>"))
+	
