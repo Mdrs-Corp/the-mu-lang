@@ -1,4 +1,7 @@
-make a 5
-set a 4
-do 10 yield a
+make string a
+set a "m d r s"
+make number b
+set b -3.141
+make boolean c
+set c true
 ?
