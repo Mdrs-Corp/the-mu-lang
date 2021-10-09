@@ -19,7 +19,7 @@ class MuValue:
 
 class MuString(MuValue):
 	def __init__(self):
-		super().__init__(self, MuTypes.STRING, "")
+		super().__init__(MuTypes.STRING, "")
 
 	def set(self, value):
 		if (value[0] == "\"" and value[-1] == "\"") or (value[0] == "'" and value[-1] == "''"):
@@ -34,7 +34,7 @@ class MuString(MuValue):
 
 class MuNumber(MuValue):
 	def __init__(self):
-		super().__init__(self, MuTypes.NUMBER, 0)
+		super().__init__(MuTypes.NUMBER, 0)
 
 	def set(self, value):
 		if value.find("-")>0 or value.count(".")>1:
@@ -50,7 +50,7 @@ class MuNumber(MuValue):
 
 class MuBoolean(MuValue):
 	def __init__(self):
-		super().__init__(self, MuTypes.BOOLEAN, True)
+		super().__init__(MuTypes.BOOLEAN, True)
 
 	def set(self, value):
 		if value == "true":
