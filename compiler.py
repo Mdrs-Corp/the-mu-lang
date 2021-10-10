@@ -21,9 +21,6 @@ def comp(line):
         var = line[1]
         value = " ".join(line[2:])
         if var in vars:
-            #gonna have to do things like a+b
-            #https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization
-            print(tokens.lex(value))
             success = vars[var].set(value)
             if success:
                 print(f"{var} set to {value}")
@@ -54,13 +51,14 @@ def comp(line):
         print('Not executed : ' + " ".join(line))
 
 if __name__=="__main__":
-	# Condition vraie ssi on utilise pas le programme dans un import
-	if len(argv)>=2:
-		script=open(argv[1],"r").read() # ~/$ python3 compiler.py programme.µ
-	else:
-		script = open("exemple.µ","r").read()
+    # Condition vraie ssi on utilise pas le programme dans un import
+    if len(argv)>=2:
+        script=open(argv[1],"r").read() # ~/$ python3 compiler.py programme.µ
+    else:
+        script = open("exemple.µ","r").read()
 
-	lines = script.split(sep = "\n")
-	for line in lines:
-		comp(line)
-	while True:comp(input(">µ>"))
+    print(tokens.lex(script))
+    lines = script.split(sep = "\n")
+    for line in lines:
+        comp(line)
+    while True:comp(input(">µ>"))

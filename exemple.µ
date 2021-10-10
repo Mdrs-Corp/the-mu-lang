@@ -4,4 +4,5 @@ make number b
 set b -3.141
 make number c
 set c a * b + 5
-?
+make string d
+set d "hii  ee"
