@@ -2,7 +2,7 @@ import customTypes
 
 letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numbers = "-.0123456789"
-operators = "+-*/"
+operators = "+*/"
 separators = "()"
 
 def lex(string):
@@ -32,7 +32,7 @@ def lex(string):
                 text += string[currentPos]
                 currentPos += 1
             currentPos += 1
-            tokens.append(Token(customTypes.TokenType.LITERAL, text, tokenStartPos))
+            tokens.append(Token(customTypes.TokenType.LITERAL, "\""+text+"\"", tokenStartPos))
         elif lookahead in letters:
             text = ""
             while currentPos < len(string) and (string[currentPos] in letters or string[currentPos] in numbers):
@@ -40,7 +40,7 @@ def lex(string):
                 currentPos += 1
             if text == "true" or text == "false":
                 type = customTypes.TokenType.LITERAL
-            elif text == "make" or text == "set":
+            elif text == "make" or text == "set" or text == "?":
                 type = customTypes.TokenType.KEYWORD
             else:
                 type = customTypes.TokenType.IDENTIFIER

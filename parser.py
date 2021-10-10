@@ -3,6 +3,7 @@ import customTypes
 
 
 def parse(tokens):
+    if len(tokens) == 0: return
     if len(tokens) == 1:
         if tokens[0].type == customTypes.TokenType.IDENTIFIER:
             return Identifier(tokens[0].text)
@@ -13,6 +14,8 @@ def parse(tokens):
             return Make(parse([tokens[1]]), parse(tokens[2:]))
         if tokens[0].text == "set":
             return Set(parse([tokens[1]]), parse(tokens[2:]))
+        if tokens[0].text == "?":
+            return Print()
 
     pos = 1
     ctokens = [tokens[0]]
@@ -81,3 +84,7 @@ class Operator(Node):
         self.operator = operator
         self.left = left
         self.right = right
+
+class Print(Node):
+    def __init__(self, operator, left, right):
+        super().__init__(customTypes.NodeType.PRINT)

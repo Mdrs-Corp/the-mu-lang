@@ -7,6 +7,7 @@ class NodeType(Enum):
     IDENTIFIER = 3
     OPERATOR = 4
     LITERAL = 5
+    PRINT = 6
 
 class TokenType(Enum):
     EOF = 0

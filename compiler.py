@@ -2,6 +2,7 @@ from sys import argv
 import values
 import tokens
 import parser
+import interpreter
 
 vars = {}
 
@@ -62,10 +63,12 @@ if __name__=="__main__":
     #parser.parse(tok)
     lines = script.split(sep = "\n")
     for line in lines:
-        comp(line)
+        tok = tokens.lex(line)
+        parse = parser.parse(tok)
+        interpreter.interpret(vars, parse)
     while True:
         s = input(">µ>")
         tok = tokens.lex(s)
         parse = parser.parse(tok)
-        print(parse)
-        comp(s)
+        print(interpreter.interpret(vars, parse))
+        #comp(s)
