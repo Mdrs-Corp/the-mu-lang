@@ -1,5 +1,6 @@
 from sys import argv
 import values
+import tokens
 
 vars = {}
 
@@ -22,6 +23,7 @@ def comp(line):
         if var in vars:
             #gonna have to do things like a+b
             #https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization
+            print(tokens.lex(value))
             success = vars[var].set(value)
             if success:
                 print(f"{var} set to {value}")

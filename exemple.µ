@@ -1,7 +1,7 @@
-make string a
-set a "m d r s"
+make number a
+set a 3
 make number b
 set b -3.141
-make boolean c
-set c true
+make number c
+set c a * b + 5
 ?
