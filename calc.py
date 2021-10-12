@@ -15,9 +15,7 @@ def calc(s:str):
 			elif part in OPERATORS:
 				nextparts+=[part]
 			pos+=1
-			
 		nextparts+=[parts[-1]]
-			
 		parts=nextparts[:]
 		
 	return parts
