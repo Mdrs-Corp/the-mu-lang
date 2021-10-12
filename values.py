@@ -18,8 +18,9 @@ class MuValue:
 		return self.value
 
 class MuString(MuValue):
-	def __init__(self):
+	def __init__(self, value):
 		super().__init__(MuTypes.STRING, "")
+		self.set(value)
 
 	def set(self, value):
 		if (value[0] == "\"" and value[-1] == "\"") or (value[0] == "'" and value[-1] == "''"):
@@ -33,8 +34,9 @@ class MuString(MuValue):
 
 
 class MuNumber(MuValue):
-	def __init__(self):
+	def __init__(self, value):
 		super().__init__(MuTypes.NUMBER, 0)
+		self.set(value)
 
 	def set(self, value):
 		if value.find("-")>0 or value.count(".")>1:
@@ -49,8 +51,9 @@ class MuNumber(MuValue):
 		return str(self.value)
 
 class MuBoolean(MuValue):
-	def __init__(self):
+	def __init__(self, value):
 		super().__init__(MuTypes.BOOLEAN, True)
+		self.set(value)
 
 	def set(self, value):
 		if value == "true":
@@ -68,11 +71,11 @@ class MuBoolean(MuValue):
 		else:
 			return "false"
 
-def create(type):
-	if type == "string":
-		return MuString()
-	elif type == "number":
-		return MuNumber()
-	elif type == "boolean":
-		return MuBoolean()
+def create(value):
+	if (value[0] == "\"" and value[-1] == "\"") or (value[0] == "'" and value[-1] == "'"):
+		return MuString(value)
+	elif value[0] in "-,0123456789":
+		return MuNumber(value)
+	elif value == "true" or value == "false":
+		return MuBoolean(value)
 	return None

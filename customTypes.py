@@ -8,12 +8,12 @@ class NodeType(Enum):
     OPERATOR = 4
     LITERAL = 5
     PRINT = 6
+    ACTION = 7
+    EXPRESSION = 8
 
 class TokenType(Enum):
-    EOF = 0
-    EOL = 1
-    IDENTIFIER = 2
-    KEYWORD = 3
-    LITERAL = 4
-    OPERATOR = 5
-    SEPARATOR = 6
+    IDENTIFIER = 0
+    KEYWORD = 1
+    LITERAL = 2
+    OPERATOR = 3
+    SEPARATOR = 4

@@ -1,8 +1,2 @@
-make number a
-set a 3
-make number b
-set b -3.141
-make number c
-set c a * b + 5
-make string d
-set d "hii  ee"
+set a 3.
+set b a.
