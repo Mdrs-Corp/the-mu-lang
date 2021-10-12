@@ -15,9 +15,9 @@ def comp(line):
         var = values.create(type)
         if var != None:
             vars[name] = var
-            print(f"Created {name} of type {type}")
+            yield f"Created {name} of type {type}"
         else:
-            print("Invalid type")
+            yield "Invalid type"
 
     elif line[0] == "set":
         var = line[1]
@@ -25,18 +25,18 @@ def comp(line):
         if var in vars:
             success = vars[var].set(value)
             if success:
-                print(f"{var} set to {value}")
+                yield f"{var} set to {value}"
             else:
-                print("Invalid value")
+                yield "Invalid value"
         else:
-            print(f"{var} not found")
+            yield f"{var} not found"
 
     elif line[0] == "yield":
         var = line[1]
         if var in vars:
-            print(f"{var} is {vars[var].toPrint()}")
+            yield f"{var} is {vars[var].toPrint()}"
         else:
-            print(f"{var} not found")
+            yield f"{var} not found"
 
     elif line[0] == "do":
         for i in range(int(line[1])):
@@ -47,10 +47,10 @@ def comp(line):
 
     elif line[0] == "?":
         for name in vars:
-                print(name, ":", vars[name].toPrint())
+                yield str(name)+ " : " + vars[name].toPrint()
 
     else:
-        print('Not executed : ' + " ".join(line))
+        yield 'Not executed : ' + " ".join(line)
 
 if __name__=="__main__":
     # Condition vraie ssi on utilise pas le programme dans un import

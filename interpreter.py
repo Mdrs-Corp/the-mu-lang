@@ -9,12 +9,12 @@ def interpret(vars, node):
         if node.right.type == customTypes.NodeType.IDENTIFIER:
             name = node.right.text
         if var == None:
-            print("Invalid type")
+            yield "Invalid type"
         elif name == None:
-            print("Invalid variable name")
+            yield "Invalid variable name"
         else:
             vars[name] = var
-            print(f"Created {name} of type {node.left.text}")
+            yield f"Created {name} of type {node.left.text}"
 
     if node.type == customTypes.NodeType.SET:
         if node.left.type == customTypes.NodeType.IDENTIFIER:
@@ -22,17 +22,17 @@ def interpret(vars, node):
                 res = interpret(vars, node.right)
                 success = vars[node.left.text].set(res)
                 if success:
-                    print(f"{node.left.text} set to {res}")
+                    yield f"{node.left.text} set to {res}"
                 else:
-                    print("Invalid value")
+                    yield "Invalid value"
             else:
-                print(f"{node.left.text} not found")
+                yield f"{node.left.text} not found"
         else:
-            print(f"Invalid variable name")
+            yield f"Invalid variable name"
 
     if node.type == customTypes.NodeType.PRINT:
         for name in vars:
-            print(name, ":", vars[name].toPrint())
+            yield f"{name} : {vars[name].toPrint()}"
 
     if node.type == customTypes.NodeType.OPERATOR:
         left = interpret(vars, node.left)
