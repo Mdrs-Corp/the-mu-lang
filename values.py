@@ -47,6 +47,10 @@ class MuNumber(MuValue):
 		self.value = float(value)
 		return True
 
+	def add(self, muvalue):
+		if muvalue.type == MuTypes.NUMBER:
+			return str(self.value + muvalue.value)
+			
 	def toPrint(self):
 		return str(self.value)
 

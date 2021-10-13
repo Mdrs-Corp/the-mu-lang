@@ -38,7 +38,7 @@ def lex(string):
                 currentPos += 1
             if text == "true" or text == "false":
                 type = customTypes.TokenType.LITERAL
-            elif text == "set" or text == "?":
+            elif text == "set" or text == "yield":
                 type = customTypes.TokenType.KEYWORD
             else:
                 type = customTypes.TokenType.IDENTIFIER

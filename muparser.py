@@ -32,8 +32,13 @@ def parse(tokens):
     if tokens[0].type == customTypes.TokenType.KEYWORD:
         if tokens[0].text == "set":
             return Action(tokens[0].text, parse([tokens[1]]), parse(tokens[2:]))
+        if tokens[0].text == "yield":
+            return Action(tokens[0].text, parse([tokens[1]]), None)
 
+    if tokens[1].type == customTypes.TokenType.OPERATOR:
+        return Operator(tokens[1].text, parse([tokens[0]]), parse(tokens[2:]))
 
+    return "wsh t koi"
 
 
 
@@ -67,11 +72,11 @@ class Expression(Node):
         self.childs.append(node)
 
 class Action(Node):
-    def __init__(self, action, type, name):
+    def __init__(self, action, left, right):
         super().__init__(customTypes.NodeType.ACTION)
         self.action = action
-        self.left = type
-        self.right = name
+        self.left = left
+        self.right = right
 
 
 
