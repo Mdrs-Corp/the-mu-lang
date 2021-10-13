@@ -1,2 +1,6 @@
+@
 set a 3.
-set b a.
+whether a @
+  set b a+3.
+@.
+@
