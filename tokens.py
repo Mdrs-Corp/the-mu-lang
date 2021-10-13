@@ -38,7 +38,7 @@ def lex(string):
                 currentPos += 1
             if text == "true" or text == "false":
                 type = customTypes.TokenType.LITERAL
-            elif text == "set" or text == "yield":
+            elif text == "set" or text == "yield" or text == "whether":
                 type = customTypes.TokenType.KEYWORD
             else:
                 type = customTypes.TokenType.IDENTIFIER
@@ -46,10 +46,13 @@ def lex(string):
         elif lookahead == ".":
             tokens.append(Token(customTypes.TokenType.SEPARATOR, lookahead, tokenStartPos))
             currentPos += 1
+        elif lookahead == "@":
+            tokens.append(Token(customTypes.TokenType.SEPARATOR, lookahead, tokenStartPos))
+            currentPos += 1
         else:
             print(f"Unknown character '{lookahead}' at position {currentPos}")
             currentPos += 1
-    tokens.append(Token(customTypes.TokenType.SEPARATOR, "<EOP>", currentPos))
+    #tokens.append(Token(customTypes.TokenType.SEPARATOR, "<EOP>", currentPos))
     return tokens
 
 class Token:

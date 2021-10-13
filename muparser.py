@@ -6,11 +6,20 @@ def parse(tokens):
     if len(tokens) == 0: return
 
     #each line
-    if tokens[-1].type == customTypes.TokenType.SEPARATOR:
-        ind = 0
+    if tokens[0].type == customTypes.TokenType.SEPARATOR and tokens[0].text == "@" and tokens[-1].type == customTypes.TokenType.SEPARATOR and tokens[-1].text == "@":
+        ind = 1
         toks = []
         nodes = []
-        while not(tokens[ind].type == customTypes.TokenType.SEPARATOR and tokens[ind].text == "<EOP>"):
+        while ind<len(tokens)-1:
+            if (tokens[ind].type == customTypes.TokenType.SEPARATOR and tokens[ind].text == "@"):
+                toks.append(tokens[ind])
+                ind+=1
+                while not(tokens[ind].type == customTypes.TokenType.SEPARATOR and tokens[ind].text == "@"):
+                    toks.append(tokens[ind])
+                    ind += 1
+                toks.append(tokens[ind])
+                ind += 1
+
             if (tokens[ind].type == customTypes.TokenType.SEPARATOR and tokens[ind].text == "."):
                 nodes.append(parse(toks))
                 toks = []
@@ -34,6 +43,8 @@ def parse(tokens):
             return Action(tokens[0].text, parse([tokens[1]]), parse(tokens[2:]))
         if tokens[0].text == "yield":
             return Action(tokens[0].text, parse([tokens[1]]), None)
+        if tokens[0].text == "whether":
+            return Action(tokens[0].text, parse([tokens[1]]), parse(tokens[2:]))
 
     if tokens[1].type == customTypes.TokenType.OPERATOR:
         return Operator(tokens[1].text, parse([tokens[0]]), parse(tokens[2:]))

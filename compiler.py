@@ -15,6 +15,7 @@ if __name__=="__main__":
 
     tok = tokens.lex(script.replace("\n", ""))
     parse = muparser.parse(tok)
+    print(parse)
     interpreter.interpret(vars, parse)
     while True:
         s = input(">µ>")
