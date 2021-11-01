@@ -31,6 +31,12 @@ class MuString(MuValue):
 
 	def toPrint(self):
 		return "\""+self.value+"\""
+	def add(self, muvalue):
+		if muvalue.type == MuTypes.STRING:
+			return str(self.value + muvalue.value)
+	def mul(self, muvalue):
+		if muvalue.type == MuTypes.NUMBER:
+			return str(self.value * muvalue.value)
 
 
 class MuNumber(MuValue):
@@ -50,7 +56,13 @@ class MuNumber(MuValue):
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
 			return str(self.value + muvalue.value)
-			
+	
+	def mul(self, muvalue):
+		if muvalue.type == MuTypes.NUMBER:
+			return str(self.value * muvalue.value)
+	def div(self, muvalue):
+		if muvalue.type == MuTypes.NUMBER:
+			return str(self.value / muvalue.value)
 	def toPrint(self):
 		return str(self.value)
 

@@ -23,14 +23,14 @@ def lex(string):
         elif lookahead in operators:
             currentPos += 1
             tokens.append(Token(customTypes.TokenType.OPERATOR, lookahead, tokenStartPos))
-        elif lookahead == "\"" or lookahead == "'":
+        elif lookahead == '"' or lookahead == "'":
             text = ""
             currentPos += 1
-            while currentPos < len(string) and not(string[currentPos] == "\"" or string[currentPos] == "'" ):
+            while currentPos < len(string) and not(string[currentPos] == '"' or string[currentPos] == "'" ):
                 text += string[currentPos]
                 currentPos += 1
             currentPos += 1
-            tokens.append(Token(customTypes.TokenType.LITERAL, "\""+text+"\"", tokenStartPos))
+            tokens.append(Token(customTypes.TokenType.LITERAL, '"'+text+'"', tokenStartPos))
         elif lookahead in letters:
             text = ""
             while currentPos < len(string) and (string[currentPos] in letters or string[currentPos] in numbers):

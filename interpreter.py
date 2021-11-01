@@ -8,7 +8,8 @@ def interpret(vars, node):
         for nd in node.childs:
             last = interpret(vars, nd)
         return last
-    if node.type == customTypes.NodeType.ACTION:
+    
+    elif node.type == customTypes.NodeType.ACTION:
         if node.action == "set":
             if node.left.type == customTypes.NodeType.IDENTIFIER:
                 res = interpret(vars, node.right)
@@ -25,24 +26,21 @@ def interpret(vars, node):
             else:
                 print(f"Invalid variable name")
 
-    if node.type == customTypes.NodeType.PRINT:
+    elif node.type == customTypes.NodeType.PRINT:
         for name in vars:
             print(name, ":", vars[name].toPrint())
 
-    if node.type == customTypes.NodeType.OPERATOR:
+    elif node.type == customTypes.NodeType.OPERATOR:
         left = interpret(vars, node.left)
         right = interpret(vars, node.right)
-        if node.operator == "+":
-            return values.create(left.add(right))
-        if node.operator == "*":
-            return values.create(left.add(right))
-        if node.operator == "/":
-            return values.create(left.add(right))
+        if node.operator == "+":return values.create(left.add(right))
+        if node.operator == "*":return values.create(left.mul(right))
+        if node.operator == "/":return values.create(left.div(right))
 
-    if node.type == customTypes.NodeType.LITERAL:
+    elif node.type == customTypes.NodeType.LITERAL:
         return values.create(node.value)
 
-    if node.type == customTypes.NodeType.IDENTIFIER:
+    elif node.type == customTypes.NodeType.IDENTIFIER:
         if node.text in vars:
             return vars[node.text]
         print(f"{node.text} doesn't exist")

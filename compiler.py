@@ -18,7 +18,11 @@ if __name__=="__main__":
     print(parse)
     interpreter.interpret(vars, parse)
     while True:
-        s = input(">µ>")
-        tok = tokens.lex(s)
-        parse = muparser.parse(tok)
-        print(interpreter.interpret(vars, parse))
+        try:
+            s = input(">µ>")
+            tok = tokens.lex(s)
+            parse = muparser.parse(tok)
+            print(interpreter.interpret(vars, parse))
+        except Exception as e:
+            print(e)
+            
