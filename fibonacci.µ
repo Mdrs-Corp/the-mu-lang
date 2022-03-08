@@ -1,23 +1,23 @@
 <µ>
 	|| Programme qui écrit la suite de fibonnacci ||
-	<set>
+	<indo>
 		a
-		<int>0</int>
-	</set>	
-	<set>
+		<num>0</num>
+	</indo>	
+	<indo>
 		b
-		<int>1</int>
+		<num>1</num>
 		c
-		<int>1</int>
-	</set>
-	<while>
+		<num>1</num>
+	</indo>
+	<dom>
 		<Verum>
-		<log>a</log>
-		<set>
+		<loq>a</loq>
+		<indo>
 			c
 			a
-		</set>
-		<set>
+		</indo>
+		<indo>
 			a
 			<add>
 				a
@@ -25,7 +25,7 @@
 			</add>
 			b
 			a
-		</set>
-	</while>
+		</indo>
+	</dom>
 	
 </µ>
