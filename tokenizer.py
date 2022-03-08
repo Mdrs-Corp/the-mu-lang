@@ -29,6 +29,13 @@ def tokenize(str):
                 index += 1
             tokens.append(Token("literal", text))
 
+
+        elif chr in letters:
+            text = ""
+            while index < len(str) and (str[index] in letters or str[index] in numbers):
+                text += str[index]
+                index += 1
+            tokens.append(Token("identifier", text))
     return tokens
 
 
@@ -41,4 +48,4 @@ class Token:
     def __repr__(self):
         return self.type + ": " +self.value
 
-print(tokenize("<oh></br> 3    5    <add>3 5</add></oh>"))
+print(tokenize("<oh></br> 3    5    <add>3 a</add></oh>"))
