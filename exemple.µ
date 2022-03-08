@@ -1,6 +1,0 @@
-@
-set a 3.
-whether a @
-  set b a+3.
-@.
-@
