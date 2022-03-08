@@ -1,0 +1,31 @@
+<µ>
+	|| Programme qui écrit la suite de fibonnacci ||
+	<set>
+		a
+		<int>0</int>
+	</set>	
+	<set>
+		b
+		<int>1</int>
+		c
+		<int>1</int>
+	</set>
+	<while>
+		<Verum>
+		<log>a</log>
+		<set>
+			c
+			a
+		</set>
+		<set>
+			a
+			<add>
+				a
+				b
+			</add>
+			b
+			a
+		</set>
+	</while>
+	
+</µ>
