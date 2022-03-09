@@ -12,6 +12,8 @@ exemple="""
 	</pam>
 </µ>
 """
+fib=open("./fibonacci.µ","r")
+hw=open("./helloworld.µ","r")
 
-tokens = tokenizer.tokenize(exemple)
-parse(tokens)
+tokens = tokenizer.tokenize(hw.read())
+parser.parse(tokens)

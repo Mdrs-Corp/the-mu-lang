@@ -1,18 +1,16 @@
 ##converti le programe mu en une liste de tokens, en gros juste pour separer les "mots"
 
-letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-numbers = ",0123456789"
 
+isletter=lambda s:0x61<=ord(s)<=0x7a or 0x41<=ord(s)<=0x7a
+isnumber=lambda s:0x30<=ord(s)<=0x39 or s=="."
 
 def tokenize(str):
     tokens = []
     index = 0
     while index < len(str):
         chr = str[index]
-
         if chr == " ":
             index += 1
-
         elif chr == "<":
             name = ""
             index += 1
@@ -21,27 +19,21 @@ def tokenize(str):
                 index += 1
             index += 1
             tokens.append(Token("balise", name))
-
-        elif chr in numbers:
+        elif isnumber(chr):
             text = ""
-            while index < len(str) and str[index] in numbers:
+            while index < len(str) and isnumber(str[index]):
                 text += str[index]
                 index += 1
             tokens.append(Token("literal", text))
-
-
-        elif chr in letters:
+        elif isletter(chr):
             text = ""
-            while index < len(str) and (str[index] in letters or str[index] in numbers):
+            while index < len(str) and (isletter(str[index]) or isnumber(str[index])):
                 text += str[index]
                 index += 1
             tokens.append(Token("identifier", text))
         else:
         	index+=1
-            
     return tokens
-
-
 
 class Token:
     def __init__(self, t, value):
@@ -49,7 +41,7 @@ class Token:
         self.value = value
 
     def __repr__(self):
-        return self.type + ": " +self.value
+        return f"{self.type}:{self.value}"
 
 if __name__=="__main__":
 	print(tokenize("""
