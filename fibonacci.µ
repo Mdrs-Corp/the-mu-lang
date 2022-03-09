@@ -1,5 +1,5 @@
 <µ>
-	|| Programme qui écrit la suite de fibonnacci ||
+	|| Programme qui écrit la suite de fibonnacci||
 	<indo>
 		a
 		<num>0</num>
@@ -26,6 +26,9 @@
 			b
 			a
 		</indo>
+		<loq>
+			<fil> Nombre d'or : </fil>
+			<num> a/b</fil> || C'est peut être b/a mais who cares||
 	</dom>
 	
 </µ>

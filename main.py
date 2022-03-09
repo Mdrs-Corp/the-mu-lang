@@ -15,5 +15,5 @@ exemple="""
 fib=open("./fibonacci.µ","r")
 hw=open("./helloworld.µ","r")
 
-tokens = tokenizer.tokenize(hw.read())
+tokens = tokenizer.tokenize(fib.read())
 parser.parse(tokens)
