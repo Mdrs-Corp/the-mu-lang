@@ -1,5 +1,5 @@
 <µ>
-	|| Programme qui écrit la suite de fibonnacci||
+	|| Programme qui écrit la suite de fibonnacci ||
 	<indo>
 		a
 		<num>0</num>
@@ -11,7 +11,7 @@
 		<num>1</num>
 	</indo>
 	<dom>
-		<Verum>
+		<Verum></Verum>
 		<loq>a</loq>
 		<indo>
 			c
@@ -23,12 +23,16 @@
 				a
 				b
 			</add>
+		</indo>
+		<indo>
 			b
 			a
 		</indo>
 		<loq>
 			<fil> Nombre d'or : </fil>
-			<num> a/b</fil> || C'est peut être b/a mais who cares||
+			<num><partio>a b<partio></num> 
+			|| C'est peut etre b/a mais who cares||
+		</loq>
 	</dom>
 	
 </µ>

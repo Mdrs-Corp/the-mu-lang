@@ -9,13 +9,13 @@ def tokenize(fil):
     index = 0
     while index < len(fil):
         car = fil[index]
-        #print("Parseig",car,index)
+        
         if car == " ":
             index += 1
             
         if car=="|" and index+1<len(fil):
         	if fil[index+1]=="|":
-        		index+=2
+        		index+=1
         		while not fil[index]==fil[index+1]=="|":
         			index+=1
         		index+=2
