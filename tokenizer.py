@@ -9,8 +9,7 @@ def tokenize(fil):
     index = 0
     while index < len(fil):
         car = fil[index]
-        
-        if car == " ":
+        if car == " " or car=="\n" or car=="\t":
             index += 1
             
         if car=="|" and index+1<len(fil):
@@ -27,6 +26,7 @@ def tokenize(fil):
                 index += 1
             index += 1
             tokens.append(Token("balise", name))
+            
         elif isnumber(car):
             text = ""
             while index < len(fil) and isnumber(fil[index]):
@@ -40,7 +40,7 @@ def tokenize(fil):
                 index += 1
             tokens.append(Token("identifier", text))
         else:
-        	index+=1
+        	print("Weird char:",car,ord(car))
     return tokens
 
 class Token:
