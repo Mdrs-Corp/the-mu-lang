@@ -18,8 +18,9 @@ class Node():
 		self.enfants=[]
 		self.obj=obj
 	def __repr__(self):
+		
 		if self.enfants:
-			return f"\n{self.obj.type}[{self.obj.value}]({','.join(str(e) for e in self.enfants)})\n"
+			return f"{self.obj.type}[{self.obj.value}](\n\t{','.join(str(e) for e in self.enfants)})\n"
 		else:
 			return self.obj.__repr__()
 		
