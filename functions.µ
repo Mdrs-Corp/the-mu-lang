@@ -1,0 +1,49 @@
+<µ>
+	<officium>
+		<pi>
+		iter
+			|| une approximation de pi pour iter itérations par la technique dite du moyenne age(wikipedia Middle Ages)||
+			<indo>
+				a 1
+				div -1
+			</indo>
+			<dom>
+				<inferioris>0 iter</inferioris>
+				<indo>
+					iter
+					<add>iter -1</add>
+					div
+					<add>div 2</add>
+				</indo>
+				<indo>
+				<si>
+					<aequalis>
+						<partio>iter 2</partio>
+						<num><partio>iter 2</partio></num>
+					</aequalis>
+					<indo>
+						a
+						<add>
+						a
+						<partio>-1 div</partio>
+						</add>
+					</indo>
+				</si>
+				<alite>|| c'est else ||
+					<indo>
+						a
+						<add>
+						a
+						<partio>-1 div</partio>
+						</add>
+					</indo>
+				</alite>
+			</dom>
+			<reducite><mul>a 4</mul></reducite>
+		</pi>
+	</officium>
+	<loq>
+		<pi>50</pi>
+	</loq>
+</µ>
+			
