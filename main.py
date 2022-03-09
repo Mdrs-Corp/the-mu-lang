@@ -16,4 +16,6 @@ fib=open("./fibonacci.µ","r")
 hw=open("./helloworld.µ","r")
 
 tokens = tokenizer.tokenize(hw.read())
-parser.parse(tokens)
+node=parser.parse(tokens)
+print("# Execution dµ script !!! :")
+node.action()
