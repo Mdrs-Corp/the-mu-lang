@@ -12,20 +12,19 @@ The µ programming langage python based
 </µ>
 ```
 ## Keywords table
-| Keyword   |      traduction    |  what it does |  
-|:----------:|:-------------:|:------|  
-|  *µ* | mu | define the boundaries of the document |  
-| *loq* |    print   |   print the content to the user, logs the expression |  
-| *add*,*partio*,*mul* | + |    basic maths |  
-| *indo* | = | set the value of a variable|
-| *fil* | string | a chain of characters |
-| *num* | int | an integer number |
-| *si* | if | do this part if the condition is true |
-|*alite*| else| do this if the precedent condition is false|
-| *inferioris* | lower than | conditionnal bloc if a< b| 
-| *dom* | while | while the condition is true, do|
-|*aequalis*| equals | conditionnal bloc if a=b|
-| *officium* | fonction| |
+| Keyword             | traduction |  what it does                                      |  
+|:-------------------:|:----------:|:---------------------------------------------------|  
+|*µ*                  | mu         | define the boundaries of the document              |  
+|*loq*                | print      | print the content to the user, logs the expression |
+|*||*                 | ""         | define the bondaries of a filum
+|*add*,*partio*,*mul* | +,/,x      | basic maths                                        |  
+|*indo*               | =          | set a value into a variable                        |
+|*si*                 | if         | do this part if the condition is true              |
+|*alite*              | else       | do this if the precedent condition is false        | 
+|*dom*                | while      | while the condition is true, do                    |
+|*inferioris*         | <          | conditionnal bloc if a < b                         |
+|*aequalis*           | ==         | conditionnal bloc if a==b                          |
+|*officium*           | fonction   |                                                    |
 
 ## Some examples
 More directly in the repository
