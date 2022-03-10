@@ -12,12 +12,14 @@ def tokenize(fil):
         if car == " " or car=="\n" or car=="\t":
             index += 1
             
-        if car=="|" and index+1<len(fil):
+        elif car=="|" and index+1<len(fil):
+        	debut=index
         	if fil[index+1]=="|":
         		index+=1
         		while not fil[index]==fil[index+1]=="|":
         			index+=1
         		index+=2
+        	tokens.append(Token("literal",("char",fil[debut+2:index-2])))
         elif car == "<":
             name = ""
             index += 1
@@ -32,7 +34,7 @@ def tokenize(fil):
             while index < len(fil) and isnumber(fil[index]):
                 text += fil[index]
                 index += 1
-            tokens.append(Token("literal", text))
+            tokens.append(Token("literal", ("num",text)))
         elif isletter(car):
             text = ""
             while index < len(fil) and (isletter(fil[index]) or isnumber(fil[index])):

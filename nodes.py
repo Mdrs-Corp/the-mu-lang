@@ -1,4 +1,8 @@
-
+def get(node):
+	if type(node)==Num or type(node)==Fil:
+		return node.val
+	else:
+		return node.action()
 	
 class Node():
 	REPR="µ"
@@ -22,66 +26,44 @@ class Loq(Node):
 	def __init__(self,parent,v):
 		self.val="%"
 		super().__init__(parent)
-	def action(self):
-		result=""
-		for enfant in self.enfants:
-			result+=str(enfant.action())
-		print(result+"\n")
-		return 1
 		
-class Fil(Node):
-	REPR="Filum"
-	def __init__(self,parent,v):
-		self.val=v
-		super().__init__(parent)
 	def action(self):
 		self.val=""
 		for elem in self.enfants:
-			self.val+=str(elem.val)
+			self.val+=str(get(elem))
+		print(self.val)
 		return self.val
+		
 	def __repr__(self):
-		self.action()
 		return super().__repr__()
 		
-class Math(Node):
-	REPR="Operation"
-	def __init__(self,p,v):
-		super().__init__(p,v)
-	def get(self,elem):
-		if type(elem)==Num:
-			return elem.val
-		else:
-			return elem.action()
-		
-class Add(Math):
+
+class Add(Node):
 	REPR="Addere"
 	def __init__(self,parent,v):
 		super().__init__(parent,0)
-		self.get=super().get
 	def action(self):
 		for enfant in self.enfants:
-			self.val+=self.get(enfant)
+			self.val+=get(enfant)
 		return self.val
 		
-class Partio(Math):
+class Partio(Node):
 	REPR="Partiorum"
 	def __init__(self,parent,v):
 		super().__init__(parent,1)
-		self.get=super().get
 	def action(self):
-		self.val=self.get(self.enfants[0])
+		self.val=get(self.enfants[0])
 		for enfant in self.enfants[1:]:
-			self.val/=self.get(enfant)
+			self.val/=get(enfant)
 		return self.val
 		
-class Mul(Math):
+class Mul(Node):
 	REPR="multiplicare"
 	def __init__(self,parent,v):
 		super().__init__(parent,1)
-		self.get=super().get
 	def action(self):
 		for enfant in self.enfants:
-			self.val*=self.get(enfant)
+			self.val*=get(enfant)
 		return self.val
 class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
@@ -89,8 +71,14 @@ class Num(Node):
 	def __init__(self,parent,val):
 		super().__init__(parent,int(val))
 		
+class Fil(Node):
+	# Aussi un literal mais bon bref
+	REPR="Filum"
+	def __init__(self,parent,val):
+		super().__init__(parent,val)
 		
-bigdic={"loq":Loq,"fil":Fil,".µ":Node,
+		
+bigdic={"loq":Loq,".µ":Node,
 "µ":Node,"add":Add,"partio":Partio,"mul":Mul}
 			
 def newnode(token,parent):
@@ -99,6 +87,9 @@ def newnode(token,parent):
 		typ=bigdic[token.value]	
 		return typ(parent,token.value)
 	elif token.type=="literal":
-		return Num(parent,token.value)
+		if token.value[0]=="num":
+			return Num(parent,token.value[1])
+		elif token.value[0]=="char":
+			return Fil(parent,token.value[1])
 		
 
