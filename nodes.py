@@ -1,12 +1,11 @@
 
 class Node():
 	REPR = "µ"
-	def __init__(self, value = None):
+	def __init__(self):
 		self.childs = []
-		self.value = value
 
 	def __repr__(self):
-		t = f"{self.REPR}[{self.value}]("
+		t = f"{self.REPR}("
 		for e in self.childs:
 			t += "\n\t" + str(e)
 		return t + f"){self.REPR[0]}\n"
@@ -19,10 +18,6 @@ class Node():
 
 class Loq(Node):
 	REPR = "Loqum"
-	def __init__(self, v):
-		self.value = "%"
-		super().__init__()
-
 	def action(self):
 		result = ""
 		for elem in self.childs:
@@ -34,8 +29,6 @@ class Loq(Node):
 
 class Add(Node):
 	REPR = "Addere"
-	def __init__(self, v):
-		super().__init__(0)
 
 	def action(self):
 		result = 0
@@ -45,8 +38,6 @@ class Add(Node):
 
 class Partio(Node):
 	REPR = "Partiorum"
-	def __init__(self, v):
-		super().__init__(1)
 
 	def action(self):
 		result = self.childs[0].action()
@@ -56,8 +47,6 @@ class Partio(Node):
 
 class Mul(Node):
 	REPR = "multiplicare"
-	def __init__(self, v):
-		super().__init__(1)
 
 	def action(self):
 		result = 1
@@ -69,7 +58,8 @@ class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
 	REPR = "Numerus"
 	def __init__(self, value):
-		super().__init__(int(value))
+		super().__init__()
+		self.value = int(value)
 
 	def action(self):
 		return self.value
@@ -78,7 +68,8 @@ class Fil(Node):
 	# Aussi un literal mais bon bref
 	REPR = "Filum"
 	def __init__(self, value):
-		super().__init__(value)
+		super().__init__()
+		self.value = value
 
 	def action(self):
 		return self.value
@@ -97,7 +88,7 @@ def newnode(token):
 	print(token.type, token.value)
 	if token.type == "balise":
 		typ=bigdic[token.value]
-		return typ(token.value)
+		return typ()
 	elif token.type == "number":
 		return Num(token.value)
 	elif token.type == "string":
