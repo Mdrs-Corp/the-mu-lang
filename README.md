@@ -20,7 +20,7 @@ The µ programming langage python based
 |*add*,*partio*,*mul* | +,/,x      | basic maths                                        |  
 |*indo*               | =          | set a value into a variable                        |
 |*si*                 | if         | do this part if the condition is true              |
-|*alite*              | else       | do this if the precedent condition is false        | 
+|*alite*              | else       | do this if the precedent condition is false        |
 |*dom*                | while      | while the condition is true, do                    |
 |*inferioris*         | <          | conditionnal bloc if a < b                         |
 |*aequalis*           | ==         | conditionnal bloc if a==b                          |
@@ -31,15 +31,13 @@ More directly in the repository
 
 ```
 \<indo>  
-&nbsp;&nbsp;&nbsp;identifier (A)  
-&nbsp;&nbsp;&nbsp;expression (B)  
+	identifier (A)  
+	expression (B)  
 \</indo>  
 ||sets the value B in the variable A||
 \<dom>  
-&nbsp;&nbsp;&nbsp;condition (A)  
-&nbsp;&nbsp;&nbsp;expression (B)  
+	condition (A)  
+	expression (B)  
 \</dom>  
 ||do B while A||
 ```
-
-  
