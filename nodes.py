@@ -9,8 +9,8 @@ class Node():
 		t = f"{self.REPR}[{self.value}]("
 		for e in self.childs:
 			t += "\n\t" + str(e)
-
 		return t + f"){self.REPR[0]}\n"
+
 	def action(self):
 		last = None
 		for e in self.childs:
@@ -24,14 +24,12 @@ class Loq(Node):
 		super().__init__()
 
 	def action(self):
-		self.value = ""
+		result = ""
 		for elem in self.childs:
-			self.value += str(elem.action())
-		print(self.value)
-		return self.value
+			result += str(elem.action())
+		print(result)
+		return result
 
-	def __repr__(self):
-		return super().__repr__()
 
 
 class Add(Node):
@@ -40,9 +38,10 @@ class Add(Node):
 		super().__init__(0)
 
 	def action(self):
+		result = 0
 		for child in self.childs:
-			self.value += child.action()
-		return self.value
+			result += child.action()
+		return result
 
 class Partio(Node):
 	REPR = "Partiorum"
@@ -50,10 +49,10 @@ class Partio(Node):
 		super().__init__(1)
 
 	def action(self):
-		self.value = self.childs[0].action()
+		result = self.childs[0].action()
 		for child in self.childs[1:]:
-			self.value /= child.action()
-		return self.value
+			result /= child.action()
+		return result
 
 class Mul(Node):
 	REPR = "multiplicare"
@@ -61,9 +60,10 @@ class Mul(Node):
 		super().__init__(1)
 
 	def action(self):
+		result = 1
 		for child in self.childs:
-			self.value *= child.action()
-		return self.value
+			result *= child.action()
+		return result
 
 class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
