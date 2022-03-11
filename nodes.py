@@ -54,6 +54,22 @@ class Mul(Node):
 			result *= child.action(data)
 		return result
 
+class Indo(Node):
+	REPR = "<RYAN C A TOI>"
+
+	def action(self, data):
+		name = self.childs[0].value
+		data[name] = self.childs[1].action(data)
+
+class Identifier(Node):
+	REPR = "IDENTIFIER"
+	def __init__(self, value):
+		super().__init__()
+		self.value = value
+
+	def action(self, data):
+		return data[self.value]
+
 class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
 	REPR = "Numerus"
@@ -76,12 +92,13 @@ class Fil(Node):
 
 
 bigdic={
-	"loq":Loq,
-	".µ":Node,
-	"µ":Node,
-	"add":Add,
-	"partio":Partio,
-	"mul":Mul
+	"loq": Loq,
+	".µ": Node,
+	"µ": Node,
+	"add": Add,
+	"partio": Partio,
+	"mul": Mul,
+	"indo": Indo
 }
 
 def newnode(token):
@@ -93,3 +110,5 @@ def newnode(token):
 		return Num(token.value)
 	elif token.type == "string":
 		return Fil(token.value)
+	elif token.type == "identifier":
+		return Identifier(token.value)
