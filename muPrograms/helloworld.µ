@@ -5,7 +5,10 @@
 		<add>1 1</add>
 		
 	</loq>
-	
+	<dum>
+		<inferioris> 2 4</inferioris>
+		<loq>||Test inferioris:|| </loq>
+	</dum>
 	<loq>
 		<mul>
 			<add>2 4</add> 

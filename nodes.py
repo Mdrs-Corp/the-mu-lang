@@ -42,6 +42,7 @@ class Add(Node):
 		for child in self.childs:
 			result += child.action()
 		return result
+		
 
 class Partio(Node):
 	REPR = "Partiorum"
@@ -83,6 +84,52 @@ class Fil(Node):
 	def action(self):
 		return self.value
 
+class Inf(Node):
+	REPR = "Inferioris"
+	def __init__(self, v):
+		super().__init__(0)
+
+	def action(self):
+		precedent=self.childs[0].action()
+		for child in self.childs[1:]:
+			suivant=child.action()
+			if precedent>suivant:
+				return 0
+		return 1
+		
+class Dum(Node):
+	REPR="Dom"
+	def __init__(self,v):
+		super().__init__(0)
+	def action(self):
+		condi=self.childs[0]
+		while condi.action():
+			for child in self.childs[1:]:
+				child.action()
+		return 1
+class Si(Node):
+	REPR="Si"
+	def __init__(self,v):
+		super().__init__(0)
+	def action(self):
+		if self.childs[0].action:
+			for child in self.childs[1:]:
+				child.action()
+		return 1
+class Indo(Node):
+	REPR="Indo"
+	def __init__(self,v):
+		super().__init__(0)
+	def action(self):
+		dic={}
+		for i in range(0,len(self.childs),2):
+			dic[self.childs[i]]=self.childs[i+1].action()
+class Var(Node):
+	REPR="Variabilis"
+	def __init__(self,v):
+		super.__init__(v)
+	def action(self):
+		return self.v
 
 bigdic={
 	"loq":Loq,
@@ -90,7 +137,11 @@ bigdic={
 	"µ":Node,
 	"add":Add,
 	"partio":Partio,
-	"mul":Mul
+	"mul":Mul,
+	"inferioris":Inf,
+	"dum":Dum,
+	"si":Si,
+	"indo":Indo
 }
 
 def newnode(token):
@@ -102,3 +153,5 @@ def newnode(token):
 		return Num(token.value)
 	elif token.type == "string":
 		return Fil(token.value)
+	elif token.type == "identifier":
+		return Var(token.value)

@@ -20,6 +20,7 @@ def tokenize(str):
         			index+=1
         		index+=2
         	tokens.append(Token("string", str[start+2:index-2]))
+        	
         elif char == "<":
             name = ""
             index += 1
@@ -35,6 +36,7 @@ def tokenize(str):
                 text += str[index]
                 index += 1
             tokens.append(Token("number", text))
+            
         elif isletter(char):
             text = ""
             while index < len(str) and (isletter(str[index]) or isnumber(str[index])):

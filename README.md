@@ -16,18 +16,19 @@ The µ programming langage python based
 |:-------------------:|:----------:|:---------------------------------------------------|  
 |*µ*                  | mu         | define the boundaries of the document              |  
 |*loq*                | print      | print the content to the user, logs the expression |
-|*||*                 | ""         | define the bondaries of a filum
+|*||*                 | ""         | define the bondaries of a filum                    |
 |*add*,*partio*,*mul* | +,/,x      | basic maths                                        |  
 |*indo*               | =          | set a value into a variable                        |
 |*si*                 | if         | do this part if the condition is true              |
 |*alite*              | else       | do this if the precedent condition is false        |
-|*dom*                | while      | while the condition is true, do                    |
+|*dum*                | while      | while the condition is true, do                    |
 |*inferioris*         | <          | conditionnal bloc if a < b                         |
 |*aequalis*           | ==         | conditionnal bloc if a==b                          |
 |*officium*           | fonction   |                                                    |
+|*et*,*ubi*           | and,or     | return true if both/one of conditons are true      |
 
 ## Some examples
-More directly in the repository
+More directly in the repository muExemples
 
 ```
 \<indo>  
