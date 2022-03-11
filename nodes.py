@@ -35,7 +35,7 @@ class Add(Node):
 		for child in self.childs:
 			result += child.action(data)
 		return result
-		
+
 
 class Partio(Node):
 	REPR = "Partiorum"
@@ -105,7 +105,7 @@ class Inf(Node):
 			if precedent>suivant:
 				return 0
 		return 1
-		
+
 class Dum(Node):
 	REPR="Dom"
 	def __init__(self,v):
@@ -125,20 +125,8 @@ class Si(Node):
 			for child in self.childs[1:]:
 				child.action()
 		return 1
-class Indo(Node):
-	REPR="Indo"
-	def __init__(self,v):
-		super().__init__(0)
-	def action(self):
-		dic={}
-		for i in range(0,len(self.childs),2):
-			dic[self.childs[i]]=self.childs[i+1].action()
-class Var(Node):
-	REPR="Variabilis"
-	def __init__(self,v):
-		super.__init__(v)
-	def action(self):
-		return self.v
+
+
 
 bigdic={
 	"loq":Loq,
