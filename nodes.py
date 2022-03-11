@@ -40,8 +40,8 @@ class Add(Node):
 		super().__init__(0)
 
 	def action(self):
-		for enfant in self.childs:
-			self.value += enfant.action()
+		for child in self.childs:
+			self.value += child.action()
 		return self.value
 
 class Partio(Node):
@@ -51,8 +51,8 @@ class Partio(Node):
 
 	def action(self):
 		self.value = self.childs[0].action()
-		for enfant in self.childs[1:]:
-			self.value /= enfant.action()
+		for child in self.childs[1:]:
+			self.value /= child.action()
 		return self.value
 
 class Mul(Node):
@@ -61,8 +61,8 @@ class Mul(Node):
 		super().__init__(1)
 
 	def action(self):
-		for enfant in self.childs:
-			self.value *= enfant.action()
+		for child in self.childs:
+			self.value *= child.action()
 		return self.value
 
 class Num(Node):
