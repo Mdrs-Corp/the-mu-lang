@@ -56,6 +56,7 @@ class Print(Node):
 
 
 def parse(tokens):
+    print(tokens)
     if len(tokens) == 0: return
 
     #each line
@@ -96,7 +97,7 @@ def parse(tokens):
         if tokens[0].text == "set":
             return Action(tokens[0].text, parse([tokens[1]]), parse(tokens[2:]))
         if tokens[0].text == "yield":
-            return Action(tokens[0].text, parse([tokens[1]]), None)
+            return Action(tokens[0].text, parse(tokens[1:]), None)
         if tokens[0].text == "whether":
             return Action(tokens[0].text, parse([tokens[1]]), parse(tokens[2:]))
 
@@ -104,6 +105,3 @@ def parse(tokens):
         return Operator(tokens[1].text, parse([tokens[0]]), parse(tokens[2:]))
 
     return "wsh t koi"
-
-
-

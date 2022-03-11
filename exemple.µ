@@ -1,6 +1,7 @@
 @
 set a 3.
-whether a @
+whether a < 4 @
   set b a+3.
+  yield b
 @.
 @

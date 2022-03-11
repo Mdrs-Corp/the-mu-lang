@@ -56,13 +56,18 @@ class MuNumber(MuValue):
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
 			return str(self.value + muvalue.value)
-	
+
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
 			return str(self.value * muvalue.value)
 	def div(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
 			return str(self.value / muvalue.value)
+	def smaller(self, muvalue):
+		if self.value < muvalue.value:
+			return "true"
+		else:
+			return "false"
 	def toPrint(self):
 		return str(self.value)
 
@@ -80,6 +85,12 @@ class MuBoolean(MuValue):
 			return True
 		else:
 			return False
+
+	def anti(self):
+		if self.value == True:
+			return MuBoolean("false")
+		else:
+			return MuBoolean("true")
 
 	def toPrint(self):
 		if self.value:

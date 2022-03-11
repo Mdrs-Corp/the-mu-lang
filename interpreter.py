@@ -8,7 +8,7 @@ def interpret(vars, node):
         for nd in node.childs:
             last = interpret(vars, nd)
         return last
-    
+
     elif node.type == customTypes.NodeType.ACTION:
         if node.action == "set":
             if node.left.type == customTypes.NodeType.IDENTIFIER:
@@ -21,10 +21,13 @@ def interpret(vars, node):
             else:
                 print(f"Invalid variable name")
         if node.action == "yield":
-            if node.left.type == customTypes.NodeType.IDENTIFIER:
-                print(interpret(vars, node.left).value)
-            else:
-                print(f"Invalid variable name")
+            #if node.left.type == customTypes.NodeType.IDENTIFIER:
+            print(interpret(vars, node.left).value)
+            #else:
+                #print(f"Invalid variable name")
+        if node.action == "whether":
+            if interpret(vars, node.left).value == True:
+                interpret(vars, node.right)
 
     elif node.type == customTypes.NodeType.PRINT:
         for name in vars:
@@ -36,6 +39,8 @@ def interpret(vars, node):
         if node.operator == "+":return values.create(left.add(right))
         if node.operator == "*":return values.create(left.mul(right))
         if node.operator == "/":return values.create(left.div(right))
+        if node.operator == "<":return values.create(left.smaller(right))
+        if node.operator == ">":return values.create(left.smaller(right).anti())
 
     elif node.type == customTypes.NodeType.LITERAL:
         return values.create(node.value)
