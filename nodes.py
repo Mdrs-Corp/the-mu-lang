@@ -1,37 +1,37 @@
 def get(node):
 	if type(node)==Num or type(node)==Fil:
-		return node.val
+		return node.value
 	else:
 		return node.action()
 
 class Node():
 	REPR="µ"
-	def __init__(self,val=None):
-		self.enfants=[]
-		self.val=val
+	def __init__(self,value=None):
+		self.childs=[]
+		self.value=value
 
 	def __repr__(self):
-		t=f"{self.REPR}[{self.val}]("
-		for e in self.enfants:
+		t=f"{self.REPR}[{self.value}]("
+		for e in self.childs:
 			t+="\n\t"+str(e)
 
 		return t+f"){self.REPR[0]}\n"
 	def action(self):
-		for e in self.enfants:
+		for e in self.childs:
 			e.action()
 
 class Loq(Node):
 	REPR="Loqum"
 	def __init__(self,v):
-		self.val="%"
+		self.value="%"
 		super().__init__()
 
 	def action(self):
-		self.val=""
-		for elem in self.enfants:
-			self.val+=str(get(elem))
-		print(self.val)
-		return self.val
+		self.value=""
+		for elem in self.childs:
+			self.value+=str(get(elem))
+		print(self.value)
+		return self.value
 
 	def __repr__(self):
 		return super().__repr__()
@@ -42,39 +42,39 @@ class Add(Node):
 	def __init__(self,v):
 		super().__init__(0)
 	def action(self):
-		for enfant in self.enfants:
-			self.val+=get(enfant)
-		return self.val
+		for enfant in self.childs:
+			self.value+=get(enfant)
+		return self.value
 
 class Partio(Node):
 	REPR="Partiorum"
 	def __init__(self,v):
 		super().__init__(1)
 	def action(self):
-		self.val=get(self.enfants[0])
-		for enfant in self.enfants[1:]:
-			self.val/=get(enfant)
-		return self.val
+		self.value=get(self.childs[0])
+		for enfant in self.childs[1:]:
+			self.value/=get(enfant)
+		return self.value
 
 class Mul(Node):
 	REPR="multiplicare"
 	def __init__(self,v):
 		super().__init__(1)
 	def action(self):
-		for enfant in self.enfants:
-			self.val*=get(enfant)
-		return self.val
+		for enfant in self.childs:
+			self.value*=get(enfant)
+		return self.value
 class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
 	REPR="Numerus"
-	def __init__(self,val):
-		super().__init__(int(val))
+	def __init__(self,value):
+		super().__init__(int(value))
 
 class Fil(Node):
 	# Aussi un literal mais bon bref
 	REPR="Filum"
-	def __init__(self,val):
-		super().__init__(val)
+	def __init__(self,value):
+		super().__init__(value)
 
 
 bigdic={"loq":Loq,".µ":Node,
