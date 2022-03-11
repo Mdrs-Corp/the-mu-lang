@@ -59,7 +59,9 @@ class Indo(Node):
 
 	def action(self, data):
 		name = self.childs[0].value
-		data[name] = self.childs[1].action(data)
+		result = self.childs[1].action(data)
+		data[name] = result
+		return result
 
 class Identifier(Node):
 	REPR = "IDENTIFIER"
