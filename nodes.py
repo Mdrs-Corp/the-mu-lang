@@ -6,8 +6,7 @@ def get(node):
 
 class Node():
 	REPR="µ"
-	def __init__(self, parent,val=None):
-		self.parent=parent
+	def __init__(self,val=None):
 		self.enfants=[]
 		self.val=val
 
@@ -23,9 +22,9 @@ class Node():
 
 class Loq(Node):
 	REPR="Loqum"
-	def __init__(self,parent,v):
+	def __init__(self,v):
 		self.val="%"
-		super().__init__(parent)
+		super().__init__()
 
 	def action(self):
 		self.val=""
@@ -40,8 +39,8 @@ class Loq(Node):
 
 class Add(Node):
 	REPR="Addere"
-	def __init__(self,parent,v):
-		super().__init__(parent,0)
+	def __init__(self,v):
+		super().__init__(0)
 	def action(self):
 		for enfant in self.enfants:
 			self.val+=get(enfant)
@@ -49,8 +48,8 @@ class Add(Node):
 
 class Partio(Node):
 	REPR="Partiorum"
-	def __init__(self,parent,v):
-		super().__init__(parent,1)
+	def __init__(self,v):
+		super().__init__(1)
 	def action(self):
 		self.val=get(self.enfants[0])
 		for enfant in self.enfants[1:]:
@@ -59,8 +58,8 @@ class Partio(Node):
 
 class Mul(Node):
 	REPR="multiplicare"
-	def __init__(self,parent,v):
-		super().__init__(parent,1)
+	def __init__(self,v):
+		super().__init__(1)
 	def action(self):
 		for enfant in self.enfants:
 			self.val*=get(enfant)
@@ -68,25 +67,25 @@ class Mul(Node):
 class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
 	REPR="Numerus"
-	def __init__(self,parent,val):
-		super().__init__(parent,int(val))
+	def __init__(self,val):
+		super().__init__(int(val))
 
 class Fil(Node):
 	# Aussi un literal mais bon bref
 	REPR="Filum"
-	def __init__(self,parent,val):
-		super().__init__(parent,val)
+	def __init__(self,val):
+		super().__init__(val)
 
 
 bigdic={"loq":Loq,".µ":Node,
 "µ":Node,"add":Add,"partio":Partio,"mul":Mul}
 
-def newnode(token,parent):
+def newnode(token):
 	print(token.type,token.value)
 	if token.type=="balise":
 		typ=bigdic[token.value]
-		return typ(parent,token.value)
+		return typ(token.value)
 	elif token.type=="number":
-		return Num(parent, token.value)
+		return Num(token.value)
 	elif token.type=="string":
-		return Fil(parent,token.value)
+		return Fil(token.value)

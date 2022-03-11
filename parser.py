@@ -5,17 +5,17 @@ import nodes
 
 
 def parse(tokens:list):
-	document=nodes.newnode(tokenizer.Token("balise",".µ"),None)
+	document=nodes.newnode(tokenizer.Token("balise",".µ"))
 	ouverts=[document]
 	for index,elem in enumerate(tokens):
 		if elem.type=="balise":
 			if elem.value[0]=="/":
 				ouverts.pop()
 			else:
-				new=nodes.newnode(elem,ouverts[-1])
+				new=nodes.newnode(elem)
 				ouverts[-1].enfants.append(new)
 				ouverts.append(new)
 		else:
-			ouverts[-1].enfants.append(nodes.newnode(elem,ouverts[-1]))
+			ouverts[-1].enfants.append(nodes.newnode(elem))
 	print(document.enfants[0])
 	return document.enfants[0]
