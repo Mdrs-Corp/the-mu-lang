@@ -1,12 +1,15 @@
 <µ>
   <indo>
     a
-    3
+    2
   </indo>
-  <indo>
+  <dum>
+    <inferioris>a 100</inferioris>
+    <indo>
     a
     <add>a 3</add>
-  </indo>
+    </indo>
+  </dum>
   <loq>
     a
   </loq>

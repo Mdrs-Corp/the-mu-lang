@@ -95,50 +95,49 @@ class Fil(Node):
 
 class Inf(Node):
 	REPR = "Inferioris"
-	def __init__(self, v):
-		super().__init__(0)
 
-	def action(self):
-		precedent=self.childs[0].action()
-		for child in self.childs[1:]:
-			suivant=child.action()
-			if precedent>suivant:
-				return 0
-		return 1
+	def action(self, data):
+		left = self.childs[0].action(data)
+		right = self.childs[1].action(data)
+		if left > right:
+			return False
+		else:
+			return True
 
 class Dum(Node):
 	REPR="Dom"
-	def __init__(self,v):
-		super().__init__(0)
-	def action(self):
-		condi=self.childs[0]
-		while condi.action():
+
+	def action(self, data):
+		condi = self.childs[0]
+		last = None
+		while condi.action(data):
 			for child in self.childs[1:]:
-				child.action()
-		return 1
+				last = child.action(data)
+		return last
+
+
 class Si(Node):
 	REPR="Si"
-	def __init__(self,v):
-		super().__init__(0)
-	def action(self):
-		if self.childs[0].action:
-			for child in self.childs[1:]:
-				child.action()
-		return 1
 
+	def action(self, data):
+		last = None
+		if self.childs[0].action(data):
+			for child in self.childs[1:]:
+				last = child.action(data)
+		return last
 
 
 bigdic={
-	"loq":Loq,
-	".µ":Node,
-	"µ":Node,
-	"add":Add,
-	"partio":Partio,
-	"mul":Mul,
-	"inferioris":Inf,
-	"dum":Dum,
-	"si":Si,
-	"indo":Indo
+	"loq": Loq,
+	".µ": Node,
+	"µ": Node,
+	"add": Add,
+	"partio": Partio,
+	"mul": Mul,
+	"inferioris": Inf,
+	"dum": Dum,
+	"si": Si,
+	"indo": Indo
 }
 
 def newnode(token):
