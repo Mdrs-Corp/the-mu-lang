@@ -1,8 +1,3 @@
-def get(node):
-	if type(node) == Num or type(node) == Fil:
-		return node.value
-	else:
-		return node.action()
 
 class Node():
 	REPR = "µ"
@@ -17,8 +12,10 @@ class Node():
 
 		return t + f"){self.REPR[0]}\n"
 	def action(self):
+		last = None
 		for e in self.childs:
-			e.action()
+			last = e.action()
+		return last
 
 class Loq(Node):
 	REPR = "Loqum"
@@ -29,7 +26,7 @@ class Loq(Node):
 	def action(self):
 		self.value = ""
 		for elem in self.childs:
-			self.value += str(get(elem))
+			self.value += str(elem.action())
 		print(self.value)
 		return self.value
 
@@ -44,7 +41,7 @@ class Add(Node):
 
 	def action(self):
 		for enfant in self.childs:
-			self.value += get(enfant)
+			self.value += enfant.action()
 		return self.value
 
 class Partio(Node):
@@ -53,31 +50,38 @@ class Partio(Node):
 		super().__init__(1)
 
 	def action(self):
-		self.value = get(self.childs[0])
+		self.value = self.childs[0].action()
 		for enfant in self.childs[1:]:
-			self.value /= get(enfant)
+			self.value /= enfant.action()
 		return self.value
 
 class Mul(Node):
 	REPR = "multiplicare"
 	def __init__(self, v):
 		super().__init__(1)
-		
+
 	def action(self):
 		for enfant in self.childs:
-			self.value *= get(enfant)
+			self.value *= enfant.action()
 		return self.value
+
 class Num(Node):
 	# C'est un literal je devrai faire autrement je pense
 	REPR = "Numerus"
 	def __init__(self, value):
 		super().__init__(int(value))
 
+	def action(self):
+		return self.value
+
 class Fil(Node):
 	# Aussi un literal mais bon bref
 	REPR = "Filum"
 	def __init__(self, value):
 		super().__init__(value)
+
+	def action(self):
+		return self.value
 
 
 bigdic={
