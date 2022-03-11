@@ -11,7 +11,7 @@ def tokenize(fil):
         car = fil[index]
         if car == " " or car=="\n" or car=="\t":
             index += 1
-            
+
         elif car=="|" and index+1<len(fil):
         	debut=index
         	if fil[index+1]=="|":
@@ -19,7 +19,7 @@ def tokenize(fil):
         		while not fil[index]==fil[index+1]=="|":
         			index+=1
         		index+=2
-        	tokens.append(Token("literal",("char",fil[debut+2:index-2])))
+        	tokens.append(Token("string", fil[debut+2:index-2]))
         elif car == "<":
             name = ""
             index += 1
@@ -28,13 +28,13 @@ def tokenize(fil):
                 index += 1
             index += 1
             tokens.append(Token("balise", name))
-            
+
         elif isnumber(car):
             text = ""
             while index < len(fil) and isnumber(fil[index]):
                 text += fil[index]
                 index += 1
-            tokens.append(Token("literal", ("num",text)))
+            tokens.append(Token("number", text))
         elif isletter(car):
             text = ""
             while index < len(fil) and (isletter(fil[index]) or isnumber(fil[index])):
@@ -52,14 +52,3 @@ class Token:
 
     def __repr__(self):
         return f"{self.type}:{self.value}"
-
-if __name__=="__main__":
-	print(tokenize("""
-<oh>
-</br>
-3
-5
-<add>
-3 a
-</add>
-</oh>"""))
