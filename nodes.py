@@ -10,18 +10,18 @@ class Node():
 			t += "\n\t" + str(e)
 		return t + f"){self.REPR[0]}\n"
 
-	def action(self):
+	def action(self, data):
 		last = None
 		for e in self.childs:
-			last = e.action()
+			last = e.action(data)
 		return last
 
 class Loq(Node):
 	REPR = "Loqum"
-	def action(self):
+	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			result += str(elem.action())
+			result += str(elem.action(data))
 		print(result)
 		return result
 
@@ -30,28 +30,28 @@ class Loq(Node):
 class Add(Node):
 	REPR = "Addere"
 
-	def action(self):
+	def action(self, data):
 		result = 0
 		for child in self.childs:
-			result += child.action()
+			result += child.action(data)
 		return result
 
 class Partio(Node):
 	REPR = "Partiorum"
 
-	def action(self):
-		result = self.childs[0].action()
+	def action(self, data):
+		result = self.childs[0].action(data)
 		for child in self.childs[1:]:
-			result /= child.action()
+			result /= child.action(data)
 		return result
 
 class Mul(Node):
 	REPR = "multiplicare"
 
-	def action(self):
+	def action(self, data):
 		result = 1
 		for child in self.childs:
-			result *= child.action()
+			result *= child.action(data)
 		return result
 
 class Num(Node):
@@ -61,7 +61,7 @@ class Num(Node):
 		super().__init__()
 		self.value = int(value)
 
-	def action(self):
+	def action(self, data):
 		return self.value
 
 class Fil(Node):
@@ -71,7 +71,7 @@ class Fil(Node):
 		super().__init__()
 		self.value = value
 
-	def action(self):
+	def action(self, data):
 		return self.value
 
 
