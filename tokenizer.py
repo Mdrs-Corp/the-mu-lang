@@ -4,45 +4,45 @@
 isletter=lambda s:0x61<=ord(s)<=0x7a or 0x41<=ord(s)<=0x7a
 isnumber=lambda s:0x30<=ord(s)<=0x39 or s=="."
 
-def tokenize(fil):
+def tokenize(str):
     tokens = []
     index = 0
-    while index < len(fil):
-        car = fil[index]
-        if car == " " or car=="\n" or car=="\t":
+    while index < len(str):
+        char = str[index]
+        if char == " " or char=="\n" or char=="\t":
             index += 1
 
-        elif car=="|" and index+1<len(fil):
-        	debut=index
-        	if fil[index+1]=="|":
+        elif char=="|" and index+1<len(str):
+        	start=index
+        	if str[index+1]=="|":
         		index+=1
-        		while not fil[index]==fil[index+1]=="|":
+        		while not str[index]==str[index+1]=="|":
         			index+=1
         		index+=2
-        	tokens.append(Token("string", fil[debut+2:index-2]))
-        elif car == "<":
+        	tokens.append(Token("string", str[start+2:index-2]))
+        elif char == "<":
             name = ""
             index += 1
-            while index < len(fil) and fil[index] != ">":
-                name += fil[index]
+            while index < len(str) and str[index] != ">":
+                name += str[index]
                 index += 1
             index += 1
             tokens.append(Token("balise", name))
 
-        elif isnumber(car):
+        elif isnumber(char):
             text = ""
-            while index < len(fil) and isnumber(fil[index]):
-                text += fil[index]
+            while index < len(str) and isnumber(str[index]):
+                text += str[index]
                 index += 1
             tokens.append(Token("number", text))
-        elif isletter(car):
+        elif isletter(char):
             text = ""
-            while index < len(fil) and (isletter(fil[index]) or isnumber(fil[index])):
-                text += fil[index]
+            while index < len(str) and (isletter(str[index]) or isnumber(str[index])):
+                text += str[index]
                 index += 1
             tokens.append(Token("identifier", text))
         else:
-        	print("Weird char:",car,ord(car))
+        	print("Weird char: ",char,ord(char))
     return tokens
 
 class Token:
