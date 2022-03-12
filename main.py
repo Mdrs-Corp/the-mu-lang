@@ -2,7 +2,7 @@ import tokenizer
 import parser
 
 
-hw=open("./muPrograms/indoTests.µ","r")
+hw=open("./muPrograms/helloworld.µ","r")
 
 tokens = tokenizer.tokenize(hw.read())
 print(tokens)

@@ -1,13 +1,7 @@
 <µ>
 	||Programme qui dit bonjour le monde||
-	<loq>||Hello wµrld !
-||
-		<add>1 1</add>
-		
-	</loq>
-	<dum>
-		<inferioris> 2 4</inferioris>
-		<loq>||Test inferioris:|| </loq>
+	
+	<loq>||Hello wµrld !|| <verum/></loq>
 	</dum>
 	<loq>
 		<mul>

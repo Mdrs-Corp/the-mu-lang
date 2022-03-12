@@ -8,7 +8,7 @@ class Node():
 		t = f"{self.REPR}("
 		for e in self.childs:
 			t += "\n\t" + str(e)
-		return t + f"){self.REPR[0]}\n"
+		return t + f"){self.REPR[0]}"
 
 	def action(self, data):
 		last = None
@@ -21,7 +21,12 @@ class Loq(Node):
 	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			result += str(elem.action(data))
+			e=elem.action(data)
+			if e==True :
+				e="Verum"
+			elif e==False :
+				e="Falsum"
+			result += str(e)
 		print(result)
 		return result
 
@@ -56,16 +61,17 @@ class Mul(Node):
 		return result
 
 class Indo(Node):
-	REPR = "<RYAN C A TOI>"
+	REPR = "Indo"
 
 	def action(self, data):
-		name = self.childs[0].value
-		result = self.childs[1].action(data)
-		data[name] = result
+		for i in range(0,len(self.childs),2):
+			name = self.childs[i].value
+			result = self.childs[i+1].action(data)
+			data[name] = result
 		return result
 
 class Identifier(Node):
-	REPR = "IDENTIFIER"
+	REPR = "Variabilis"
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
@@ -97,12 +103,13 @@ class Inf(Node):
 	REPR = "Inferioris"
 
 	def action(self, data):
-		left = self.childs[0].action(data)
-		right = self.childs[1].action(data)
-		if left > right:
-			return False
-		else:
-			return True
+		prece=self.childs[0].action(data)
+		for elem in self.childs[1:]:
+			suiv = elem.action(data)
+			if suiv<prece:
+				return False
+			prece=suiv
+		return True
 
 class Dum(Node):
 	REPR="Dom"
@@ -125,8 +132,14 @@ class Si(Node):
 			for child in self.childs[1:]:
 				last = child.action(data)
 		return last
-
-
+class Ver(Node):
+	REPR="Verum"
+	def action(self,d):
+		return True
+class Fal(Node):
+	REPR="Falsum"
+	def action(self,d):
+		return False
 bigdic={
 	"loq": Loq,
 	".µ": Node,
@@ -137,7 +150,9 @@ bigdic={
 	"inferioris": Inf,
 	"dum": Dum,
 	"si": Si,
-	"indo": Indo
+	"indo": Indo,
+	"verum": Ver,
+	"falsum":Fal
 }
 
 def newnode(token):

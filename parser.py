@@ -11,7 +11,10 @@ def parse(tokens:list):
 		if elem.type=="balise":
 			if elem.value[0]=="/":
 				ouverts.pop()
+				
 			else:
+				if elem.value[-1]=="/":
+					elem.value=elem.value[:-1]
 				new=nodes.newnode(elem)
 				ouverts[-1].childs.append(new)
 				ouverts.append(new)
