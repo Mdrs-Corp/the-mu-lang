@@ -1,6 +1,7 @@
 
 class Node():
 	REPR = "µ"
+	
 	def __init__(self):
 		self.childs = []
 
@@ -18,19 +19,18 @@ class Node():
 
 class Loq(Node):
 	REPR = "Loqum"
+
 	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			e=elem.action(data)
+			e = elem.action(data)
 			if e is True :
-				e="Verum"
+				e = "Verum"
 			elif e is False :
-				e="Falsum"
+				e = "Falsum"
 			result += str(e)
 		print(result)
 		return result
-
-
 
 class Add(Node):
 	REPR = "Addere"
@@ -40,7 +40,6 @@ class Add(Node):
 		for child in self.childs:
 			result += child.action(data)
 		return result
-
 
 class Partio(Node):
 	REPR = "Partiorum"
@@ -64,7 +63,7 @@ class Indo(Node):
 	REPR = "Indo"
 
 	def action(self, data):
-		for i in range(0,len(self.childs),2):
+		for i in range(0,len(self.childs), 2):
 			name = self.childs[i].value
 			result = self.childs[i+1].action(data)
 			data[name] = result
@@ -72,6 +71,7 @@ class Indo(Node):
 
 class Identifier(Node):
 	REPR = "Variabilis"
+
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
@@ -80,8 +80,8 @@ class Identifier(Node):
 		return data[self.value]
 
 class Num(Node):
-	# C'est un literal je devrai faire autrement je pense
 	REPR = "Numerus"
+
 	def __init__(self, value):
 		super().__init__()
 		self.value = int(value)
@@ -90,8 +90,8 @@ class Num(Node):
 		return self.value
 
 class Fil(Node):
-	# Aussi un literal mais bon bref
 	REPR = "Filum"
+
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
@@ -103,12 +103,12 @@ class Inf(Node):
 	REPR = "Inferioris"
 
 	def action(self, data):
-		prece=self.childs[0].action(data)
+		prece = self.childs[0].action(data)
 		for elem in self.childs[1:]:
 			suiv = elem.action(data)
-			if suiv<prece:
+			if suiv < prece:
 				return False
-			prece=suiv
+			prece = suiv
 		return True
 
 class Dum(Node):
@@ -122,7 +122,6 @@ class Dum(Node):
 				last = child.action(data)
 		return last
 
-
 class Si(Node):
 	REPR="Si"
 
@@ -132,22 +131,26 @@ class Si(Node):
 			for child in self.childs[1:]:
 				last = child.action(data)
 		return last
+
 class Ver(Node):
 	REPR="Verum"
-	def action(self,d):
+	def action(self, data):
 		return True
+
 class Fal(Node):
 	REPR="Falsum"
-	def action(self,d):
+	def action(self, data):
 		return False
+
 class Et(Node):
 	REPR="Et"
-	def action(self,d):
-		return all(child.action(d) for child in self.childs)
+	def action(self, data):
+		return all(child.action(data) for child in self.childs)
+
 class Ubi(Node):
 	REPR="Ubi"
-	def action(self,d):
-		return	any(child.action(d) for child in self.childs)
+	def action(self, data):
+		return any(child.action(data) for child in self.childs)
 
 bigdic={
 	"loq": Loq,
@@ -162,8 +165,8 @@ bigdic={
 	"indo": Indo,
 	"verum": Ver,
 	"falsum":Fal,
-	"et":Et,
-	"ubi":Ubi
+	"et": Et,
+	"ubi": Ubi
 }
 
 def newnode(token):
