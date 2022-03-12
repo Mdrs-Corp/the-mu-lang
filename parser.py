@@ -20,5 +20,4 @@ def parse(tokens:list):
 				ouverts.append(new)
 		else:
 			ouverts[-1].childs.append(nodes.newnode(elem))
-	print(document.childs[0])
 	return document.childs[0]

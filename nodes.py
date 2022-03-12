@@ -167,7 +167,6 @@ bigdic={
 }
 
 def newnode(token):
-	print(token.type, token.value)
 	if token.type == "balise":
 		typ=bigdic[token.value]
 		return typ()
