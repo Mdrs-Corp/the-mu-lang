@@ -1,38 +1,25 @@
 <µ>
-	|| Programme qui écrit la suite de fibonnacci ||
+	<loq>|| Programme qui écrit la suite de fibonnacci ||</loq>
 	<indo>
-		a
-		<num>0</num>
-	</indo>	
-	<indo>
-		b
-		<num>1</num>
-		c
-		<num>1</num>
+		a 1
+		b 1
 	</indo>
-	<dom>
-		<Verum></Verum>
-		<loq>a</loq>
+	<dum>
+		<inferioris>a 500</inferioris>
 		<indo>
-			c
-			a
-		</indo>
-		<indo>
+			temp a
 			a
 			<add>
 				a
 				b
 			</add>
-		</indo>
-		<indo>
-			b
-			a
+			b temp
 		</indo>
 		<loq>
-			<fil> Nombre d'or : </fil>
-			<num><partio>a b<partio></num> 
-			|| C'est peut etre b/a mais who cares||
+			a ||,|| b 
+			|| Nombre d'or : ||
+			<partio> a b </partio> 
 		</loq>
-	</dom>
+	</dum>
 	
 </µ>

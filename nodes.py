@@ -22,9 +22,9 @@ class Loq(Node):
 		result = ""
 		for elem in self.childs:
 			e=elem.action(data)
-			if e==True :
+			if e is True :
 				e="Verum"
-			elif e==False :
+			elif e is False :
 				e="Falsum"
 			result += str(e)
 		print(result)
