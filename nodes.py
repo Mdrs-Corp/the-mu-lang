@@ -109,6 +109,18 @@ class Inf(Node):
 
 		return values.MuBoolean("true")
 
+class Aeq(Node):
+	REPR = "Aequalis"
+
+	def action(self, data):
+		first = self.childs[0].action(data)
+
+		for child in self.childs[1:]:
+			if first.equal(child.action(data)).anti().isTrue():
+				return values.MuBoolean("false")
+
+		return values.MuBoolean("true")
+
 class Dum(Node):
 	REPR="Dom"
 
@@ -163,11 +175,12 @@ bigdic={
 	"partio": Partio,
 	"mul": Mul,
 	"inferioris": Inf,
+	"aequalis": Aeq,
 	"dum": Dum,
 	"si": Si,
 	"indo": Indo,
 	"verum": Ver,
-	"falsum":Fal,
+	"falsum": Fal,
 	"et": Et,
 	"ubi": Ubi
 }

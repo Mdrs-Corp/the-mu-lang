@@ -32,6 +32,12 @@ class MuString(MuValue):
 		if muvalue.type == MuTypes.NUMBER:
 			return MuString(self.getValue() * muvalue.getValue())
 
+	def equal(self, muvalue):
+		if muvalue.type == MuTypes.STRING:
+			if self.getValue() == muvalue.getValue():
+				return MuBoolean("true")
+			else:
+				return MuBoolean("false")
 
 class MuNumber(MuValue):
 	def __init__(self, value):
@@ -53,10 +59,18 @@ class MuNumber(MuValue):
 			return MuNumber(str(self.getValue() / muvalue.getValue()))
 
 	def compare(self, muvalue):
-		if self.getValue() < muvalue.getValue():
-			return MuBoolean("true")
-		else:
-			return MuBoolean("false")
+		if muvalue.type == MuTypes.NUMBER:
+			if self.getValue() < muvalue.getValue():
+				return MuBoolean("true")
+			else:
+				return MuBoolean("false")
+
+	def equal(self, muvalue):
+		if muvalue.type == MuTypes.NUMBER:
+			if self.getValue() == muvalue.getValue():
+				return MuBoolean("true")
+			else:
+				return MuBoolean("false")
 
 class MuBoolean(MuValue):
 	def __init__(self, value):
@@ -87,3 +101,10 @@ class MuBoolean(MuValue):
 			return MuBoolean("true")
 		else:
 			return MuBoolean("false")
+
+	def equal(self, muvalue):
+		if muvalue.type == MuTypes.BOOLEAN:
+			if self.getValue() == muvalue.getValue():
+				return MuBoolean("true")
+			else:
+				return MuBoolean("false")
