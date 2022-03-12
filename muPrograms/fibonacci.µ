@@ -5,7 +5,10 @@
 		b 1
 	</indo>
 	<dum>
-		<inferioris>a 500</inferioris>
+		<et>
+			<inferioris>a 500</inferioris>
+			<inferioris>b 2</inferioris>
+		</et>
 		<indo>
 			temp a
 			a

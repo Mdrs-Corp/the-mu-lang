@@ -140,6 +140,15 @@ class Fal(Node):
 	REPR="Falsum"
 	def action(self,d):
 		return False
+class Et(Node):
+	REPR="Et"
+	def action(self,d):
+		return all(child.action(d) for child in self.childs)
+class Ubi(Node):
+	REPR="Ubi"
+	def action(self,d):
+		return	any(child.action(d) for child in self.childs)
+
 bigdic={
 	"loq": Loq,
 	".µ": Node,
@@ -152,7 +161,9 @@ bigdic={
 	"si": Si,
 	"indo": Indo,
 	"verum": Ver,
-	"falsum":Fal
+	"falsum":Fal,
+	"et":Et,
+	"ubi":Ubi
 }
 
 def newnode(token):
