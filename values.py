@@ -10,100 +10,77 @@ class MuValue:
 		self.type = type
 		self.value = value
 
-	def set(self, value):
-		self.value = value
-
 	def toPrint(self):
 		return self.value
 
 class MuString(MuValue):
 	def __init__(self, value):
-		super().__init__(MuTypes.STRING, "")
-		self.set(value)
-
-	def set(self, value):
-		self.value = value
-        return True
+		super().__init__(MuTypes.STRING, value)
 
 	def toPrint(self):
-		return "\""+self.value+"\""
+		#return "\""+self.value+"\""
+		return self.value
 
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.STRING:
-			return str(self.value + muvalue.value)
+			return MuString(self.value + muvalue.value)
 
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
-			return str(self.value * muvalue.value)
+			return MuString(self.value * muvalue.value)
 
 
 class MuNumber(MuValue):
 	def __init__(self, value):
-		super().__init__(MuTypes.NUMBER, 0)
-		self.set(value)
+		super().__init__(MuTypes.NUMBER, value)
 
-	def set(self, value):
-		if value.find("-")>0 or value.count(".")>1:
-			return False
-		for chr in value:
-			if not chr in "-.0123456789":
-				return False
-		self.value = float(value)
-		return True
+	def getValue(self):
+		return float(self.value)
 
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
-			return MuNumber(self.value + muvalue.value)
+			return MuNumber(str(self.getValue() + muvalue.getValue()))
 
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
-			return MuNumber(self.value * muvalue.value)
+			return MuNumber(str(self.getValue() * muvalue.getValue()))
 
 	def div(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
-			return MuNumber(self.value / muvalue.value)
+			return MuNumber(str(self.getValue() / muvalue.getValue()))
 
-	def smaller(self, muvalue):
-		if self.value < muvalue.value:
-			return "true"
+	def compare(self, muvalue):
+		if self.getValue() < muvalue.getValue():
+			return MuBoolean("true")
 		else:
-			return "false"
-
-	def toPrint(self):
-		return str(self.value)
+			return MuBoolean("false")
 
 class MuBoolean(MuValue):
 	def __init__(self, value):
-		super().__init__(MuTypes.BOOLEAN, True)
-		self.set(value)
+		super().__init__(MuTypes.BOOLEAN, value)
 
-	def set(self, value):
-		if value == "true":
-			self.value = True
-			return True
-		elif value == "false":
-			self.value = False
+	def getValue(self):
+		if self.value == "true":
+			return 0b1
+		elif self.value == "false":
+			return 0b0
+		print("error")
+
+	def isTrue(self):
+		value = self.getValue()
+		if value == 0b1:
 			return True
 		else:
 			return False
 
+	def andOp(self, muvalue):
+		return self.getValue()&muvalue.getValue()
+
+	def orOp(self, muvalue):
+		return self.getValue()|muvalue.getValue()
+
 	def anti(self):
-		if self.value == True:
+		if self.getValue() == 0b0:
 			return MuBoolean("false")
 		else:
 			return MuBoolean("true")
-
-	def toPrint(self):
-		if self.value:
-			return "true"
-		else:
-			return "false"
-
-def create(value):
-	if (value[0] == "\"" and value[-1] == "\"") or (value[0] == "'" and value[-1] == "'"):
-		return MuString(value)
-	elif value[0] in "-,0123456789":
-		return MuNumber(value)
-	elif value == "true" or value == "false":
-		return MuBoolean(value)
-	return None

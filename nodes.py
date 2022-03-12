@@ -1,7 +1,8 @@
+import values
 
 class Node():
 	REPR = "µ"
-	
+
 	def __init__(self):
 		self.childs = []
 
@@ -23,12 +24,7 @@ class Loq(Node):
 	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			e = elem.action(data)
-			if e is True :
-				e = "Verum"
-			elif e is False :
-				e = "Falsum"
-			result += str(e)
+			result += elem.action(data).toPrint()
 		print(result)
 		return result
 
@@ -36,9 +32,9 @@ class Add(Node):
 	REPR = "Addere"
 
 	def action(self, data):
-		result = 0
-		for child in self.childs:
-			result += child.action(data)
+		result = self.childs[0].action(data)
+		for child in self.childs[1:]:
+			result = result.add(child.action(data))
 		return result
 
 class Partio(Node):
@@ -47,16 +43,16 @@ class Partio(Node):
 	def action(self, data):
 		result = self.childs[0].action(data)
 		for child in self.childs[1:]:
-			result /= child.action(data)
+			result = result.div(child.action(data))
 		return result
 
 class Mul(Node):
 	REPR = "multiplicare"
 
 	def action(self, data):
-		result = 1
-		for child in self.childs:
-			result *= child.action(data)
+		result = self.childs[0].action(data)
+		for child in self.childs[1:]:
+			result = result.mul(child.action(data))
 		return result
 
 class Indo(Node):
@@ -84,10 +80,10 @@ class Num(Node):
 
 	def __init__(self, value):
 		super().__init__()
-		self.value = int(value)
+		self.value = value
 
 	def action(self, data):
-		return self.value
+		return values.MuNumber(self.value)
 
 class Fil(Node):
 	REPR = "Filum"
@@ -97,27 +93,28 @@ class Fil(Node):
 		self.value = value
 
 	def action(self, data):
-		return self.value
+		return values.MuString(self.value)
 
 class Inf(Node):
 	REPR = "Inferioris"
 
 	def action(self, data):
-		prece = self.childs[0].action(data)
-		for elem in self.childs[1:]:
-			suiv = elem.action(data)
-			if suiv < prece:
-				return False
-			prece = suiv
-		return True
+		previous = self.childs[0].action(data)
+
+		for child in self.childs[1:]:
+			next = child.action(data)
+			if next.compare(previous).isTrue():
+				return values.MuBoolean("false")
+			previous = next
+
+		return values.MuBoolean("true")
 
 class Dum(Node):
 	REPR="Dom"
 
 	def action(self, data):
-		condi = self.childs[0]
 		last = None
-		while condi.action(data):
+		while self.childs[0].action(data).isTrue():
 			for child in self.childs[1:]:
 				last = child.action(data)
 		return last
@@ -127,7 +124,7 @@ class Si(Node):
 
 	def action(self, data):
 		last = None
-		if self.childs[0].action(data):
+		if self.childs[0].action(data).isTrue():
 			for child in self.childs[1:]:
 				last = child.action(data)
 		return last
@@ -135,22 +132,22 @@ class Si(Node):
 class Ver(Node):
 	REPR="Verum"
 	def action(self, data):
-		return True
+		return values.MuBoolean("true")
 
 class Fal(Node):
 	REPR="Falsum"
 	def action(self, data):
-		return False
+		return values.MuBoolean("false")
 
 class Et(Node):
 	REPR="Et"
 	def action(self, data):
-		return all(child.action(data) for child in self.childs)
+		return all(child.action(data).isTrue() for child in self.childs)
 
 class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):
-		return any(child.action(data) for child in self.childs)
+		return any(child.action(data).isTrue() for child in self.childs)
 
 bigdic={
 	"loq": Loq,
