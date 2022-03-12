@@ -21,13 +21,16 @@ class MuString(MuValue):
 		#return "\""+self.value+"\""
 		return self.value
 
+	def getValue(self):
+		return self.value
+
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.STRING:
-			return MuString(self.value + muvalue.value)
+			return MuString(self.getValue() + muvalue.getValue())
 
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMBER:
-			return MuString(self.value * muvalue.value)
+			return MuString(self.getValue() * muvalue.getValue())
 
 
 class MuNumber(MuValue):
@@ -81,6 +84,6 @@ class MuBoolean(MuValue):
 
 	def anti(self):
 		if self.getValue() == 0b0:
-			return MuBoolean("false")
-		else:
 			return MuBoolean("true")
+		else:
+			return MuBoolean("false")

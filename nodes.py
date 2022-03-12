@@ -142,12 +142,18 @@ class Fal(Node):
 class Et(Node):
 	REPR="Et"
 	def action(self, data):
-		return all(child.action(data).isTrue() for child in self.childs)
+		if all(child.action(data).isTrue() for child in self.childs):
+			return values.MuBoolean("true")
+		else:
+			return values.MuBoolean("false")
 
 class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):
-		return any(child.action(data).isTrue() for child in self.childs)
+		if any(child.action(data).isTrue() for child in self.childs):
+			return values.MuBoolean("true")
+		else:
+			return values.MuBoolean("false")
 
 bigdic={
 	"loq": Loq,
