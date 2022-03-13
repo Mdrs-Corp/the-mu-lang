@@ -165,23 +165,19 @@ class Si(Node):
 
 class Ver(Node):
 	REPR="Verum"
-	def action(self, data):
-		return values.Boolean("verum")
+	def action(self, data):return values.Boolean("verum")
 
 class Fal(Node):
 	REPR="Falsum"
-	def action(self, data):
-		return values.Boolean("falsum")
+	def action(self, data):return values.Boolean("falsum")
 
 class Et(Node):
 	REPR="Et"
-	def action(self, data):
-		return values.Boolean("verum" if all(child.action(data).isTrue for child in self.childs) else "falsum")
+	def action(self, data):return values.Boolean("verum" if all(child.action(data).isTrue for child in self.childs) else "falsum")
 
 class Ubi(Node):
 	REPR="Ubi"
-	def action(self, data):
-		return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
+	def action(self, data):return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
 class Ind(Node):
 	REPR="Indicium"
 
@@ -206,13 +202,9 @@ bigdic={
 }
 
 def newnode(token):
-	if token.type == "balise":
-		typ=bigdic[token.value]
-		return typ()
-	elif token.type == "number":
-		return Num(token.value)
-	elif token.type == "string":
-		return Fil(token.value)
-	elif token.type == "identifier":
-		return Identifier(token.value)
+	if token.type == "balise":return bigdic[token.value]()
+	elif token.type == "number":return Num(token.value)
+	elif token.type == "string":return Fil(token.value)
+	elif token.type == "identifier":return Identifier(token.value)
+	else:print('Node not fode',token)
 		

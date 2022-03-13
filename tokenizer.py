@@ -4,45 +4,45 @@
 isletter=lambda s:0x61<=ord(s)<=0x7a or 0x41<=ord(s)<=0x7a
 isnumber=lambda s:0x30<=ord(s)<=0x39 or s=="."
 
-def tokenize(str):
+def tokenize(text:str):
     tokens = []
     index = 0
-    while index < len(str):
-        char = str[index]
+    while index < len(text):
+        char = text[index]
         if char == " " or char=="\n" or char=="\t":
             index += 1
 
-        elif char=="|" and index+1<len(str):
+        elif char=="|" and index+1<len(text):
         	start=index
-        	if str[index+1]=="|":
+        	if text[index+1]=="|":
         		index+=1
-        		while not str[index]==str[index+1]=="|":
+        		while not text[index]==text[index+1]=="|":
         			index+=1
         		index+=2
-        	tokens.append(Token("string", str[start+2:index-2]))
+        	tokens.append(Token("string", text[start+2:index-2]))
         	
         elif char == "<":
             name = ""
             index += 1
-            while index < len(str) and str[index] != ">":
-                name += str[index]
+            while index < len(text) and text[index] != ">":
+                name += text[index]
                 index += 1
             index += 1
             tokens.append(Token("balise", name))
 
         elif isnumber(char):
-            text = ""
-            while index < len(str) and isnumber(str[index]):
-                text += str[index]
+            t = ""
+            while index < len(text) and isnumber(text[index]):
+                t += text[index]
                 index += 1
-            tokens.append(Token("number", text))
+            tokens.append(Token("number", t))
             
         elif isletter(char):
-            text = ""
-            while index < len(str) and (isletter(str[index]) or isnumber(str[index])):
-                text += str[index]
+            t = ""
+            while index < len(text) and (isletter(text[index]) or isnumber(text[index])):
+                t += text[index]
                 index += 1
-            tokens.append(Token("identifier", text))
+            tokens.append(Token("identifier", t))
             
         elif char=="{":
         	index+=1
