@@ -39,7 +39,7 @@ class Filum(MuValue):
 
 	def mul(self, muvalue,data={}):
 		if muvalue.type == MuTypes.NUMERUS:
-			return Filum(self.getValue(data) * muvalue.getValue())
+			return Filum(self.getValue(data) * int(muvalue.getValue()))
 		else:
 			alert('You can only multiply Filum by Numerus')
 			
@@ -60,7 +60,7 @@ class Ordinata(MuValue):
 		if self.consult:
 			r=self.value[int(self.consult.action(data).getValue())]
 			self.consult=None
-			return r.action(data).getValue()	
+			return r	
 		else:
 			return self.value
 			

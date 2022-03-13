@@ -24,7 +24,7 @@ class Loq(Node):
 	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			result += str(elem.action(data))
+			result += elem.action(data).repr
 		print(result)
 		return result
 
@@ -109,13 +109,12 @@ class Ord(Node):
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
-		self.consult=None
-		self.muvalue=values.Ordinata(self.childs)
+		self.consult=None		
 		
 	def action(self,data):
+		self.muvalue=values.Ordinata([c.action(data) for c in self.childs])	
 		self.muvalue.consult=self.consult
 		return self.muvalue
-		
 	def __repr__(self):
 		return super().__repr__()+str(self.consult)
 class Inf(Node):

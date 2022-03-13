@@ -12,10 +12,11 @@
 			||chcololat ||
 			59.6
 			||le théorème de thales ||
+			b
 		</ord>
 	</indo>
 	<dum>
-		<inferioris>b 5</inferioris>
-		<loq> c{b} </loq>
+		<inferioris>b 6</inferioris>
+		<loq> <mul>c{b} 2</mul> </loq>
 		<indo> b <add>b 1</add></indo>
 	</dum>
