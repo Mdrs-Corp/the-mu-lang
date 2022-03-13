@@ -27,6 +27,7 @@ The µ programming langage python based
 |*officium*           | fonction   |                                                    |
 |*et*,*ubi*           | and,or     | return true if all/one of conditons are true       |
 |*ord*                | array      | means ordinata, create an array                    |
+|*{}*                 | [ ]        | to consult the ordinata at a certain index a{2}    |
 
 ## Some examples
 More directly in the repository muExemples
