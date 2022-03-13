@@ -92,7 +92,7 @@ class Fil(Node):
 
 	def action(self, data):
 		return values.Filum(self.value)
-		
+
 
 class Ord(Node):
 	REPR="Ordinata"
@@ -165,6 +165,7 @@ class Et(Node):
 class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
+
 class Ind(Node):
 	REPR="Indicium"
 
@@ -187,8 +188,8 @@ bigdic={
 	"falsum": Fal,
 	"et": Et,
 	"ubi": Ubi,
-	"ord":Ord,
-	"indicium":Ind
+	"ord": Ord,
+	"indicium": Ind
 }
 
 def newnode(token):

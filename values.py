@@ -14,6 +14,27 @@ class MuValue:
 	def toPrint(self):
 		return self.value
 
+	"all properties"
+
+	def add(self, muvalue):
+		"when <add>self muvalue</add>"
+
+	def mul(self, muvalue):
+		"when <mul>self muvalue</mul>"
+
+	def equal(self, muvalue):
+		"when <aequalis>self muvalue</aequalis>"
+
+	def div(self, muvalue):
+		"when <partio>self muvalue</partio>"
+
+	def inf(self, muvalue):
+		"when <inferioris>self muvalue</inferioris>"
+
+	def at(self, muvalue):
+		"when self {muvalue}"
+
+
 class Filum(MuValue):
 	def __init__(self, value):
 		super().__init__(MuTypes.FILUM, value)
@@ -91,6 +112,9 @@ class Numerus(MuValue):
 class Boolean(MuValue):
 	def __init__(self, value):
 		super().__init__(MuTypes.BOOLEAN, value)
+
+	def toPrint(self):
+		return self.value
 
 	def getValue(self):
 		if self.value == "verum":
