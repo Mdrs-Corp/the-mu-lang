@@ -1,7 +1,5 @@
 <µ>
 	<indo>
-		a
-		|| ZzZzZz ||
 		b
 		0
 		c
@@ -17,6 +15,7 @@
 	</indo>
 	<dum>
 		<inferioris>b 6</inferioris>
-		<loq> <mul>c{b} 2</mul> </loq>
+		<loq> c{b} </loq>
 		<indo> b <add>b 1</add></indo>
 	</dum>
+</µ>

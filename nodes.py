@@ -9,8 +9,8 @@ class Node():
 	def __repr__(self):
 		t = f"{self.REPR}("
 		for e in self.childs:
-			t += "\n\t" + str(e)
-		return t + f"){self.REPR[0]}\n"
+			t += str(e)
+		return t + f")"
 
 	def action(self, data):
 		last = None
@@ -22,9 +22,7 @@ class Loq(Node):
 	REPR = "Loqum"
 
 	def action(self, data):
-		result = ""
-		for elem in self.childs:
-			result += elem.action(data).repr
+		result = self.childs[0].action(data).toPrint()
 		print(result)
 		return result
 
@@ -71,14 +69,9 @@ class Identifier(Node):
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
-		self.consult=None
 
 	def action(self, data):
-		if self.consult:
-			data[self.value].consult=self.consult
-			return data[self.value].getValue(data)
-		else:
-			return data[self.value]
+		return data[self.value]
 
 class Num(Node):
 	REPR = "Numerus"
@@ -96,27 +89,21 @@ class Fil(Node):
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
-		self.consult=None
-		self.muvalue=values.Filum(self.value)
 
 	def action(self, data):
-		self.muvalue.consult=self.consult
-		return self.muvalue
-	def __repr__(self):
-		return super().__repr__()+str(self.consult)
-	
+		return values.Filum(self.value)
+		
+
 class Ord(Node):
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
-		self.consult=None		
-		
+
 	def action(self,data):
-		self.muvalue=values.Ordinata([c.action(data) for c in self.childs])	
-		self.muvalue.consult=self.consult
+		#je sais pas sqe c, jte fé confianse
+		self.muvalue=values.Ordinata([c.action(data) for c in self.childs])
 		return self.muvalue
-	def __repr__(self):
-		return super().__repr__()+str(self.consult)
+
 class Inf(Node):
 	REPR = "Inferioris"
 
@@ -181,6 +168,9 @@ class Ubi(Node):
 class Ind(Node):
 	REPR="Indicium"
 
+	def action(self, data):
+		return self.childs[0].action(data).at(self.childs[1].action(data))
+
 bigdic={
 	"loq": Loq,
 	".µ": Node,
@@ -207,4 +197,3 @@ def newnode(token):
 	elif token.type == "string":return Fil(token.value)
 	elif token.type == "identifier":return Identifier(token.value)
 	else:print('Node not fode',token)
-		
