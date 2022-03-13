@@ -98,11 +98,10 @@ class Ord(Node):
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
+		self.value = values.Ordinata([child.action(data) for child in self.childs])
 
 	def action(self,data):
-		#je sais pas sqe c, jte fé confianse
-		self.muvalue=values.Ordinata([c.action(data) for c in self.childs])
-		return self.muvalue
+		return self.value
 
 class Inf(Node):
 	REPR = "Inferioris"
