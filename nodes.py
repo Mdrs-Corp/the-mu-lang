@@ -24,7 +24,7 @@ class Loq(Node):
 	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			result += elem.action(data).toPrint()
+			result += elem.action(data).repr
 		print(result)
 		return result
 
@@ -83,7 +83,7 @@ class Num(Node):
 		self.value = value
 
 	def action(self, data):
-		return values.MuNumber(self.value)
+		return values.Numerus(self.value)
 
 class Fil(Node):
 	REPR = "Filum"
@@ -93,7 +93,7 @@ class Fil(Node):
 		self.value = value
 
 	def action(self, data):
-		return values.MuString(self.value)
+		return values.Filum(self.value)
 
 class Inf(Node):
 	REPR = "Inferioris"
@@ -103,11 +103,11 @@ class Inf(Node):
 
 		for child in self.childs[1:]:
 			next = child.action(data)
-			if next.compare(previous).isTrue():
-				return values.MuBoolean("false")
+			if next.inf(previous).isTrue:
+				return values.Boolean("falsum")
 			previous = next
 
-		return values.MuBoolean("true")
+		return values.Boolean("verum")
 
 class Aeq(Node):
 	REPR = "Aequalis"
@@ -116,17 +116,17 @@ class Aeq(Node):
 		first = self.childs[0].action(data)
 
 		for child in self.childs[1:]:
-			if first.equal(child.action(data)).anti().isTrue():
-				return values.MuBoolean("false")
+			if not first.equal(child.action(data)).isTrue:
+				return values.Boolean("falsum")
 
-		return values.MuBoolean("true")
+		return values.Boolean("verum")
 
 class Dum(Node):
 	REPR="Dom"
 
 	def action(self, data):
 		last = None
-		while self.childs[0].action(data).isTrue():
+		while self.childs[0].action(data).isTrue:
 			for child in self.childs[1:]:
 				last = child.action(data)
 		return last
@@ -136,7 +136,7 @@ class Si(Node):
 
 	def action(self, data):
 		last = None
-		if self.childs[0].action(data).isTrue():
+		if self.childs[0].action(data).isTrue:
 			for child in self.childs[1:]:
 				last = child.action(data)
 		return last
@@ -144,28 +144,22 @@ class Si(Node):
 class Ver(Node):
 	REPR="Verum"
 	def action(self, data):
-		return values.MuBoolean("true")
+		return values.Boolean("verum")
 
 class Fal(Node):
 	REPR="Falsum"
 	def action(self, data):
-		return values.MuBoolean("false")
+		return values.Boolean("falsum")
 
 class Et(Node):
 	REPR="Et"
 	def action(self, data):
-		if all(child.action(data).isTrue() for child in self.childs):
-			return values.MuBoolean("true")
-		else:
-			return values.MuBoolean("false")
+		return values.Boolean("verum" if all(child.action(data).isTrue for child in self.childs) else "falsum")
 
 class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):
-		if any(child.action(data).isTrue() for child in self.childs):
-			return values.MuBoolean("true")
-		else:
-			return values.MuBoolean("false")
+		return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
 
 bigdic={
 	"loq": Loq,

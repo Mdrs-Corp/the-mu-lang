@@ -1,8 +1,8 @@
 from enum import Enum
-
+from errors import alert
 class MuTypes(Enum):
-	STRING = 0
-	NUMBER = 1
+	FILUM = 0
+	NUMERUS = 1
 	BOOLEAN = 2
 
 class MuValue:
@@ -13,76 +13,87 @@ class MuValue:
 	def toPrint(self):
 		return self.value
 
-class MuString(MuValue):
+class Filum(MuValue):
 	def __init__(self, value):
-		super().__init__(MuTypes.STRING, value)
-
-	def toPrint(self):
-		#return "\""+self.value+"\""
+		super().__init__(MuTypes.FILUM, value)
+	
+	@property
+	def repr(self):
 		return self.value
 
 	def getValue(self):
 		return self.value
 
 	def add(self, muvalue):
-		if muvalue.type == MuTypes.STRING:
-			return MuString(self.getValue() + muvalue.getValue())
+		if muvalue.type == MuTypes.FILUM:
+			return Filum(self.value + muvalue.value)
+		else:
+			alert('You can only add Filum to another Filum')
 
 	def mul(self, muvalue):
-		if muvalue.type == MuTypes.NUMBER:
-			return MuString(self.getValue() * muvalue.getValue())
-
+		if muvalue.type == MuTypes.NUMERUS:
+			return Filum(self.getValue() * muvalue.getValue())
+		else:
+			alert('You can only multiply Filum by Numerus')
 	def equal(self, muvalue):
-		if muvalue.type == MuTypes.STRING:
+		if muvalue.type == MuTypes.FILUM:
 			if self.getValue() == muvalue.getValue():
-				return MuBoolean("true")
+				return Boolean("verum")
 			else:
-				return MuBoolean("false")
+				return MuBoolean("falsum")
+		else:
+			alert("You can only compare Filum to another Filum")
 
-class MuNumber(MuValue):
+class Numerus(MuValue):
 	def __init__(self, value):
-		super().__init__(MuTypes.NUMBER, value)
+		super().__init__(MuTypes.NUMERUS, value)
+		
+	@property
+	def repr(self):
+		return str(self.value)
 
 	def getValue(self):
 		return float(self.value)
 
 	def add(self, muvalue):
-		if muvalue.type == MuTypes.NUMBER:
-			return MuNumber(str(self.getValue() + muvalue.getValue()))
-
+		if muvalue.type == MuTypes.NUMERUS:
+			return Numerus(str(self.getValue() + muvalue.getValue()))
+		else:
+			alert("You can only add Numerus to another Numerus")
 	def mul(self, muvalue):
-		if muvalue.type == MuTypes.NUMBER:
-			return MuNumber(str(self.getValue() * muvalue.getValue()))
-
+		if muvalue.type == MuTypes.NUMERUS:
+			return Numerus(str(self.getValue() * muvalue.getValue()))
+		else:
+			alert('You can only multiply Numerus by another Numerus')
 	def div(self, muvalue):
-		if muvalue.type == MuTypes.NUMBER:
-			return MuNumber(str(self.getValue() / muvalue.getValue()))
-
-	def compare(self, muvalue):
-		if muvalue.type == MuTypes.NUMBER:
+		if muvalue.type == MuTypes.NUMERUS:
+			return Numerus(str(self.getValue() / muvalue.getValue()))
+		else:
+			alert('You can only partio Numerus by another Numerus')
+	def inf(self, muvalue):
+		if muvalue.type == MuTypes.NUMERUS:
 			if self.getValue() < muvalue.getValue():
-				return MuBoolean("true")
+				return Boolean("verum")
 			else:
-				return MuBoolean("false")
+				return Boolean("falsum")
 
 	def equal(self, muvalue):
-		if muvalue.type == MuTypes.NUMBER:
+		if muvalue.type == MuTypes.NUMERUS:
 			if self.getValue() == muvalue.getValue():
-				return MuBoolean("true")
-			else:
-				return MuBoolean("false")
+				return Boolean("verum")
+		return Boolean("falsum")
 
-class MuBoolean(MuValue):
+class Boolean(MuValue):
 	def __init__(self, value):
 		super().__init__(MuTypes.BOOLEAN, value)
 
 	def getValue(self):
-		if self.value == "true":
+		if self.value == "verum":
 			return 0b1
-		elif self.value == "false":
+		elif self.value == "falsum":
 			return 0b0
-		print("error")
-
+		alert('Unknown Boolean:'+str(self.value))
+	@property
 	def isTrue(self):
 		value = self.getValue()
 		if value == 0b1:
@@ -98,13 +109,13 @@ class MuBoolean(MuValue):
 
 	def anti(self):
 		if self.getValue() == 0b0:
-			return MuBoolean("true")
+			return Boolean("verum")
 		else:
-			return MuBoolean("false")
+			return MuBoolean("falsum")
 
 	def equal(self, muvalue):
 		if muvalue.type == MuTypes.BOOLEAN:
 			if self.getValue() == muvalue.getValue():
-				return MuBoolean("true")
-			else:
-				return MuBoolean("false")
+				return Boolean("verum")
+		return MuBoolean("falsum")
+
