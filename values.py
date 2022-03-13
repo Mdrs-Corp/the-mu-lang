@@ -4,6 +4,7 @@ class MuTypes(Enum):
 	FILUM = 0
 	NUMERUS = 1
 	BOOLEAN = 2
+	ORDINATA = 3
 
 class MuValue:
 	def __init__(self, type, value):
@@ -40,7 +41,7 @@ class Filum(MuValue):
 			if self.getValue() == muvalue.getValue():
 				return Boolean("verum")
 			else:
-				return MuBoolean("falsum")
+				return Boolean("falsum")
 		else:
 			alert("You can only compare Filum to another Filum")
 
@@ -111,11 +112,25 @@ class Boolean(MuValue):
 		if self.getValue() == 0b0:
 			return Boolean("verum")
 		else:
-			return MuBoolean("falsum")
+			return Boolean("falsum")
 
 	def equal(self, muvalue):
 		if muvalue.type == MuTypes.BOOLEAN:
 			if self.getValue() == muvalue.getValue():
 				return Boolean("verum")
-		return MuBoolean("falsum")
+		return Boolean("falsum")
+
+class Ordinata:
+	def __init__(self,childs):
+		self.type=3
+		self.childs=childs
+	def getValue(self,ind):
+		return self.childs[ind].getValue()
+	def repr(self):
+		return "/"+", ".join(c.repr for c in self.childs)+"/"
+		
+
+
+
+
 

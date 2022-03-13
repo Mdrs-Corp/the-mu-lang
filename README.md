@@ -26,6 +26,7 @@ The µ programming langage python based
 |*aequalis*           | ==         | conditionnal bloc if a==b                          |
 |*officium*           | fonction   |                                                    |
 |*et*,*ubi*           | and,or     | return true if all/one of conditons are true       |
+|*ord*           | array      | means ordinata, create an array                    |
 
 ## Some examples
 More directly in the repository muExemples

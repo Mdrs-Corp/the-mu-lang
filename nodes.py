@@ -160,6 +160,10 @@ class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):
 		return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
+class Ord(Node):
+	REPR="Ordinata"
+	def action(self,data):
+		return values.Ordinata(self.childs)
 
 bigdic={
 	"loq": Loq,
@@ -176,7 +180,8 @@ bigdic={
 	"verum": Ver,
 	"falsum": Fal,
 	"et": Et,
-	"ubi": Ubi
+	"ubi": Ubi,
+	"ord":Ord
 }
 
 def newnode(token):

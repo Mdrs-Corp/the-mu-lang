@@ -43,8 +43,18 @@ def tokenize(str):
                 text += str[index]
                 index += 1
             tokens.append(Token("identifier", text))
+            num=''
+            print("ah")
+            if str[index+1]=="/" or str[index]=="/":
+            	index+=1
+            	while index <len(str) and (isnumber(str[index])):
+            		num+=str[index]
+            		index+=1
+            tokens.append(Token("consulter",num))
+            index+=1
         else:
-        	print("Weird char: ",char,ord(char))
+        	print("Weird char: ",char,f"({ord(char)})",index)
+        	index+=1
     return tokens
 
 class Token:
