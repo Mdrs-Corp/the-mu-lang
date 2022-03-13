@@ -16,8 +16,11 @@ def parse(tokens:list):
 				if elem.value[-1]=="/":
 					elem.value=elem.value[:-1]
 				new=nodes.newnode(elem)
-				ouverts[-1].childs.append(new)
-				ouverts.append(new)
+				if new.REPR=="Indicium":
+					ouverts[-1].childs[-1].consult=new
+				else:
+					ouverts[-1].childs.append(new)
+					ouverts.append(new)
 		else:
 			ouverts[-1].childs.append(nodes.newnode(elem))
 	return document.childs[0]

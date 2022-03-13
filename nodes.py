@@ -71,9 +71,13 @@ class Identifier(Node):
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
+		self.consult=None
 
 	def action(self, data):
-		return data[self.value]
+		if self.consult:
+			return data[self.value].getValue(data)
+		else:
+			return data[self.value]
 
 class Num(Node):
 	REPR = "Numerus"
@@ -94,7 +98,14 @@ class Fil(Node):
 
 	def action(self, data):
 		return values.Filum(self.value)
-
+class Ord(Node):
+	REPR="Ordinata"
+	def __init__(self, value):
+		super.__init__()
+		self.childs=value
+		
+	def action(self,data):
+		return values.Ordinata(self.childs)
 class Inf(Node):
 	REPR = "Inferioris"
 
@@ -160,10 +171,8 @@ class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):
 		return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
-class Ord(Node):
-	REPR="Ordinata"
-	def action(self,data):
-		return values.Ordinata(self.childs)
+class Ind(Node):
+	REPR="Indicium"
 
 bigdic={
 	"loq": Loq,
@@ -181,7 +190,8 @@ bigdic={
 	"falsum": Fal,
 	"et": Et,
 	"ubi": Ubi,
-	"ord":Ord
+	"ord":Ord,
+	"indicium":Ind
 }
 
 def newnode(token):
@@ -194,3 +204,4 @@ def newnode(token):
 		return Fil(token.value)
 	elif token.type == "identifier":
 		return Identifier(token.value)
+		

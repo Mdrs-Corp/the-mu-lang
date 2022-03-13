@@ -17,34 +17,51 @@ class MuValue:
 class Filum(MuValue):
 	def __init__(self, value):
 		super().__init__(MuTypes.FILUM, value)
-	
+		self.consult=None
+		
 	@property
-	def repr(self):
-		return self.value
+	def repr(self,data={}):
+		return str(self.getValue(data))
 
-	def getValue(self):
-		return self.value
+	def getValue(self,data={}):
+		if self.consult:
+			return self.value[self.consult.action(data)]
+		else:
+			return self.value
 
-	def add(self, muvalue):
+	def add(self, muvalue,data={}):
 		if muvalue.type == MuTypes.FILUM:
-			return Filum(self.value + muvalue.value)
+			return Filum(self.getValue(data) + muvalue.getValue(data))
 		else:
 			alert('You can only add Filum to another Filum')
 
-	def mul(self, muvalue):
+	def mul(self, muvalue,data={}):
 		if muvalue.type == MuTypes.NUMERUS:
-			return Filum(self.getValue() * muvalue.getValue())
+			return Filum(self.getValue(data) * muvalue.getValue())
 		else:
 			alert('You can only multiply Filum by Numerus')
-	def equal(self, muvalue):
+			
+	def equal(self, muvalue,data={}):
 		if muvalue.type == MuTypes.FILUM:
-			if self.getValue() == muvalue.getValue():
+			if self.getValue(data) == muvalue.getValue(data):
 				return Boolean("verum")
 			else:
 				return Boolean("falsum")
 		else:
 			alert("You can only compare Filum to another Filum")
-
+class Ordinata:
+	def __init__(self,childs):
+		self.type=3
+		self.childs=childs
+		self.consult=None
+	def getValue(self,data={}):
+		if self.consult:
+			return self.childs[consult.action(data)]
+		else:
+			return self
+	def repr(self,data={}):
+		return "/"+", ".join(c.repr(data) for c in self.childs)+"/"
+		
 class Numerus(MuValue):
 	def __init__(self, value):
 		super().__init__(MuTypes.NUMERUS, value)
@@ -120,14 +137,7 @@ class Boolean(MuValue):
 				return Boolean("verum")
 		return Boolean("falsum")
 
-class Ordinata:
-	def __init__(self,childs):
-		self.type=3
-		self.childs=childs
-	def getValue(self,ind):
-		return self.childs[ind].getValue()
-	def repr(self):
-		return "/"+", ".join(c.repr for c in self.childs)+"/"
+
 		
 
 
