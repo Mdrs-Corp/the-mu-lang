@@ -1,12 +1,13 @@
 <µ>
 	<indo>
 		a
-		|| abcefghijklmnopqrstv ||
-	</indo>
-	<indo>
+		|| ZzZzZz ||
 		b
-		a { 2 }
+		0
+		
 	</indo>
-	<loq>
-		b
-	</loq>
+	<dum>
+		<inferioris>b 5</inferioris>
+		<loq> a{b} </loq>
+		<indo> b <add>b 1</add></indo>
+	</dum>

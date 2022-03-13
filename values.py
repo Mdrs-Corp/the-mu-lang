@@ -25,7 +25,9 @@ class Filum(MuValue):
 
 	def getValue(self,data={}):
 		if self.consult:
-			return self.value[self.consult.action(data)]
+			r=self.value[int(self.consult.action(data).getValue())]
+			self.consult=None
+			return r
 		else:
 			return self.value
 

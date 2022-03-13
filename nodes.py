@@ -10,7 +10,7 @@ class Node():
 		t = f"{self.REPR}("
 		for e in self.childs:
 			t += "\n\t" + str(e)
-		return t + f"){self.REPR[0]}"
+		return t + f"){self.REPR[0]}\n"
 
 	def action(self, data):
 		last = None
@@ -24,7 +24,7 @@ class Loq(Node):
 	def action(self, data):
 		result = ""
 		for elem in self.childs:
-			result += elem.action(data).repr
+			result += str(elem.action(data))
 		print(result)
 		return result
 
@@ -74,7 +74,9 @@ class Identifier(Node):
 		self.consult=None
 
 	def action(self, data):
+		
 		if self.consult:
+			data[self.value].consult=self.consult
 			return data[self.value].getValue(data)
 		else:
 			return data[self.value]
@@ -95,9 +97,15 @@ class Fil(Node):
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
+		self.consult=None
+		self.muvalue=values.Filum(self.value)
 
 	def action(self, data):
-		return values.Filum(self.value)
+		self.muvalue.consult=self.consult
+		return self.muvalue
+	def __repr__(self):
+		return super().__repr__()+str(self.consult)
+	
 class Ord(Node):
 	REPR="Ordinata"
 	def __init__(self, value):

@@ -11,6 +11,8 @@ def parse(tokens:list):
 		if elem.type=="balise":
 			if elem.value[0]=="/":
 				ouverts.pop()
+				if ouverts[-1].childs[-1].REPR=="Indicium":
+					ouverts[-1].childs.pop()
 				
 			else:
 				if elem.value[-1]=="/":
@@ -18,9 +20,9 @@ def parse(tokens:list):
 				new=nodes.newnode(elem)
 				if new.REPR=="Indicium":
 					ouverts[-1].childs[-1].consult=new
-				else:
-					ouverts[-1].childs.append(new)
-					ouverts.append(new)
+					
+				ouverts[-1].childs.append(new)
+				ouverts.append(new)
 		else:
 			ouverts[-1].childs.append(nodes.newnode(elem))
 	return document.childs[0]
