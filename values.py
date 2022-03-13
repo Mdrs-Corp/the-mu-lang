@@ -27,7 +27,7 @@ class Filum(MuValue):
 		if self.consult:
 			r=self.value[int(self.consult.action(data).getValue())]
 			self.consult=None
-			return r
+			return Filum(r)
 		else:
 			return self.value
 
@@ -51,16 +51,20 @@ class Filum(MuValue):
 				return Boolean("falsum")
 		else:
 			alert("You can only compare Filum to another Filum")
-class Ordinata:
+class Ordinata(MuValue):
 	def __init__(self,childs):
-		self.type=3
-		self.childs=childs
+		super().__init__(MuTypes.ORDINATA,childs)
 		self.consult=None
+
 	def getValue(self,data={}):
 		if self.consult:
-			return self.childs[consult.action(data)]
+			r=self.value[int(self.consult.action(data).getValue())]
+			self.consult=None
+			return r.action(data).getValue()	
 		else:
-			return self
+			return self.value
+			
+	@property
 	def repr(self,data={}):
 		return "/"+", ".join(c.repr(data) for c in self.childs)+"/"
 		

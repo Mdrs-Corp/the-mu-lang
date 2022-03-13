@@ -74,7 +74,6 @@ class Identifier(Node):
 		self.consult=None
 
 	def action(self, data):
-		
 		if self.consult:
 			data[self.value].consult=self.consult
 			return data[self.value].getValue(data)
@@ -108,12 +107,17 @@ class Fil(Node):
 	
 class Ord(Node):
 	REPR="Ordinata"
-	def __init__(self, value):
-		super.__init__()
-		self.childs=value
+	def __init__(self):
+		super().__init__()
+		self.consult=None
+		self.muvalue=values.Ordinata(self.childs)
 		
 	def action(self,data):
-		return values.Ordinata(self.childs)
+		self.muvalue.consult=self.consult
+		return self.muvalue
+		
+	def __repr__(self):
+		return super().__repr__()+str(self.consult)
 class Inf(Node):
 	REPR = "Inferioris"
 
