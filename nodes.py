@@ -98,9 +98,9 @@ class Ord(Node):
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
-		self.value = values.Ordinata([child.action(data) for child in self.childs])
 
 	def action(self,data):
+		self.value = values.Ordinata([child.action(data) for child in self.childs])
 		return self.value
 
 class Inf(Node):
