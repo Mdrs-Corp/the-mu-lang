@@ -13,9 +13,20 @@
 			b
 		</ord>
 	</indo>
+	<add>c 3</add>
 	<dum>
-		<inferioris>b 6</inferioris>
+		<non><inferioris> 
+			<add>
+				<enum>c</enum>
+				-1
+			</add>
+			b
+		</inferioris>
+		</non>
 		<loq> c{b} </loq>
-		<indo> b <add>b 1</add></indo>
+		<indo>
+			b
+			<add>b 1</add>
+		</indo>
 	</dum>
 </µ>

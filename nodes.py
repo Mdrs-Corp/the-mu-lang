@@ -170,6 +170,16 @@ class Ind(Node):
 
 	def action(self, data):
 		return self.childs[0].action(data).at(self.childs[1].action(data))
+		
+class Enum(Node):
+	REPR="Enumerare"
+	def action(self,data):
+		return values.Numerus(len(self.childs[0].action(data).getValue()))
+		
+class Non(Node):
+	REPR="Nihil"
+	def action(self,data):
+		return self.childs[0].action(data).anti()
 
 bigdic={
 	"loq": Loq,
@@ -188,7 +198,9 @@ bigdic={
 	"et": Et,
 	"ubi": Ubi,
 	"ord": Ord,
-	"indicium": Ind
+	"indicium": Ind,
+	"enum":Enum,
+	"non":Non
 }
 
 def newnode(token):

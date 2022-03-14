@@ -17,22 +17,22 @@ class MuValue:
 	"all properties"
 
 	def add(self, muvalue):
-		"when <add>self muvalue</add>"
+		"""when <add>self muvalue</add>"""
 
 	def mul(self, muvalue):
-		"when <mul>self muvalue</mul>"
+		"""when <mul>self muvalue</mul>"""
 
 	def equal(self, muvalue):
-		"when <aequalis>self muvalue</aequalis>"
+		"""when <aequalis>self muvalue</aequalis>"""
 
 	def div(self, muvalue):
-		"when <partio>self muvalue</partio>"
+		"""when <partio>self muvalue</partio>"""
 
 	def inf(self, muvalue):
-		"when <inferioris>self muvalue</inferioris>"
+		"""when <inferioris>self muvalue</inferioris>"""
 
 	def at(self, muvalue):
-		"when self {muvalue}"
+		"""when self {muvalue}"""
 
 
 class Filum(MuValue):
@@ -47,6 +47,7 @@ class Filum(MuValue):
 			return Filum(self.getValue() + muvalue.getValue())
 		else:
 			alert('You can only add Filum to another Filum')
+
 
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMERUS:
@@ -144,15 +145,10 @@ class Boolean(MuValue):
 		return Boolean("falsum")
 
 class Ordinata(MuValue):
-	def __init__(self, childs):
-		super().__init__(MuTypes.ORDINATA, childs)
+    def __init__(self, childs):
+        super().__init__(MuTypes.ORDINATA, childs)
 
-	def getValue(self):
-		return self.value
-
-	def toPrint(self):
-		#flem dle faire mtn
-		return str(self.value)
-
-	def at(self, muvalue):
-		return self.value[int(muvalue.getValue())]
+    def getValue(self):return self.value
+    def toPrint(self):return str(self.value)
+    def add(self, muvalue):self.value.append(muvalue)
+    def at(self, muvalue):return self.value[int(muvalue.getValue())]

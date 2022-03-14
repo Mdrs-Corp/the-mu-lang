@@ -18,8 +18,9 @@
 			</add>
 			b temp
 		</indo>
+		<addo>b 5</addo>
 		<loq>
-			a ||,|| b 
+			a ||,|| b
 			|| Nombre d'or : ||
 			<partio> a b </partio> 
 		</loq>

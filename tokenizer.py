@@ -2,7 +2,7 @@
 
 
 isletter=lambda s:0x61<=ord(s)<=0x7a or 0x41<=ord(s)<=0x7a
-isnumber=lambda s:0x30<=ord(s)<=0x39 or s=="."
+isnumber=lambda s:0x30<=ord(s)<=0x39 or s=="." or s=="-"
 
 def tokenize(text:str):
     tokens = []
@@ -50,7 +50,6 @@ def tokenize(text:str):
         elif char=="}":
         	index+=1
         	tokens.append(Token("balise","/indicium"))
-        	
         else:
         	print("Weird char: ",char,f"({ord(char)})",index)
         	index+=1
