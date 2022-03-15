@@ -171,9 +171,28 @@ class Ind(Node):
 	def action(self, data):
 		return self.childs[0].action(data).at(self.childs[1].action(data))
 
+class Officium(Node):
+	REPR = "Officium"
+
+	def action(self, data):
+		name = self.childs[0].name
+		parametersEnd = len(self.childs)-2
+		data[name] = values.Officium(self.childs[1:parametersEnd], self.childs[-1])
+
+class Call(Node):
+	REPR = "Officium"
+
+	def __init__(self, name):
+		super().__init__()
+		self.name = name
+
+	def action(self, data):
+		#pas sur de quoi que se soit ici
+		if self.name in data and data[self.name].type == values.MuTypes.OFFICIUM:
+			data[self.name].call([child.action(data) for child in self.childs])
+
 bigdic={
 	"loq": Loq,
-	".µ": Node,
 	"µ": Node,
 	"add": Add,
 	"partio": Partio,
@@ -188,11 +207,19 @@ bigdic={
 	"et": Et,
 	"ubi": Ubi,
 	"ord": Ord,
-	"indicium": Ind
+	"indicium": Ind,
+	"officium": Officium
 }
 
+
+def balise(token):
+	if token.value in bigdic:
+		return bigdic[token.value]()
+	return Call(token.value)
+
+
 def newnode(token):
-	if token.type == "balise":return bigdic[token.value]()
+	if token.type == "balise":return balise(token)
 	elif token.type == "number":return Num(token.value)
 	elif token.type == "string":return Fil(token.value)
 	elif token.type == "identifier":return Identifier(token.value)

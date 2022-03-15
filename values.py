@@ -1,10 +1,12 @@
 from enum import Enum
 from errors import alert
+
 class MuTypes(Enum):
 	FILUM = 0
 	NUMERUS = 1
 	BOOLEAN = 2
 	ORDINATA = 3
+	OFFICIUM = 4
 
 class MuValue:
 	def __init__(self, type, value):
@@ -156,3 +158,11 @@ class Ordinata(MuValue):
 
 	def at(self, muvalue):
 		return self.value[int(muvalue.getValue())]
+
+
+class Officium(MuValue):
+	def __init__(self, parameters, code):
+		super().__init__(MuTypes.OFFICIUM, code)
+
+	def call(self, parameters):
+		print(parameters[0].toPrint(), parameters[1].toPrint())
