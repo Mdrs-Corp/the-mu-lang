@@ -1,16 +1,15 @@
 # the-mu-lang
-The µ programming langage python based
+The µ programming langage python based  
+You can crerate your magnificents programmes in µ in your atom editor by selecting the "Mu-Lang" grammar
 ## Exemple of a code :
-```
+```xml
 <µ>
-	<loq>
-		<add>1 2</add>
-	</loq>
-	<loq>
-		<add>1 2</add>
-	</loq>
+ <loq>
+   || Hello world ! ||
+ </loq>
 </µ>
 ```
+
 ## Keywords table
 | Keyword             | traduction |  what it does                                      |  
 |:-------------------:|:----------:|:---------------------------------------------------|  
@@ -32,15 +31,17 @@ The µ programming langage python based
 ## Some examples
 More directly in the repository muExemples
 
-```
-\<indo>  
+### Sets the value B in the variable A
+```xml
+<indo>  
 	identifier (A)  
 	expression (B)  
-\</indo>  
-||sets the value B in the variable A||
-\<dom>  
+</indo> 
+```
+### Do B while A
+```xml
+<dom>  
 	condition (A)  
 	expression (B)  
-\</dom>  
-||do B while A||
+</dom>  
 ```
