@@ -1,0 +1,10 @@
+<µ>
+	<loq>|| Programme qui écrit la suite de fibonnacci ||</loq>
+  <officium>
+    <test></test>
+    a b c d
+    <verum></verum>
+  </officium>
+	<test>1 5 2 6</test>
+  <test>6 2 3 75</test>
+</µ>

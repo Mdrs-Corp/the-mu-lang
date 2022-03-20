@@ -9,8 +9,8 @@ class Node():
 	def __repr__(self):
 		t = f"{self.REPR}("
 		for e in self.childs:
-			t += "\n\t" + str(e)
-		return t + f"){self.REPR[0]}\n"
+			t += str(e)
+		return t + f")"
 
 	def action(self, data):
 		last = None
@@ -22,9 +22,7 @@ class Loq(Node):
 	REPR = "Loqum"
 
 	def action(self, data):
-		result = ""
-		for elem in self.childs:
-			result += elem.action(data).repr
+		result = self.childs[0].action(data).toPrint()
 		print(result)
 		return result
 
@@ -71,14 +69,9 @@ class Identifier(Node):
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
-		self.consult=None
 
 	def action(self, data):
-		if self.consult:
-			data[self.value].consult=self.consult
-			return data[self.value].getValue(data)
-		else:
-			return data[self.value]
+		return data[self.value]
 
 class Num(Node):
 	REPR = "Numerus"
@@ -96,27 +89,20 @@ class Fil(Node):
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
-		self.consult=None
-		self.muvalue=values.Filum(self.value)
 
 	def action(self, data):
-		self.muvalue.consult=self.consult
-		return self.muvalue
-	def __repr__(self):
-		return super().__repr__()+str(self.consult)
-	
+		return values.Filum(self.value)
+
+
 class Ord(Node):
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
-		self.consult=None		
-		
+
 	def action(self,data):
-		self.muvalue=values.Ordinata([c.action(data) for c in self.childs])	
-		self.muvalue.consult=self.consult
-		return self.muvalue
-	def __repr__(self):
-		return super().__repr__()+str(self.consult)
+		self.value = values.Ordinata([child.action(data) for child in self.childs])
+		return self.value
+
 class Inf(Node):
 	REPR = "Inferioris"
 
@@ -178,12 +164,35 @@ class Et(Node):
 class Ubi(Node):
 	REPR="Ubi"
 	def action(self, data):return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
+
 class Ind(Node):
 	REPR="Indicium"
 
+	def action(self, data):
+		return self.childs[0].action(data).at(self.childs[1].action(data))
+
+class Officium(Node):
+	REPR = "Officium"
+
+	def action(self, data):
+		name = self.childs[0].name
+		parametersEnd = len(self.childs)-2
+		data[name] = values.Officium(self.childs[1:parametersEnd], self.childs[-1])
+
+class Call(Node):
+	REPR = "Officium"
+
+	def __init__(self, name):
+		super().__init__()
+		self.name = name
+
+	def action(self, data):
+		#pas sur de quoi que se soit ici
+		if self.name in data and data[self.name].type == values.MuTypes.OFFICIUM:
+			data[self.name].call([child.action(data) for child in self.childs])
+
 bigdic={
 	"loq": Loq,
-	".µ": Node,
 	"µ": Node,
 	"add": Add,
 	"partio": Partio,
@@ -197,14 +206,21 @@ bigdic={
 	"falsum": Fal,
 	"et": Et,
 	"ubi": Ubi,
-	"ord":Ord,
-	"indicium":Ind
+	"ord": Ord,
+	"indicium": Ind,
+	"officium": Officium
 }
 
+
+def balise(token):
+	if token.value in bigdic:
+		return bigdic[token.value]()
+	return Call(token.value)
+
+
 def newnode(token):
-	if token.type == "balise":return bigdic[token.value]()
+	if token.type == "balise":return balise(token)
 	elif token.type == "number":return Num(token.value)
 	elif token.type == "string":return Fil(token.value)
 	elif token.type == "identifier":return Identifier(token.value)
 	else:print('Node not fode',token)
-		

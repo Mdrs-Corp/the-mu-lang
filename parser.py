@@ -7,32 +7,32 @@ class Brick:
 	def __init__(self,v):
 		self.v=v
 		self.down=None
-		
+
 	def history(self):
 		if self.down==None:
 			return [self]
 		else:
 			return [self]+self.down.history()
-		
+
 class Pile:
 	def __init__(self,t='FIRST'):
 		self.tete=Brick(t)
-		
+
 	@property
 	def top(self):
 		return self.tete.v
-		
+
 	def add(self,zarma):
 		new=Brick(zarma)
 		new.down=self.tete
 		self.tete=new
-		
+
 	def pop(self):
 		self.tete=self.tete.down
-		
+
 	def __repr__(self):
 		return ','.join(str(s) for s in self.tete.history())
-		
+
 
 def parse(tokens:list):
 	ouverts=Pile(newnode(tokens[0]))
@@ -40,11 +40,7 @@ def parse(tokens:list):
 		if token.type=="balise":
 			if token.value[0]=="/":
 				ouverts.pop()
-				# Pour enlever les indiciums du tronc (il est aussi attaché dans l'objet itéré dans l'attribut "consult")
-				if ouverts.top.childs[-1]==Ind:
-					ouverts.top.childs.pop()
 			else:
-				
 				if token.value[-1]=="/":
 					# Balise autofermante
 					token.value=token.value[:-1]
@@ -52,9 +48,9 @@ def parse(tokens:list):
 					ouverts.top.childs.append(new)
 				else:
 					new=newnode(token)
+					if new.REPR=="Indicium":
+						new.childs.append(ouverts.top.childs.pop())
 					ouverts.top.childs.append(new)
-					# Enregistrer l'indice dans l'objet itéré
-					if new.REPR=="Indicium":ouverts.top.childs[-1].consult=new
 					ouverts.add(new)
 		else:
 			ouverts.top.childs.append(newnode(token))
