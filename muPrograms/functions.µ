@@ -7,7 +7,7 @@
 				a 1
 				div -1
 			</indo>
-			<dom>
+			<dum>
 				<inferioris>0 iter</inferioris>
 				<indo>
 					iter
@@ -18,16 +18,9 @@
 				<indo>
 				<si>
 					<aequalis>
-						<partio>iter 2</partio>
-						<num><partio>iter 2</partio></num>
+						<partio>iter 2</partio><partio>iter 2</partio>
 					</aequalis>
-					<indo>
-						a
-						<add>
-						a
-						<partio>-1 div</partio>
-						</add>
-					</indo>
+					<indo> a <add> a <partio>-1 div</partio></add></indo>
 				</si>
 				<alite>|| c'est else ||
 					<indo>
@@ -38,7 +31,7 @@
 						</add>
 					</indo>
 				</alite>
-			</dom>
+			</dum>
 			<reducite><mul>a 4</mul></reducite>
 		</pi>
 	</officium>
@@ -46,4 +39,3 @@
 		<pi>50</pi>
 	</loq>
 </µ>
-			

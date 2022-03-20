@@ -10,7 +10,7 @@ class Node():
 		t = f"{self.REPR}("
 		for e in self.childs:
 			t += str(e)
-		return t + f")"
+		return t + f")\n"
 
 	def action(self, data):
 		last = None
@@ -92,7 +92,6 @@ class Fil(Node):
 
 	def action(self, data):
 		return values.Filum(self.value)
-
 
 class Ord(Node):
 	REPR="Ordinata"
@@ -176,8 +175,12 @@ class Officium(Node):
 
 	def action(self, data):
 		name = self.childs[0].name
-		parametersEnd = len(self.childs)-2
-		data[name] = values.Officium(self.childs[1:parametersEnd], self.childs[-1])
+		parameters=[]
+		i=1
+		while self.childs[i].REPR=="Variabilis":
+			parameters.append(self.childs[i])
+			i+=1
+		data[name] = values.Officium(parameters, self.childs[i:])
 
 class Call(Node):
 	REPR = "Officium"
@@ -187,10 +190,23 @@ class Call(Node):
 		self.name = name
 
 	def action(self, data):
-		#pas sur de quoi que se soit ici
-		if self.name in data and data[self.name].type == values.MuTypes.OFFICIUM:
-			data[self.name].call([child.action(data) for child in self.childs])
-
+		scopedata={}
+		fun=data[self.name]
+		for variab,child in zip(fun.parameters,self.childs):
+			scopedata[variab.value]=child.action(data)
+		scopedata.update(data)
+		for child in fun.value:
+			if child.REPR=="Reducite":
+				return child.action(scopedata)
+			child.action(scopedata)
+#		if self.name in data and data[self.name].type == values.MuTypes.OFFICIUM:
+#			data[self.name].call([child.action(data) for child in self.childs])
+		return values.Filum("None")
+class Red(Node):
+	# c'est return
+	REPR="Reducite"
+	def action(self,data):
+		return self.childs[0].action(data)
 bigdic={
 	"loq": Loq,
 	"µ": Node,
@@ -208,7 +224,8 @@ bigdic={
 	"ubi": Ubi,
 	"ord": Ord,
 	"indicium": Ind,
-	"officium": Officium
+	"officium": Officium,
+	"red":Red
 }
 
 

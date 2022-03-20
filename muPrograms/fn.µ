@@ -1,10 +1,11 @@
 <µ>
-	<loq>|| Programme qui écrit la suite de fibonnacci ||</loq>
+	<loq>|| f(a,b) = 69a + b ||</loq>
   <officium>
-    <test></test>
-    a b c d
-    <verum></verum>
+    <allah/>
+    a b
+		<indo>a <mul>a 69</mul></indo>
+    <red><add>a  b</add></red>
   </officium>
-	<test>1 5 2 6</test>
-  <test>6 2 3 75</test>
+	<loq><allah>1 5</allah></loq>
+  <loq><allah>6 2</allah></loq>
 </µ>

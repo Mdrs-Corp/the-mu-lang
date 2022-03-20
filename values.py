@@ -36,7 +36,6 @@ class MuValue:
 	def at(self, muvalue):
 		"when self {muvalue}"
 
-
 class Filum(MuValue):
 	def __init__(self, value):
 		super().__init__(MuTypes.FILUM, value)
@@ -67,8 +66,6 @@ class Filum(MuValue):
 
 	def at(self, muvalue):
 		return self.getValue()[int(muvalue.getValue())]
-
-
 
 class Numerus(MuValue):
 	def __init__(self, value):
@@ -159,10 +156,7 @@ class Ordinata(MuValue):
 	def at(self, muvalue):
 		return self.value[int(muvalue.getValue())]
 
-
 class Officium(MuValue):
 	def __init__(self, parameters, code):
+		self.parameters=parameters
 		super().__init__(MuTypes.OFFICIUM, code)
-
-	def call(self, parameters):
-		print(parameters[0].toPrint(), parameters[1].toPrint())
