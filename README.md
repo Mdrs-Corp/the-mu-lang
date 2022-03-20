@@ -1,4 +1,4 @@
-# the-mu-lang
+# The µ lang
 The µ programming langage python based  
 You can crerate your magnificents programmes in µ in your atom editor by selecting the "Mu-Lang" grammar
 ## Exemple of a code :
