@@ -1,6 +1,6 @@
 <µ>
 	<officium>
-		<pi>
+		<pi/>
 		iter
 			|| une approximation de pi pour iter itérations par la technique dite du moyenne age(wikipedia Middle Ages)||
 			<indo>
@@ -32,8 +32,7 @@
 					</indo>
 				</alite>
 			</dum>
-			<reducite><mul>a 4</mul></reducite>
-		</pi>
+			<red><mul>a 4</mul></red>
 	</officium>
 	<loq>
 		<pi>50</pi>
