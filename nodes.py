@@ -1,5 +1,5 @@
 import values
-
+import errors
 class Node():
 	REPR = "µ"
 
@@ -183,15 +183,19 @@ class Officium(Node):
 		data[name] = values.Officium(parameters, self.childs[i:])
 
 class Call(Node):
-	REPR = "Officium"
+	REPR = "Allô"
 
 	def __init__(self, name):
 		super().__init__()
 		self.name = name
+		self.REPR=name
 
 	def action(self, data):
 		scopedata={}
-		fun=data[self.name]
+		try:
+			fun=data[self.name]
+		except:
+			errors.unknown(self.name)
 		for variab,child in zip(fun.parameters,self.childs):
 			scopedata[variab.value]=child.action(data)
 		scopedata.update(data)
