@@ -1,7 +1,7 @@
 <µ>
 	||Programme qui dit bonjour le monde||
 
-	<loq>||Hello wµrld !|| <verum/></loq>
+	<loq>||Hello wµrld !|| ||<verum/>||</loq>
 	<loq>
 		<mul>
 			<add>2 4</add>

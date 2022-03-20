@@ -22,7 +22,7 @@ class Loq(Node):
 	REPR = "Loqum"
 
 	def action(self, data):
-		result = self.childs[0].action(data).toPrint()
+		result = ', '.join(c.action(data).toPrint() for c in self.childs)
 		print(result)
 		return result
 
