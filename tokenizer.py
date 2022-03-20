@@ -52,7 +52,7 @@ def tokenize(text:str):
         	tokens.append(Token("balise","/indicium"))
 
         else:
-        	print("Weird char: ",char,f"({ord(char)})",index)
+        	print("Weird char: ",char,f"utf: ({ord(char)}) at:",index,"doesn't understand it")
         	index+=1
     return tokens
 

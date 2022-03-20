@@ -9,6 +9,7 @@ class MuTypes(Enum):
 	OFFICIUM = 4
 
 class MuValue:
+	REPR="Default"
 	def __init__(self, type, value):
 		self.type = type
 		self.value = value
@@ -37,6 +38,7 @@ class MuValue:
 		"when self {muvalue}"
 
 class Filum(MuValue):
+	REPR="FILUM"
 	def __init__(self, value):
 		super().__init__(MuTypes.FILUM, value)
 
@@ -47,13 +49,13 @@ class Filum(MuValue):
 		if muvalue.type == MuTypes.FILUM:
 			return Filum(self.getValue() + muvalue.getValue())
 		else:
-			alert('You can only add Filum to another Filum')
+			alert(self,muvalue,'add')
 
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMERUS:
 			return Filum(self.getValue() * int(muvalue.getValue()))
 		else:
-			alert('You can only multiply Filum by Numerus')
+			alert(self,muvalue,'multiply')
 
 	def equal(self, muvalue):
 		if muvalue.type == MuTypes.FILUM:
@@ -62,12 +64,13 @@ class Filum(MuValue):
 			else:
 				return Boolean("falsum")
 		else:
-			alert("You can only compare Filum to another Filum")
+			alert(self,muvalue,'compare')
 
 	def at(self, muvalue):
 		return self.getValue()[int(muvalue.getValue())]
 
 class Numerus(MuValue):
+	REPR="NUMERUS"
 	def __init__(self, value):
 		super().__init__(MuTypes.NUMERUS, value)
 
@@ -81,19 +84,19 @@ class Numerus(MuValue):
 		if muvalue.type == MuTypes.NUMERUS:
 			return Numerus(str(self.getValue() + muvalue.getValue()))
 		else:
-			alert("You can only add Numerus to another Numerus")
+			alert(self,muvalue,'add')
 
 	def mul(self, muvalue):
 		if muvalue.type == MuTypes.NUMERUS:
 			return Numerus(str(self.getValue() * muvalue.getValue()))
 		else:
-			alert('You can only multiply Numerus by another Numerus')
+			alert(self,muvalue,'multiply')
 
 	def div(self, muvalue):
 		if muvalue.type == MuTypes.NUMERUS:
 			return Numerus(str(self.getValue() / muvalue.getValue()))
 		else:
-			alert('You can only partio Numerus by another Numerus')
+			alert(self,muvalue,'divide')
 
 	def inf(self, muvalue):
 		if muvalue.type == MuTypes.NUMERUS:
@@ -109,6 +112,7 @@ class Numerus(MuValue):
 		return Boolean("falsum")
 
 class Boolean(MuValue):
+	REPR="BOOLEAN"
 	def __init__(self, value):
 		super().__init__(MuTypes.BOOLEAN, value)
 
@@ -117,21 +121,21 @@ class Boolean(MuValue):
 
 	def getValue(self):
 		if self.value == "verum":
-			return 0b1
+			return 1
 		elif self.value == "falsum":
-			return 0b0
-		alert('Unknown Boolean:'+str(self.value))
+			return 0
+		print('Unknown Boolean:'+str(self.value))
 
 	@property
 	def isTrue(self):
 		value = self.getValue()
-		if value == 0b1:
+		if value == 1:
 			return True
 		else:
 			return False
 
 	def anti(self):
-		if self.getValue() == 0b0:
+		if self.getValue() == 0:
 			return Boolean("verum")
 		else:
 			return Boolean("falsum")
@@ -143,6 +147,7 @@ class Boolean(MuValue):
 		return Boolean("falsum")
 
 class Ordinata(MuValue):
+	REPR="ORDINATA"
 	def __init__(self, childs):
 		super().__init__(MuTypes.ORDINATA, childs)
 
@@ -150,13 +155,13 @@ class Ordinata(MuValue):
 		return self.value
 
 	def toPrint(self):
-		#flem dle faire mtn
-		return str(self.value)
+		return '['+','.join(c.toPrint for c in self.childs)+']'
 
 	def at(self, muvalue):
 		return self.value[int(muvalue.getValue())]
 
 class Officium(MuValue):
+	REPR="OFFICIUM"
 	def __init__(self, parameters, code):
 		self.parameters=parameters
 		super().__init__(MuTypes.OFFICIUM, code)

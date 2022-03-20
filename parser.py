@@ -2,7 +2,7 @@
 ##un truc genre  https://www.researchgate.net/profile/Thang-Huynh-Quyet/publication/300802898/figure/fig1/AS:723808830894081@1549580881995/Abstract-syntax-tree-of-Euclide-function.png
 
 from nodes import newnode,Ind
-
+import sys
 class Brick:
 	def __init__(self,v):
 		self.v=v
@@ -39,7 +39,11 @@ def parse(tokens:list):
 	for token in tokens:
 		if token.type=="balise":
 			if token.value[0]=="/":
-				ouverts.pop()
+				if ouverts.top.REPR.lower()[:len(token.value)-1]!=token.value[1:]:
+					print(f"A tag has been opened({ouverts.top.REPR}) but not well closed(found {token.value[1:]})")
+					sys.exit()
+				else:
+					ouverts.pop()
 			else:
 				if token.value[-1]=="/":
 					# Balise autofermante

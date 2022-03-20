@@ -202,11 +202,13 @@ class Call(Node):
 #		if self.name in data and data[self.name].type == values.MuTypes.OFFICIUM:
 #			data[self.name].call([child.action(data) for child in self.childs])
 		return values.Filum("None")
+
 class Red(Node):
 	# c'est return
 	REPR="Reducite"
 	def action(self,data):
 		return self.childs[0].action(data)
+
 bigdic={
 	"loq": Loq,
 	"µ": Node,
@@ -233,7 +235,6 @@ def balise(token):
 	if token.value in bigdic:
 		return bigdic[token.value]()
 	return Call(token.value)
-
 
 def newnode(token):
 	if token.type == "balise":return balise(token)
