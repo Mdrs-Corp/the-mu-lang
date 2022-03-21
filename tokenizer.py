@@ -1,14 +1,18 @@
 ##converti le programe mu en une liste de tokens, en gros juste pour separer les "mots"
 
-
+# renvoie vrai si le Character est une lettre
 isletter=lambda s:0x61<=ord(s)<=0x7a or 0x41<=ord(s)<=0x7a
+# renvoie vrai si le Character est un nombre ou un point ou un signe moins
 isnumber=lambda s:0x30<=ord(s)<=0x39 or s=="." or s=="-"
 
 def tokenize(text:str):
+    """Transforme text en une liste de tokens (fongibles)
+    Un token est un tuple (type, value)"""
     tokens = []
     index = 0
     while index < len(text):
         char = text[index]
+
         if char == " " or char=="\n" or char=="\t":
             index += 1
 
@@ -28,7 +32,7 @@ def tokenize(text:str):
                 name += text[index]
                 index += 1
             index += 1
-            tokens.append(Token("balise", name))
+            tokens.append(("balise", name))
 
         elif isnumber(char):
             t = ""
@@ -47,19 +51,13 @@ def tokenize(text:str):
         elif char=="{":
         	index+=1
         	tokens.append(Token("balise","indicium"))
+
         elif char=="}":
         	index+=1
         	tokens.append(Token("balise","/indicium"))
 
         else:
-        	print("Weird char: ",char,f"utf: ({ord(char)}) at:",index,"doesn't understand it")
+        	print("Weird char: ",char,f"utf: ({ord(char)}) at:",index,", doesn't understand it")
         	index+=1
+
     return tokens
-
-class Token:
-    def __init__(self, t, value):
-        self.type = t
-        self.value = value
-
-    def __repr__(self):
-        return f"{self.type}:{self.value}"
