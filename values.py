@@ -155,7 +155,7 @@ class Ordinata(MuValue):
 		return self.value
 
 	def toPrint(self):
-		return '['+','.join(c.toPrint for c in self.childs)+']'
+		return '['+', '.join(c.toPrint() for c in self.value)+']'
 
 	def at(self, muvalue):
 		return self.value[int(muvalue.getValue())]

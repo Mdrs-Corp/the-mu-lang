@@ -1,8 +1,11 @@
 import values
 import errors
-class Node():
-	REPR = "µ"
 
+class Node():
+	"""Classe principale:
+	Un noeud est un élément dans un arbre qui execute l'action de ses enfants
+	puis renvoie le resultat à son parent"""
+	REPR = "µ"
 	def __init__(self):
 		self.childs = []
 
@@ -19,6 +22,8 @@ class Node():
 		return last
 
 class Loq(Node):
+	"""Loqum, équivalent au python "print", écrit le résultat de ses enfants dans
+	le terminal"""
 	REPR = "Loqum"
 
 	def action(self, data):
@@ -27,6 +32,7 @@ class Loq(Node):
 		return result
 
 class Add(Node):
+	"""Fait la somme de l'ensemble de ses termes"""
 	REPR = "Addere"
 
 	def action(self, data):
@@ -36,6 +42,9 @@ class Add(Node):
 		return result
 
 class Partio(Node):
+	"""Divise le premier terme par l'ensemble des suivants:
+	<partio> 1 2 3 4 </partio> --> ((1/2)/3)/4
+	"""
 	REPR = "Partiorum"
 
 	def action(self, data):
@@ -45,7 +54,8 @@ class Partio(Node):
 		return result
 
 class Mul(Node):
-	REPR = "multiplicare"
+	"""Multiplie les termes entre eux"""
+	REPR = "Multiplicare"
 
 	def action(self, data):
 		result = self.childs[0].action(data)
@@ -54,6 +64,9 @@ class Mul(Node):
 		return result
 
 class Indo(Node):
+	"""Assigine une variable à une valeur:
+	<indo> a 5 </indo> --> a = 5
+	<indo> a 5 b 10 a b </indo> --> a = 5; b = 10; a = b"""
 	REPR = "Indo"
 
 	def action(self, data):
@@ -64,8 +77,9 @@ class Indo(Node):
 		return result
 
 class Identifier(Node):
-	REPR = "Variabilis"
+	""" Noeud représentant une Variable, c'est une feuille de l'arbe du programme"""
 
+	REPR = "Variabilis"
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
@@ -74,8 +88,8 @@ class Identifier(Node):
 		return data[self.value]
 
 class Num(Node):
+	""" Noeud représentant un Nombre, c'est une feuille de l'arbe du programme"""
 	REPR = "Numerus"
-
 	def __init__(self, value):
 		super().__init__()
 		self.value = value
@@ -84,6 +98,7 @@ class Num(Node):
 		return values.Numerus(self.value)
 
 class Fil(Node):
+	""" Noeud représentant une Chaine de Character, c'est une feuille de l'arbe du programme"""
 	REPR = "Filum"
 
 	def __init__(self, value):
@@ -94,6 +109,7 @@ class Fil(Node):
 		return values.Filum(self.value)
 
 class Ord(Node):
+	""" Noeud représentant une liste, c'est une feuille de l'arbe du programme"""
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
@@ -103,6 +119,10 @@ class Ord(Node):
 		return self.value
 
 class Inf(Node):
+	"""Renvoie vrai si tous les nombres sont croissants:
+	<inferioris> a b </inferioris> --> a < b
+	<inferioris> a b c </inferioris> --> a < b < c
+	"""
 	REPR = "Inferioris"
 
 	def action(self, data):
@@ -117,6 +137,10 @@ class Inf(Node):
 		return values.Boolean("verum")
 
 class Aeq(Node):
+	"""Renvoie vrai si toutes les entitées sont égales:
+	<aequalis> a b </aequalis> --> a == b
+	<aequalis> a b c </aequalis> --> a == b et b == c
+	"""
 	REPR = "Aequalis"
 
 	def action(self, data):
@@ -129,8 +153,10 @@ class Aeq(Node):
 		return values.Boolean("verum")
 
 class Dum(Node):
-	REPR="Dom"
-
+	"""Boucle tant que:
+	<dum> condition script </dum> --> while(condition){script}
+	"""
+	REPR="Dum"
 	def action(self, data):
 		last = None
 		while self.childs[0].action(data).isTrue:
@@ -139,6 +165,9 @@ class Dum(Node):
 		return last
 
 class Si(Node):
+	"""Instruction conditionelle:
+	<si> condition script </si> --> if(condition){script}
+	"""
 	REPR="Si"
 
 	def action(self, data):
@@ -149,28 +178,45 @@ class Si(Node):
 		return last
 
 class Ver(Node):
+	""" Noeud représentant une valeur toujours Vraie, c'est une feuille de l'arbe du programme"""
 	REPR="Verum"
 	def action(self, data):return values.Boolean("verum")
 
 class Fal(Node):
+	""" Noeud représentant une valeur toujours Fausse, c'est une feuille de l'arbe du programme"""
 	REPR="Falsum"
 	def action(self, data):return values.Boolean("falsum")
 
 class Et(Node):
+	"""Renvoie vrai si toutes les valeurs sont vraies:
+	<et> a b c </et> --> a and b and c
+	"""
 	REPR="Et"
 	def action(self, data):return values.Boolean("verum" if all(child.action(data).isTrue for child in self.childs) else "falsum")
 
 class Ubi(Node):
+	"""Renvoie vrai si il'y a une condition vraie parmi l'ensemble des enfants:
+	<ubi> a b c </ubi> --> a or b or c
+	"""
 	REPR="Ubi"
 	def action(self, data):return values.Boolean("verum" if any(child.action(data).isTrue for child in self.childs) else "falsum")
 
 class Ind(Node):
+	"""Lorsque l'utilisateur consulte une liste à un certain indice"""
 	REPR="Indicium"
-
 	def action(self, data):
 		return self.childs[0].action(data).at(self.childs[1].action(data))
 
 class Officium(Node):
+	"""Pour déclarer une fonction:
+	<officium>
+		<name/>
+		arg1 arg2
+		script
+	</officium>
+	-->
+	def name(arg1, arg2):
+		script"""
 	REPR = "Officium"
 
 	def action(self, data):
@@ -183,8 +229,8 @@ class Officium(Node):
 		data[name] = values.Officium(parameters, self.childs[i:])
 
 class Call(Node):
+	"""Quand une fonction inconne est appellée"""
 	REPR = "Allô"
-
 	def __init__(self, name):
 		super().__init__()
 		self.name = name
@@ -206,14 +252,14 @@ class Call(Node):
 		return values.Filum("None")
 
 class Red(Node):
-	# c'est return
+	"""Pour renvoyer une valeur lors de l'appel d'une fonction custom"""
 	REPR="Reducite"
 	def action(self,data):
 		return self.childs[0].action(data)
 
 bigdic={
-	"loq": Loq,
 	"µ": Node,
+	"loq": Loq,
 	"add": Add,
 	"partio": Partio,
 	"mul": Mul,
@@ -234,11 +280,13 @@ bigdic={
 
 
 def balise(token):
+	"""Crée une balise à partir d'un token"""
 	if token.value in bigdic:
 		return bigdic[token.value]()
 	return Call(token.value)
 
 def newnode(token):
+	"""Transforme un token en noeud"""
 	if token.type == "balise":return balise(token)
 	elif token.type == "number":return Num(token.value)
 	elif token.type == "string":return Fil(token.value)

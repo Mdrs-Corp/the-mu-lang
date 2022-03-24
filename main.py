@@ -1,5 +1,6 @@
+"""Programme qui inteprète les fichier donné"""
 import tokenizer
-import parser
+import muparser as parser
 import sys
 
 if __name__=="__main__":
@@ -7,7 +8,7 @@ if __name__=="__main__":
 		p=input("Enter file to execute:")
 	else:
 		p=sys.argv[1]
-	f=open(p,"r")
+	f=open(p,"r",encoding="utf-8")
 	tokens = tokenizer.tokenize(f.read())
 	f.close()
 	node=parser.parse(tokens)
