@@ -203,8 +203,6 @@ class Call(Node):
 			if child.REPR=="Reducite":
 				return child.action(scopedata)
 			child.action(scopedata)
-#		if self.name in data and data[self.name].type == values.MuTypes.OFFICIUM:
-#			data[self.name].call([child.action(data) for child in self.childs])
 		return values.Filum("None")
 
 class Red(Node):

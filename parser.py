@@ -39,7 +39,8 @@ def parse(tokens:list):
 	for token in tokens:
 		if token.type=="balise":
 			if token.value[0]=="/":
-				if ouverts.top.REPR.lower()[:len(token.value)-1]!=token.value[1:]:
+				token.value = token.value[1:]
+				if ouverts.top.REPR!=newnode(token).REPR:
 					print(f"A tag has been opened({ouverts.top.REPR}) but not well closed(found {token.value[1:]})")
 					sys.exit()
 				else:
