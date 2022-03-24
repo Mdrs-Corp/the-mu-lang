@@ -13,7 +13,7 @@ class Node():
 		t = f"{self.REPR}("
 		for e in self.childs:
 			t += str(e)
-		return t + f")\n"
+		return t + f")"
 
 	def action(self, data):
 		last = None
@@ -281,14 +281,14 @@ bigdic={
 
 def balise(token):
 	"""Crée une balise à partir d'un token"""
-	if token.value in bigdic:
-		return bigdic[token.value]()
-	return Call(token.value)
+	if token[1] in bigdic:
+		return bigdic[token[1]]()
+	return Call(token[1])
 
 def newnode(token):
 	"""Transforme un token en noeud"""
-	if token.type == "balise":return balise(token)
-	elif token.type == "number":return Num(token.value)
-	elif token.type == "string":return Fil(token.value)
-	elif token.type == "identifier":return Identifier(token.value)
+	if token[0] == "balise":return balise(token)
+	elif token[0] == "number":return Num(token[1])
+	elif token[0] == "string":return Fil(token[1])
+	elif token[0] == "identifier":return Identifier(token[1])
 	else:print('Node not fode',token)
