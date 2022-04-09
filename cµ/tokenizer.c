@@ -39,8 +39,9 @@ token * tokenize(const char text[],int len){
       using=using->next;
       using->type=0;
       int e=0;
-      char p[index-start-4];
+      char p[index-start-4+1];
       for(int i=start+2;i<index-2;){p[e]=text[i];e++;}
+      p[e+1]='\0';
       strcpy(using->value,p);
     }else if(c=='<'){
       char name[100];
@@ -55,6 +56,7 @@ token * tokenize(const char text[],int len){
       using->next=malloc(sizeof(token));
       using=using->next;
       using->type=1;
+      name[e+1]='\0';
       strcpy(using->value,name);
     }else if(isnumber(c)){
       char name[100];
@@ -68,6 +70,7 @@ token * tokenize(const char text[],int len){
       using->next=malloc(sizeof(token));
       using=using->next;
       using->type=2;
+      name[e+1]='\0';
       strcpy(using->value,name);
     }else if(isletter(c)){
     char name[100];
@@ -81,6 +84,7 @@ token * tokenize(const char text[],int len){
     using->next=malloc(sizeof(token));
     using=using->next;
     using->type=3;
+    name[e+1]='\0';
     strcpy(using->value,name);
   }else{
     printf("Pas compris : %c ( place dans utf : %i)\n",c,c );
@@ -92,7 +96,6 @@ token * tokenize(const char text[],int len){
 }
 
 int main(int argc, char const *argv[]) {
-  printf("%i\n",isletter('.'));
   token* t=tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
   while(t->next){
     printf("%s\n",t->value);
