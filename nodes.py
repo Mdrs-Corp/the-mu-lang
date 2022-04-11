@@ -54,7 +54,8 @@ class Partio(Node):
 		return result
 
 class Mul(Node):
-	"""Multiplie les termes entre eux"""
+	"""Multiplie les termes entre eux
+	<mul> 1 2 3 4 </mul> --> 1 x 2 x 3 x 4"""
 	REPR = "Multiplicare"
 
 	def action(self, data):
@@ -64,9 +65,17 @@ class Mul(Node):
 		return result
 
 class Indo(Node):
-	"""Assigine une variable à une valeur:
+	"""Assigne une variable à une valeur:
 	<indo> a 5 </indo> --> a = 5
-	<indo> a 5 b 10 a b </indo> --> a = 5; b = 10; a = b"""
+	<indo>
+		a 5
+		b 10
+		a b
+	</indo>
+	--> a prend la valeur 5;
+		b prend la valeur 10;
+		a prend la valeur b;
+	"""
 	REPR = "Indo"
 
 	def action(self, data):
@@ -77,7 +86,8 @@ class Indo(Node):
 		return result
 
 class Identifier(Node):
-	""" Noeud représentant une Variable, c'est une feuille de l'arbe du programme"""
+	""" Noeud représentant une Variable,
+	c'est une feuille de l'AST du programme"""
 
 	REPR = "Variabilis"
 	def __init__(self, value):
@@ -88,7 +98,8 @@ class Identifier(Node):
 		return data[self.value]
 
 class Num(Node):
-	""" Noeud représentant un Nombre, c'est une feuille de l'arbe du programme"""
+	""" Noeud représentant un Nombre,
+	c'est une feuille de l'AST du programme"""
 	REPR = "Numerus"
 	def __init__(self, value):
 		super().__init__()
@@ -98,7 +109,8 @@ class Num(Node):
 		return values.Numerus(self.value)
 
 class Fil(Node):
-	""" Noeud représentant une Chaine de Character, c'est une feuille de l'arbe du programme"""
+	""" Noeud représentant une Chaine de Caractères,
+	c'est une feuille de l'AST du programme"""
 	REPR = "Filum"
 
 	def __init__(self, value):
@@ -109,7 +121,8 @@ class Fil(Node):
 		return values.Filum(self.value)
 
 class Ord(Node):
-	""" Noeud représentant une liste, c'est une feuille de l'arbe du programme"""
+	""" Noeud représentant un tableau (liste ordonnée),
+	c'est une feuille de l'AST du programme"""
 	REPR="Ordinata"
 	def __init__(self):
 		super().__init__()
@@ -119,9 +132,9 @@ class Ord(Node):
 		return self.value
 
 class Inf(Node):
-	"""Renvoie vrai si tous les nombres sont croissants:
-	<inferioris> a b </inferioris> --> a < b
-	<inferioris> a b c </inferioris> --> a < b < c
+	"""Renvoie Verum si les nombres sont rangés dans l'ordre croissant:
+	<inferioris> a b </inferioris> --> a inférieur à b
+	<inferioris> a b c </inferioris> --> a inférieur à b ET b inférieur à c
 	"""
 	REPR = "Inferioris"
 
@@ -138,8 +151,8 @@ class Inf(Node):
 
 class Aeq(Node):
 	"""Renvoie vrai si toutes les entitées sont égales:
-	<aequalis> a b </aequalis> --> a == b
-	<aequalis> a b c </aequalis> --> a == b et b == c
+	<aequalis> a b </aequalis> --> a et b ont la même valeur
+	<aequalis> a b c </aequalis> --> a et b et c ont la même valeur
 	"""
 	REPR = "Aequalis"
 
@@ -154,7 +167,11 @@ class Aeq(Node):
 
 class Dum(Node):
 	"""Boucle tant que:
-	<dum> condition script </dum> --> while(condition){script}
+	<dum>
+		'condition'
+		'script'
+	</dum> --> while(condition){script}
+	Tant que la condition est vraie, éxécuter le script
 	"""
 	REPR="Dum"
 	def action(self, data):
@@ -166,7 +183,10 @@ class Dum(Node):
 
 class Si(Node):
 	"""Instruction conditionelle:
-	<si> condition script </si> --> if(condition){script}
+	<si>
+		'condition'
+		'script'
+	</si> --> if(condition){script}
 	"""
 	REPR="Si"
 
