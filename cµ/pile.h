@@ -1,21 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "tokenizer.h"
-#define blocsize malloc(sizeof(bloc))
-#define nodesize malloc(sizeof(node))
-
-typedef struct bloc{
-    int type;
-    char content[100];
-    struct bloc * prev;
-}bloc;
-
-typedef struct node{
-    int type;
-    char content[100];
-    struct node * child;
-    struct node * bro;
-}node;
 
 bloc * empiler(bloc * head, token * new){
     bloc * n =(bloc*) blocsize;
@@ -30,11 +12,15 @@ bloc * depiler(bloc * head){
 }
 
 node * addSon(node * mom,token * tok){
-    node *c =mom->child;
+    node *c = mom->child;
+    if(mom->child==0){
+        mom->child=(node*)nodesize;
+        c=mom->child;
+    }
     while(c->bro){
         c=c->bro;
     }
-    c->bro=(node*)nodesize;
+    c->bro= (node*) nodesize;
     c->bro->type=tok->type;
     strcpy(c->bro->content,tok->value);
     return c->bro;
@@ -58,9 +44,4 @@ node * parse(token *  tok){
         tok=tok->next;
     }
     return root;
-}
-
-int main(int argc, char const *argv[]) {
-    printf("%s\n", "quidgame");
-    return 0;
 }
