@@ -8,7 +8,9 @@ Et les mettres dans ce fichier afin d'executer un gros */
 #include "pile.h"
 
 
-const char exemple[]="<µ><a></a> 12 ||allah est grand||   58 <a> ||squid game||</µ>";
+const char exemple[]="<µ><a> 12 </a> 12 ||allah est grand||   58 <a></a> ||squid game||</µ>";
+
+
 
 int main(int argc, char const *argv[]) {
 	token * T = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
@@ -17,6 +19,6 @@ int main(int argc, char const *argv[]) {
 		printf("Type : %i Valeur : %s\n",t->type, t->value);
 		t=t->next;
 	}
-    //parse(T);
+    printFamilly(parse(T),0);
 	return 0;
 }

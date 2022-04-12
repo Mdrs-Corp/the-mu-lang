@@ -45,3 +45,17 @@ node * parse(token *  tok){
     }
     return root;
 }
+void printFamilly(node * root, int niv){
+    for (size_t i = 0; i < niv; i++) {
+        printf("---|");
+    }
+    printf("%s\n",root->content);
+    node * curChild=root->child;
+    while (curChild) {
+        printFamilly(curChild,niv+1);
+        curChild=curChild->bro;
+    }
+    if (root->bro) {
+        printFamilly(root->bro,niv);
+    }
+}
