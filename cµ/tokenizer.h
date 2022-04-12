@@ -89,11 +89,11 @@ token * tokenize(const char text[],int len){
 	return tokens->next->next;
 }
 
-int main(int argc, char const *argv[]) {
+/*int main(int argc, char const *argv[]) {
 	token * t = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
 	while(t){
 		printf("Type : %i Valeur : %s\n",t->type, t->value);
 		t=t->next;
 	}
 	return 0;
-}
+}*/
