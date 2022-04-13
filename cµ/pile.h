@@ -1,8 +1,7 @@
 
 bloc * empiler(bloc * head, token * new){
     bloc * n =(bloc*) blocsize;
-    n->type=new->type;
-    strcpy(n->content,new->value);
+    n->tok=new;
     n->prev=head;
     return n;
 }
@@ -14,14 +13,14 @@ bloc * depiler(bloc * head){
 node * addSon(node * mom,token * tok){
     node *c = mom->child;
     if(mom->child==0){
-        mom->child=(node*)nodesize;
-        c=mom->child;
+        mom->child = (node*) nodesize;
+        c = mom->child;
     }
     while(c->bro){
-        c=c->bro;
+        c = c->bro;
     }
-    c->bro= (node*) nodesize;
-    c->bro->type=tok->type;
+    c->bro = (node*) nodesize;
+    c->bro->type = tok->type;
     strcpy(c->bro->content,tok->value);
     return c->bro;
 }
@@ -35,8 +34,8 @@ node * parse(token *  tok){
             if((tok->value)[0]=='/'){
                 pile=depiler(pile);
             }else{
-                pile=empiler(pile,tok);
-                currentNode=addSon(currentNode,tok);
+                pile = empiler(pile,tok);
+                currentNode = addSon(currentNode,pile->tok);
             }
         }else{
             addSon(currentNode,tok);
@@ -58,4 +57,8 @@ void printFamilly(node * root, int niv){
     if (root->bro) {
         printFamilly(root->bro,niv);
     }
+	for (size_t i = 0; i < niv; i++) {
+        printf("---| /");
+    }
+	printf("\n");
 }

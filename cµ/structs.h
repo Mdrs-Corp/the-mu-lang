@@ -8,7 +8,7 @@ Fichier qui contient toutes les structures utilisées
 
 /* les types:
 0: string
-1: balise
+1: balise    strcpy(n->content,new->value);
 2: number
 3: identifier
 */
@@ -20,8 +20,7 @@ typedef struct token {
 }token ;
 
 typedef struct bloc{
-    int type;
-    char content[100];
+    token * tok;
     struct bloc * prev;
 }bloc;
 
