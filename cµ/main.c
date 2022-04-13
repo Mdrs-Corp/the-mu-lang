@@ -10,8 +10,6 @@ Et les mettres dans ce fichier afin d'executer un gros */
 
 const char exemple[]="<µ> <a> ||SQPQR|| ||kakak|| </a> ||jean||</µ>";
 
-
-
 int main(int argc, char const *argv[]) {
 	printf("Lexing : \n");
 	token * T = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
