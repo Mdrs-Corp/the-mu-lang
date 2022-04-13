@@ -6,11 +6,12 @@ Et les mettres dans ce fichier afin d'executer un gros */
 #include "structs.h"
 #include "tokenizer.h"
 #include "parser.h"
+#include "action.h"
 
-
-const char exemple[]="<µ> <a> ||SQPQR|| ||kakak|| </a> ||jean||</µ>";
+const char exemple[]="<µ> <loq> || jean || </loq></µ>";
 
 int main(int argc, char const *argv[]) {
+
 	printf("Lexing : \n");
 	token * T = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
     token * t=T;
@@ -18,8 +19,13 @@ int main(int argc, char const *argv[]) {
 		printf("Type : %i Valeur : %s\n",t->type, t->value);
 		t=t->next;
 	}
+
 	printf("Parsing : \n");
 	node * R = parse(T);
     printFamilly(R,0);
+
+	printf("Interpreting : \n");
+	action(R);
+	printf("Commence par un mu ? %i, c'est un \"%s\"\n", (R->content)=="µ", R->content);
 	return 0;
 }

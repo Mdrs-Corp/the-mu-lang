@@ -8,7 +8,7 @@ Fichier qui contient toutes les structures utilisées
 
 /* les types:
 0: string
-1: balise    strcpy(n->content,new->value);
+1: balise  
 2: number
 3: identifier
 */
@@ -17,7 +17,7 @@ typedef struct token {
   int type;
   char value[100]; // Les valeurs des tokens sont ainsi limités à 100 caractères
   struct token * next;
-}token ;
+}token;
 
 
 typedef struct node{
