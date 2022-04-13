@@ -19,10 +19,6 @@ typedef struct token {
   struct token * next;
 }token ;
 
-typedef struct bloc{
-    token * tok;
-    struct bloc * prev;
-}bloc;
 
 typedef struct node{
     int type;
@@ -30,3 +26,8 @@ typedef struct node{
     struct node * child;
     struct node * bro;
 }node;
+
+typedef struct bloc{
+    node * node;
+    struct bloc * prev;
+}bloc;

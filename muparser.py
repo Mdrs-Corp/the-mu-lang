@@ -48,8 +48,7 @@ def parse(tokens:list):
 				else:
 					ouverts.pop()
 			else:
-				if token[1][-1]=="/":
-					# Balise autofermante
+				if token[1][-1]=="/": # Balise autofermante
 					token=token[0],token[1][:-1]
 					new=newnode(token)
 					ouverts.top.childs.append(new)
