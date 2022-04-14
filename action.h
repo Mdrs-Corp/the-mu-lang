@@ -69,10 +69,9 @@ mess action(node * nod){
                 m.ival=s;
 			}else{// Balise inconnue ou inutile (µ par exemple)
 				if(nod->child){action(nod->child);}
+                if(nod->bro){action(nod->bro);}
 			}
-            if(nod->bro){action(nod->bro);}
 			break;
-
         case 2://Numerus
             m.type=1;
             m.ival=parseInt(nod->content,nod->size);

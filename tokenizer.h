@@ -76,15 +76,16 @@ token * tokenize(char text[],int len){
 	return tokens->next->next;
 }
 
-char c=0;//Current char
-char nc=0;//Next char
-FILE *filePointer;
-char move(){
-	c = nc;
-	nc = fgetc(filePointer);
-	return c;
-}
+
 token * tokenizeFromFile(const char *path){
+	char c=0;//Current char
+	char nc=0;//Next char
+	FILE *filePointer;
+	char move(){ // Oui, c'est mal...
+		c = nc;
+		nc = fgetc(filePointer);
+		return c;
+	}
     filePointer = fopen(path, "r");
 	if (filePointer == NULL){
         printf("File is not available \n");

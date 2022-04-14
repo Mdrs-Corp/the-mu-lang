@@ -30,7 +30,7 @@ typedef struct node{
     struct node * bro;
 }node;
 
-//Les blocs pour la pile lors de l'AST
+//Les blocs pour la pile lors de la fabrication de l'AST
 typedef struct bloc{
     node * node;
     struct bloc * prev;
