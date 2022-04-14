@@ -1,5 +1,5 @@
 # The µ lang
-The µ programming langage python based  
+The µ programming langage C based  
 You can crerate your magnificents programmes in µ in your atom editor by selecting the "Mu-Lang" grammar
 ## Execute your maginificient code
 Just type in your command line where you downloaded the interpreter :  
@@ -42,7 +42,7 @@ More directly in the repository muExemples
 <indo>  
 	identifier (A)  
 	expression (B)  
-</indo> 
+</indo>
 ```
 ### Do B while A
 ```xml

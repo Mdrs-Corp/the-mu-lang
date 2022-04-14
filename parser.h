@@ -13,6 +13,7 @@ bloc * depiler(bloc * head){
 node * createNode(token * tok){
 	node * c = (node*) nodesize;
 	c->type = tok->type;
+    c->size=tok->size;
 	strcpy(c->content, tok->value);
 	return c;
 }

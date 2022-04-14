@@ -24,6 +24,7 @@ token * tokenize(const char text[],int len){
 			using->next=(token *) toknsize;
 			using=using->next;
 			using->type=1;
+			using->size=e;
 			name[e]='\0';
 			strcpy(using->value,name);
         }else if(isnumber(c)){
@@ -35,6 +36,7 @@ token * tokenize(const char text[],int len){
 			using->next=(token *) toknsize;
 			using=using->next;
 			using->type=2;
+			using->size=e;
 			name[e]='\0';
 			strcpy(using->value,name);
 		}else if(isletter(c)){
@@ -49,6 +51,7 @@ token * tokenize(const char text[],int len){
 			using->next=(token*) toknsize;
 			using=using->next;
 			using->type=3;
+			using->size=e;
 			name[e+1]='\0';
 			strcpy(using->value,name);
         }else if(c=='|'){
@@ -62,6 +65,7 @@ token * tokenize(const char text[],int len){
 			using->next=(token*) toknsize;
 			using=using->next;
 			using->type=0;
+			using->size=lenOfStr;
 			name[lenOfStr]='\0';
 			strcpy(using->value,name);
 		}else{

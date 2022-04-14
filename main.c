@@ -8,7 +8,7 @@ Et les mettres dans ce fichier afin d'executer un gros */
 #include "parser.h"
 #include "action.h"
 
-const char exemple[]="<µ> <loq> || jean || </loq></µ>";
+const char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
 
 int main(int argc, char const *argv[]) {
 
@@ -26,6 +26,5 @@ int main(int argc, char const *argv[]) {
 
 	printf("Interpreting : \n");
 	action(R);
-	printf("Commence par un mu ? %i, c'est un \"%s\"\n", (R->content)=="µ", R->content);
 	return 0;
 }

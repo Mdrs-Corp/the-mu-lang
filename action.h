@@ -36,34 +36,50 @@ int parseInt(const char *num,int len){
   return result;
 }
 
-int charCompartion(char * a, char * b, int len){
-	for (int i = 0; i < len; i++) {
-		if(a[i]!=b[i]){
-			return 0;
-		}
-	}
-	return 1;
-}
 
-char * action(node * node){
-	switch (node->type){
-		case 0:
-			return node->content;
+const char *Loqum="loq";
+const char *Addere="add";
+mess action(node * nod){
+    mess m;
+    m.type=0;// Null
+    m.ival=0;
+	switch (nod->type){
+		case 0: // String
+            m.type=2;
+            strcpy(m.cval,nod->content);
 			break;
-		case 1:
-			if(node->content=="loq"){
-				printf("%s\n", action(node));
-				return "";
+		case 1://Balise
+			if(strcmp(nod->content, Loqum)==0){
+                if(nod->child){
+                    mess a=action(nod->child);
+                    if(a.type==1){
+                        printf("%i\n", a.ival);
+                    }else{
+                        printf("%s\n", a.cval);
+                    }
+                }
+            }else if(strcmp(nod->content, Addere)==0){
+                int s=0;
+                node * c;
+                c = nod->child;
+                while(c){
+                    s+=action(c).ival;
+                    c=c->bro;
+                }
+                m.ival=s;
+                m.type=1;
 			}else{
-				printf("pas un loq : %s\n", node->content );
-				if(node->child){action(node->child);}
-				if(node->bro){action(node->bro);}
-				return "";
+				if(nod->child){action(nod->child);}
 			}
+            if(nod->bro){action(nod->bro);}
 			break;
+        case 2://Numerus
+            m.type=1;
+            m.ival=parseInt(nod->content,nod->size);
+            strcpy(m.cval,nod->content);
+            break;
 		default:
-			return "";
 			break;
-
 	}
+    return m;
 }
