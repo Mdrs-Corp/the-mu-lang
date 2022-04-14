@@ -76,34 +76,35 @@ token * tokenize(char text[],int len){
 	return tokens->next->next;
 }
 
-char c;
+char c=0;//Current char
+char nc=0;//Next char
 FILE *filePointer;
 char move(){
-	return (c = fgetc(filePointer));
+	c = nc;
+	nc = fgetc(filePointer);
+	return c;
 }
 token * tokenizeFromFile(const char *path){
     filePointer = fopen(path, "r");
-
-	if (filePointer == NULL)
-    {
+	if (filePointer == NULL){
         printf("File is not available \n");
     }
 
 	token * tokens = (token*) toknsize;
 	tokens -> next = (token*) toknsize;
 	token * using = tokens -> next;
-
-	while(move() != EOF){
+	move();
+	while(c!= EOF){
 		if(c==' ' || c=='\n' || c=='\t'){
 			move();
         }else if(c=='<'){
 			char name[100];
 			int e=0;
-            move();
-			while(c!=EOF && c !='>'){
+			while(nc!=EOF && nc !='>'){
 				name[e++]=move();
 			}
             move();
+			move();
 			using->next=(token *) toknsize;
 			using=using->next;
 			using->type=1;
@@ -114,20 +115,22 @@ token * tokenizeFromFile(const char *path){
         }else if(isnumber(c)){
 			char name[100];
 			int e=0;
-			while(c!=EOF && isnumber(c)){
-				name[e++]=move();
+			while(nc!=EOF && isnumber(nc)){
+				name[e++]=c;
+				move();
 			}
+			move();
 			using->next = (token *) toknsize;
 			using = using->next;
 			using->type=2;
 			using->size=e;
 			name[e]='\0';
 			strcpy(using->value,name);
+
 		}else if(isletter(c)){
 			char name[100];
 			int e=0;
-			move();
-			while(c!=EOF && isletter(c)){
+			while(nc!=EOF && isletter(nc)){
 				name[e++]=move();
 			}
 			using->next=(token*) toknsize;
@@ -136,14 +139,16 @@ token * tokenizeFromFile(const char *path){
 			using->size=e;
 			name[e+1]='\0';
 			strcpy(using->value,name);
+
         }else if(c=='|'){
 			int lenOfStr=0;
             char name[100];
-            move();
 			move();
-			while(!(c=='|')){
-				name[lenOfStr++]=move();
-			}
+			move();
+			do{
+				name[lenOfStr++]=c;
+				move();
+			}while(!(c=='|' && nc=='|'));
             move();
 			move();
 			using->next=(token*) toknsize;

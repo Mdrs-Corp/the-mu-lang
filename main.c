@@ -10,16 +10,8 @@ Et les mettres dans ce fichier afin d'executer un gros */
 
 char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
 
-
-
-
-
-
-
-
-
 int main(int argc, char const *argv[]){
-	printf("Lexing : ");
+	printf("-->Lexing : ");
 	token * T;
 	if(argc==2){
 		printf("From \"%s\" : \n", argv[1]);
@@ -35,11 +27,11 @@ int main(int argc, char const *argv[]){
 		t=t->next;
 	}
 
-	printf("Parsing : \n");
+	printf("-->Parsing : \n");
 	node * R = parse(T);
     printFamilly(R,0);
 
-	printf("Interpreting : \n");
+	printf("-->Interpreting : \n");
 	action(R);
 	return 0;
 }

@@ -1,5 +1,5 @@
 all: main.c
 	gcc -g -Wall -o dicke main.c
-	./dicke
+	./dicke ./muPrograms/helloworld.µ
 clean:
 	$(RM) dicke
