@@ -18,7 +18,7 @@ node * createNode(token * tok){
 	return c;
 }
 
-void * addSon(node * mom, node * new){
+void addSon(node * mom, node * new){
 	if(mom->child == 0){ // si il n'y en avait pas
 		mom->child = new;// il devient l'ainé
 	}else{
@@ -27,8 +27,8 @@ void * addSon(node * mom, node * new){
 			c=c->bro;
 		}
 		c->bro=new;// Devenir plus petit que le petit
-	}
-}
+	};
+};
 
 node * parse(token *  tok){
     bloc * pile = (bloc *) blocsize;

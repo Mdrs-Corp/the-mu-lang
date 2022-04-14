@@ -48,6 +48,7 @@ mess action(node * nod){
             m.type=2;
             strcpy(m.cval,nod->content);
 			break;
+
 		case 1://Balise
 			if(strcmp(nod->content, Loqum)==0){
                 if(nod->child){
@@ -59,20 +60,19 @@ mess action(node * nod){
                     }
                 }
             }else if(strcmp(nod->content, Addere)==0){
-                int s=0;
-                node * c;
-                c = nod->child;
-                while(c){
-                    s+=action(c).ival;
-                    c=c->bro;
-                }
-                m.ival=s;
                 m.type=1;
-			}else{
+                int s=0;
+                node * c = nod->child;
+                do{
+                    s+=action(c).ival;
+                }while((c=c->bro));
+                m.ival=s;
+			}else{// Balise inconnue ou inutile (µ par exemple)
 				if(nod->child){action(nod->child);}
 			}
             if(nod->bro){action(nod->bro);}
 			break;
+
         case 2://Numerus
             m.type=1;
             m.ival=parseInt(nod->content,nod->size);

@@ -4,8 +4,13 @@ You can crerate your magnificents programmes in µ in your atom editor by select
 ## Execute your maginificient code
 Just type in your command line where you downloaded the interpreter :  
 ```bash
-python3 main.py path_of_your_file.µ
-```  
+gcc main.c -o dicket
+```    
+Now that's it's compiled you just need to run the interpreter with:  
+```bash
+dicket your_script.µ
+```
+
 No neads for extras modules, should woks for python>=3.6
 ## Exemple of a code :
 ```xml

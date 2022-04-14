@@ -8,12 +8,27 @@ Et les mettres dans ce fichier afin d'executer un gros */
 #include "parser.h"
 #include "action.h"
 
-const char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
+char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
 
-int main(int argc, char const *argv[]) {
 
-	printf("Lexing : \n");
-	token * T = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
+
+
+
+
+
+
+
+int main(int argc, char const *argv[]){
+	printf("Lexing : ");
+	token * T;
+	if(argc==2){
+		printf("From \"%s\" : \n", argv[1]);
+		T = tokenizeFromFile(argv[1]);
+	}else{
+		printf("From exemple : \n" );
+		T = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
+	}
+
     token * t=T;
 	while(t){
 		printf("Type : %i Valeur : %s\n",t->type, t->value);
