@@ -1,11 +1,13 @@
 <µ>
-	||Programme qui dit bonjour le monde||
 
-	<loq>||Hello wµrld !|| ||<verum/>||</loq>
 	<loq>
-		<mul>
-			<add>2 4</add>
-			<partio>14 -2</partio>
-		</mul>
+		||Bonjour le monde ! µwµ ||
+	</loq>
+	|| Programme qui dit bonjour le monde ||
+	<loq>
+		<add>
+		1
+		2
+		</add>
 	</loq>
 </µ>
