@@ -10,7 +10,7 @@ Un ordianateur ne peut lire qu'un seul charactère à la fois.
 On va ainsi *scanner* le document afin de trouver un charactère clef à la compréhention du script.  
 Ici, on trouve des **<**, qui vont indiquer un début de balise [highlith]  
 On va donc consiéder tout ce qui se situe enter "<" et ">" comme une balise d'action, ou **token**, et les stocker dans une liste.  
-# `ìi` Parser, mise en arbre
+# `ii` Parser, mise en arbre
 Maintenant que nous avons une liste de tokens, nous devons comprendre ces tokens. 
 un peu comme un point marque la fin d'une phrase, chaque balise marque la fin et le début d'une partie.  
 Chaque *partie* contient des *sous-parties*, qu'il faut organiser dans la mémoire.  
