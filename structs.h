@@ -4,7 +4,7 @@ Fichier qui contient toutes les structures utilisées
 
 #define toknsize malloc(sizeof(token))
 #define blocsize malloc(sizeof(bloc))
-#define nodesize malloc(sizeof(node))
+#define nodesize calloc(1,sizeof(node))
 
 /* les types:
 0: string

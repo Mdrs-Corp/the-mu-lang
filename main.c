@@ -22,9 +22,9 @@ int main(int argc, char const *argv[]){
 	}
 
     token * t=T;
-	token * new;
+	printf("type\ttaille\tvaleur\n");
 	while(t){
-		printf("Type : %i Valeur : %s\n",t->type, t->value);
+		printf("%i\t%i\t%s\n",t->type, t->size, t->value);
 		t=t->next;
 	}
 

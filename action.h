@@ -52,12 +52,16 @@ mess action(node * nod,int doBro){
 		case 1://Balise
 			if(strcmp(nod->content, Loqum)==0){
                 if(nod->child){
-                    mess a=action(nod->child,0);
-                    if(a.type==1){
-                        printf("%i\n", a.ival);
-                    }else{
-                        printf("%s\n", a.cval);
-                    }
+					node * parcour=nod->child;
+					while(parcour){
+						mess a = action(parcour,0);
+						if(a.type==1){
+							printf("%i\n", a.ival);
+						}else{
+							printf("%s\n", a.cval);
+						}
+						parcour=parcour->bro;
+					}
                 }
             }else if(strcmp(nod->content, Addere)==0){
                 m.type=1;
