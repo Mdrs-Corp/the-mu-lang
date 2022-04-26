@@ -116,17 +116,18 @@ token * tokenizeFromFile(const char *path){
         }else if(isnumber(c)){
 			char name[100];
 			int e=0;
-			while(nc!=EOF && isnumber(nc)){
-				name[e++]=c;
+			while(nc!=EOF && isnumber(c)){
+				name[e]=c;
+				e++;
 				move();
 			}
 			move();
 			using->next = (token *) toknsize;
 			using = using->next;
-			using->type=2;
-			using->size=e;
-			name[e]='\0';
-			strcpy(using->value,name);
+			using->type = 2;
+			using->size = e;
+			name[e] = '\0';
+			strcpy(using->value, name);
 
 		}else if(isletter(c)){
 			char name[100];

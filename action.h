@@ -39,7 +39,7 @@ int parseInt(const char *num,int len){
 
 const char *Loqum="loq";
 const char *Addere="add";
-mess action(node * nod){
+mess action(node * nod,int doBro){
     mess m;
     m.type=0;// Null
     m.ival=0;
@@ -52,7 +52,7 @@ mess action(node * nod){
 		case 1://Balise
 			if(strcmp(nod->content, Loqum)==0){
                 if(nod->child){
-                    mess a=action(nod->child);
+                    mess a=action(nod->child,0);
                     if(a.type==1){
                         printf("%i\n", a.ival);
                     }else{
@@ -64,12 +64,11 @@ mess action(node * nod){
                 int s=0;
                 node * c = nod->child;
                 do{
-                    s+=action(c).ival;
+                    s+=action(c,0).ival;
                 }while((c=c->bro));
                 m.ival=s;
 			}else{// Balise inconnue ou inutile (µ par exemple)
-				if(nod->child){action(nod->child);}
-                if(nod->bro){action(nod->bro);}
+				if(nod->child){action(nod->child,1);}
 			}
 			break;
         case 2://Numerus
@@ -80,5 +79,6 @@ mess action(node * nod){
 		default:
 			break;
 	}
+	if(nod->bro && doBro){action(nod->bro,1);}
     return m;
 }

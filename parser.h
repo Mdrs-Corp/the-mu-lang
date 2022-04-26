@@ -7,10 +7,12 @@ bloc * empiler(bloc * head, node * new) {
 }
 
 bloc * depiler(bloc * head){
-    return head->prev;
+	bloc * new = head->prev;
+	free(head);
+    return new;
 }
 
-node * createNode(token * tok){
+node * NodefromToken(token * tok){
 	node * c = (node*) nodesize;
 	c->type = tok->type;
     c->size=tok->size;
@@ -32,25 +34,28 @@ void addSon(node * mom, node * new){
 
 node * parse(token *  tok){
     bloc * pile = (bloc *) blocsize;
-	node * root = createNode(tok);
+	node * root = NodefromToken(tok);
     pile->node = root;
 	tok = tok->next;
 	node * currentNode;
+	token * new;
     while (tok) {
 		currentNode = pile->node;
         if (tok->type == 1) { // si c'est une balise
             if(tok->value[0] == '/') { // si elle se ferme
                 pile = depiler(pile);
             }else{ // sinon on en ouvre une autre
-				node * new = createNode(tok);
+				node * new = NodefromToken(tok);
 				addSon(currentNode,new);
 				pile = empiler(pile, new);
             }
         }else{ // sinon c'est une feuille de l'AST
-			node * n = createNode(tok);
+			node * n = NodefromToken(tok);
             addSon(currentNode,n);
         }
-        tok = tok->next;
+        new = tok->next;
+		free(tok);
+		tok=new;
     }
     return root;
 }

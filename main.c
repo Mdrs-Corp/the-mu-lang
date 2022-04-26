@@ -22,6 +22,7 @@ int main(int argc, char const *argv[]){
 	}
 
     token * t=T;
+	token * new;
 	while(t){
 		printf("Type : %i Valeur : %s\n",t->type, t->value);
 		t=t->next;
@@ -32,6 +33,6 @@ int main(int argc, char const *argv[]){
     printFamilly(R,0);
 
 	printf("-->Interpreting : \n");
-	action(R);
+	action(R,0);
 	return 0;
 }
