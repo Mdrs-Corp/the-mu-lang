@@ -121,7 +121,6 @@ token * tokenizeFromFile(const char *path){
 				e++;
 				move();
 			}
-			move();
 			using->next = (token *) toknsize;
 			using = using->next;
 			using->type = 2;

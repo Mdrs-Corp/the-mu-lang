@@ -39,6 +39,8 @@ int parseInt(const char *num,int len){
 
 const char *Loqum="loq";
 const char *Addere="add";
+const char *Partiorum="partio";
+const char *Multiplicare="mul";
 mess action(node * nod,int doBro){
     mess m;
     m.type=0;// Null
@@ -70,6 +72,22 @@ mess action(node * nod,int doBro){
                 do{
                     s+=action(c,0).ival;
                 }while((c=c->bro));
+                m.ival=s;
+			}else if(strcmp(nod->content, Multiplicare)==0){
+                m.type=1;
+                int s=1;
+                node * c = nod->child;
+                do{
+                    s*=action(c,0).ival;
+                }while((c=c->bro));
+                m.ival=s;
+			}else if(strcmp(nod->content, Partiorum)==0){
+                m.type=1;
+                node * c = nod->child;
+				int s = action(c,0).ival;
+                while((c=c->bro)){
+                    s=s/action(c,0).ival;
+                };
                 m.ival=s;
 			}else{// Balise inconnue ou inutile (µ par exemple)
 				if(nod->child){action(nod->child,1);}

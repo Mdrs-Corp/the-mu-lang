@@ -1,13 +1,16 @@
 <µ>
 	<loq>
-		||Bonjour le monde ! µwµ ||
+		||Bonjour le monde ! µwµ||
 		||Programme qui dit bonjour le monde||
 	</loq>
-	||ffdqiugivbiib||
 	<loq>
 		<add>
 			1
 			2
+			3
+			<partio> 4 2</partio>
 		</add>
+		<mul> 2 5</mul>
+		||ffdqiugivbiib||
 	</loq>
 </µ>
