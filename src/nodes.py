@@ -1,6 +1,6 @@
 import values
 import errors
-
+from tokenizer import isnumber
 class Node():
 	"""Classe principale:
 	Un noeud est un élément dans un arbre qui execute l'action de ses enfants
@@ -26,10 +26,23 @@ class Loq(Node):
 	le terminal"""
 	REPR = "Loqum"
 
-	def action(self, data):
-		result = ', '.join(c.action(data).toPrint() for c in self.childs)
-		print(result)
+	def action(self, data,end="\n"):
+		result = ''.join(c.action(data).toPrint() for c in self.childs)
+		print(result,end=end)
 		return result
+
+class Qua(Loq):
+	"""Demande à l'utilisateur d'entrer une valeur"""
+	REPR="Quaestio"
+	def action(self,data):
+		super().action(data,end='')
+		res=input()
+		for elem in res:
+			if not isnumber(elem):
+				return values.Filum(res)
+		return values.Numerus(res)
+
+
 
 class Add(Node):
 	"""Fait la somme de l'ensemble de ses termes"""
@@ -280,6 +293,7 @@ class Red(Node):
 bigdic={
 	"µ": Node,
 	"loq": Loq,
+	"qua": Qua,
 	"add": Add,
 	"partio": Partio,
 	"mul": Mul,

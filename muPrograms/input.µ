@@ -1,0 +1,10 @@
+<µ>
+	<loq></loq>
+	<indo>
+		usr
+		<qua> ||donne un nombre:||</qua>
+	</indo>
+	<loq>
+		usr || x 4  = || <mul> usr 4 </mul>
+	</loq>
+</µ>

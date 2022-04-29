@@ -73,12 +73,16 @@ class Numerus(MuValue):
 	REPR="NUMERUS"
 	def __init__(self, value):
 		super().__init__(MuTypes.NUMERUS, value)
+		self.number=None
 
 	def toPrint(self):
-		return str(self.value)
+		return "%g" % self.getValue()
 
 	def getValue(self):
-		return float(self.value)
+		if self.number!=None:
+			return self.number
+		self.number=float(self.value)
+		return self.number
 
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.NUMERUS:
