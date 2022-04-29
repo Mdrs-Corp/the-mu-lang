@@ -1,40 +1,19 @@
 <µ>
+	|| programme qui cacule 2 puissance 8 ||
 	<officium>
-		<pi/>
-		iter
-			|| une approximation de pi pour iter itérations par la technique dite du moyenne age(wikipedia Middle Ages)||
+		<expo/>
+		x exp
+		<indo> v 1</indo>
+		<dum>
+			<inferioris> 1 exp</inferioris>
 			<indo>
-				a 1
-				div -1
+				v
+				<mul> v x </mul>
+				exp
+				<add> exp -1 </add>
 			</indo>
-			<dum>
-				<inferioris>0 iter</inferioris>
-				<indo>
-					iter
-					<add>iter -1</add>
-					div
-					<add>div 2</add>
-				</indo>
-				<indo>
-				<si>
-					<aequalis>
-						<partio>iter 2</partio><partio>iter 2</partio>
-					</aequalis>
-					<indo> a <add> a <partio>-1 div</partio></add></indo>
-				</si>
-				<alite>|| c'est else ||
-					<indo>
-						a
-						<add>
-						a
-						<partio>-1 div</partio>
-						</add>
-					</indo>
-				</alite>
-			</dum>
-			<red><mul>a 4</mul></red>
+		</dum>
+		<red> v</red>
 	</officium>
-	<loq>
-		<pi>50</pi>
-	</loq>
+	<loq> <expo>2 8</expo></loq>
 </µ>
