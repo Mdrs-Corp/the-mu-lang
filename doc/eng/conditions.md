@@ -1,6 +1,6 @@
 # Conditions
 
-Does an action if the condition ( first argument ) is true :
+Does an action if the condition ( first argument ) is true:
 ```xml
 <si>
 	condition
