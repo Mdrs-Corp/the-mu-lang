@@ -1,7 +1,7 @@
 # Math operations
-Tags to do some maths
+Balises pour faire quelques opérations mathématiques
 ## Adderre
-sum all the values given :
+Ajoute toutes les valeurs données :
 ```xml
 <add>
 	a
@@ -10,18 +10,18 @@ sum all the values given :
 	d
 </add>
 ```
-will compute as a+b+c+d.  
-You can even add Filums with Numerus or Booleans
+va calculer a+b+c+d.  
+Il est même possible d'ajouter des filums à des numerus ou des booléans
 ```xml
 <add>
-	|| The answer to everything is ||
+	|| Je sais compter jusqu’à ||
 	42
-	|| and that's amazing ||
+	|| et c'est fabuleux ||
 </add>
 ```
-will say : `The answer to everything is 42 and that's amazing`
+va créer le filum : `Je sais compter jusqu'à 42 et c'est fabuleux`
 ## Multiplicare
-multiply all the values given:
+Multiplie toutes les valeurs entre elles
 ```xml
 <mul>
 	a
@@ -29,14 +29,14 @@ multiply all the values given:
 	c
 </mul>
 ```
-will compute as a\*b\*c.  
-Filums can also be multiplied :
+va calculer a\*b\*c.  
+Les filums peuvent aussi être multipliés:
 ```xml
 <mul> ||tato|| 5 </mul>
 ```
-will return `tatotatotatotatotato`
+va renvoyer `tatotatotatotatotato`
 ## Partiorum
-divide the numbers givens
+Fais la division de tous les nombres
 ```xml
 <partio>
 	a
@@ -44,4 +44,4 @@ divide the numbers givens
 	c
 </partio>
 ```
-will be calculated as (a/b)/c.
+va calculer (a/b)/c.

@@ -1,7 +1,7 @@
 # Tests
-Tag to compare values :
+Balise pour comparer les valeurs
 ## Inferioris
-Return Verum (True) if all the values are in ascending order :
+Renvoie Verum (Vrai) si toutes les valeurs sont dans l'ordre croissant :
 ```xml
 <inferioris>
 	a
@@ -10,10 +10,15 @@ Return Verum (True) if all the values are in ascending order :
 	d
 </inferioris>
 ```
-Will return true if and only if a < b < c < d
+renverra vrai si et seulement si a < b < c < d.  
+De cette façon :
+```xml
+<inferioris> 0 a 10 </inferioris>
+```
+renverra vrai ssi `a` est compris entre 0 et 10
 
 ## aequalis
-Return Verum if all the values are equals :
+Renvoie vrai si toutes les valeurs sont égales à la première :
 ```xml
 <aequalis>
 	a
@@ -22,7 +27,7 @@ Return Verum if all the values are equals :
 	d
 </aequalis>
 ```
-will return true if and only if a = b = c = d  
+Renvera vrai ssi a = b  et a = c et a = d
 ## Conjectives
 You can even do some logical interpretations:
 ### Et

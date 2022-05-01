@@ -1,19 +1,18 @@
 # Officium
-
-Declare a function :
+Déclare une fonction:
 ```xml
 </officium>
-	<name_of_the_function/>
+	<nom_de_la_fonction/>
 	arg1 arg2 arg3
 
 	script
-	<red> Value_to_return </red>
+	<red> valeur_à_renvoyer </red>
 </officium>
 ```
 Example:
 ```xml
 <officium>
-	<square/>
+	<Carré/>
 	x
 
 	<indo>
@@ -23,9 +22,11 @@ Example:
 	<red> v </red>
 </officium>
 ```
-Is a declaration of a function returning the value given as `x`, squared.  
-If you declare this function, you can use it anywhere after on your script:
+Est une fonction qui renvoie le carré de la valeur donné (x).  
+Une fois déclaré, la fonction peut être utilisé n'importe où dans le script:
 ```xml
-<loq> <square> 5 </square> </loq>
+<loq>
+	<Carré> 5 </Carré>
+</loq>
 ```
-will print to the terminal 25.
+va écrire 25.

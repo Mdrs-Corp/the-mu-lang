@@ -1,30 +1,31 @@
 # Filums
-`||` and `||` defines the boundaries of a string of characters:  
+`||` et `||` précisent les limites d'une chaîne de caractères:  
 ```xml
-|| this is a filum ||
+|| Ceci est un filum ||
 ```
-each Filums  contains the EXACT chain of characters it  was written with :
+Chaque filum contient *exactement* les charctères avec lesquels il a été écrit.
 ```xml
 <loq>
-	||i am a
-very long filum ||
+	||je suis un
+très long filum ||
 <loq>
 ```
-will be rendered as :
+va renvoyer :
 ```
-i am a
-very long filum
+je suis un
+très long filum
+```
 
-```
 ## Operations
-We can do some concatenations with filums:
+Il est possible de concacténer des filums:
 ```xml
 <add> ||hello || ||world|| ||!||</add>
 ```
-will be equal to: `hello world!`  
-In this way, we can also multiply filums:
+va créer: `hello world!`  
+De la même manière, on peut multiplier des filums:
 ```xml
 <mul> ||hey || 5 </mul>
 ```
-will render `hey hey hey hey hey `  
-/!\\ Be aware that `<mul> 5 ||hey|| </mul>` won't work !
+va créer `hey hey hey hey hey `  
+:warn: Attention, la multiplication ne fonctionne que si le nombre est après
+le filum : `<mul> 5 ||hey|| </mul>` ne va pas fonctionner !

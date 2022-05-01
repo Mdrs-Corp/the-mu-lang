@@ -1,6 +1,5 @@
 # Conditions
-
-Do an action if the condition ( first argument ) is true :
+Execute le script si le premier argument renvoie Verum:
 ```xml
 <si>
 	condition
@@ -9,27 +8,26 @@ Do an action if the condition ( first argument ) is true :
 ```
 ## Examples :
 ```xml
-<loq> || Is 0 lower than 1 ? || </loq>
+<loq> || Es ce que 1 est inférieur à 0? || </loq>
 <si>
 	<inferioris> 0 1 </inferioris>
-	<loq> || 0 is lower than 1 ! || </loq>
+	<loq> || 0 est plus petit que 1 ! || </loq>
 </si>
 ```
-Here, we will get :
+Ici, nous aurons:
 ```
-Is 0 lower than 1 ?
-0 is lower than 1 !
-
+ Es ce que 1 est inférieur à 0?
+ 0 est plus petit que 1 !
 ```
-but if the condition is false, the inner script won't be executed :
+Mais si la condition est fausse, le script à l'intérieur ne va pas être éxécuté:
 ```xml
-<loq> || Is 1 equals to 2 ? || </loq>
+<loq> ||Es ce que 1 est égal à 2? || </loq>
 <si>
 	<aequalis> 1 2 </aequalis>
-	<loq> || 1 is 2 ! || </loq>
+	<loq> || 1 est 2 ! || </loq>
 </si>
 ```
-Here, we will get :
+Ici nous aurons:
 ```
-Is 1 equals to 2 ?
+Es ce que 1 est égal à 2?
 ```

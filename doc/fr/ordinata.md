@@ -1,6 +1,5 @@
 # Ordinata
-
-Declare an ordered array of items
+Permet de créer une liste ordonnée d'objets
 ```xml
 <ord>
 	a
@@ -9,22 +8,22 @@ Declare an ordered array of items
 	d
 </ord>
 ```
-will return the array [a,b,c,d].  
+va créer le tableau [a,b,c,d].  
 ## Consult
-You can put this array into a variable and consult the values later with {}:
+Vous pouvez créer une liste et la consulter après avec des {}:
 ```xml
 <indo>
-	crew
+	équipage
 	<ord>
-		|| john ||
-		|| mac ||
-		|| kinsey ||
-		|| borris ||
-		|| edward ||
+		|| alphonse ||
+		|| albert ||
+		|| eude ||
+		|| stéphane ||
+		|| jean ||
 	</ord>
 </indo>
 <loq>
-	crew{0}
+	équipage{0}
 </loq>
 ```
-will print ` john `
+renverra ` alphonse `

@@ -1,9 +1,9 @@
 # Indo
-set the value into a variable :
+Met une valeur dans une variable :
 ```xml
 <indo>
 	variable
-	value
+	valeur
 </indo>
 ```
 Example:
@@ -16,16 +16,16 @@ Example:
 	a
 </loq>
 ```
-will say `10`.  
-You can even set multiple variables with one indo tag:
+va écrire `10`.  
+Il est même possible d'assigner plusieurs variables depuis une même balise:
 ```xml
 <indo>
 	var1
-	value_for_var1
+	valeur_pour_var1
 	var2
-	value_for_var3
+	valeur_pour_var3
 	var3
-	value_for_var3
+	valeur_pour_var3
 </indo>
 ```
 Example:
@@ -39,12 +39,12 @@ Example:
 		1
 	</add>
 	c
-	|| i am groot ||
+	|| fromage de chèvre ||
 </indo>
 ```
-after this :
-| var |type|value|
+Après l'éxécution de cette balise:
+| varibale |type|valeur|
 |:-:|:-|:-:|
 |a|Numerus| 10|
 |b|Numerus| 11|
-|c|Filum| i am groot |
+|c|Filum| fromage de chèvre |

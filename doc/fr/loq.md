@@ -1,17 +1,16 @@
 # Loq
-Log the content to the user, in the terminal, whenever the type of the arguments
-given:
+écrit le contenu des arguments dans le shell, quel que soit leur type:
 ```xml
 <loq>
-	||Hi, ||
-	||my name is ||
-	my_name
-	|| and i have ||
-	brothers_number
-	|| brothers ||
+	||Hey, ||
+	||je m'appelle ||
+	mon_nom
+	|| et j'ai  ||
+	nombre_de_frères
+	|| frères ||
 </loq>
 ```
-If my_name is 'jean' and brothers_number is 12, this part will print :
-```xml
-Hi my name is jean and i have 12 brothers
+Si mon_nom vaut 'jean' nombre_de_frères vaut 12, cette balise va écrire:
+```
+Hey, je m'appelle jean et j'ai 12 frères 
 ```

@@ -1,5 +1,12 @@
 # Dum
-Execute the script **while** the condition is true :
+Execute le script tant que la condition est vraie:
+```xml
+<dum>
+	condition
+	script
+</dum>
+```
+Example:
 ```xml
 <indo> a 0 </indo>|| set a to 0 ||
 <dum> || while ... ||
