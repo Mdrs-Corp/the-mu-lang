@@ -12,5 +12,7 @@
 ```
 Si mon_nom vaut 'jean' nombre_de_frères vaut 12, cette balise va écrire:
 ```
-Hey, je m'appelle jean et j'ai 12 frères 
+Hey, je m'appelle jean et j'ai 12 frères
 ```
+---
+[retour à la liste](./README.md)

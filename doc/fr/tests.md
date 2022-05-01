@@ -29,9 +29,9 @@ Renvoie vrai si toutes les valeurs sont égales à la première :
 ```
 Renvera vrai ssi a = b  et a = c et a = d
 ## Conjectives
-You can even do some logical interpretations:
+Les conjonctions logiques sont aussi possibles
 ### Et
-Return Verum if and only if all keys are Verum:
+Renvoie vrai si tous les arguments sont vrais:
 ```xml
 <et>
 	A
@@ -39,10 +39,10 @@ Return Verum if and only if all keys are Verum:
 	C
 </et>
 ```
-will return verum if and only if A, B and C computes to Verum
+renverra Verum ssi le calcul de A, B **et** C renvoie Verum
 
 ### Ubi
-Return Verum if one or more in all keys is/are Verum:
+Renvoie vrai si au moins une des balises est vraie:
 ```xml
 <ubi>
 	A
@@ -50,4 +50,6 @@ Return Verum if one or more in all keys is/are Verum:
 	C
 </ubi>
 ```
-will return verum if A, B or C computes to Verum
+renverra Verum ssi le calcul de A, B **ou** C renvoie Verum
+---
+[retour à la liste](./README.md)

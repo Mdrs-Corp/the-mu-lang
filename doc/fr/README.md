@@ -1,6 +1,6 @@
 # Documentation du langage µ
 Des exemples de programmes en µ sont disponibles dans le dossier
-[muPrograms](../muPrograms)
+[muPrograms](../../muPrograms)
 
 ## Keywords table
 | Mot clef       |traduction JavaScript | Bref Résumé |  

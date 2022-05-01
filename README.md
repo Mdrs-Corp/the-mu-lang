@@ -17,4 +17,4 @@ No needs for extra modules, should work with python>=3.6
 </µ>
 ```
 
-see [docs](./doc/README.md) for more details
+see [docs](./doc/) for more details

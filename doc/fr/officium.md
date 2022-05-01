@@ -30,3 +30,5 @@ Une fois déclaré, la fonction peut être utilisé n'importe où dans le script
 </loq>
 ```
 va écrire 25.
+---
+[retour à la liste](./README.md)
