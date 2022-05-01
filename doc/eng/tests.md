@@ -1,7 +1,7 @@
 # Tests
-Tag to compare values :
+Tag to compare values:
 ## Inferioris
-Return Verum (True) if all the values are in ascending order :
+Returns Verum (True) if all the values are in ascending order:
 ```xml
 <inferioris>
 	a
@@ -10,10 +10,10 @@ Return Verum (True) if all the values are in ascending order :
 	d
 </inferioris>
 ```
-Will return true if and only if a < b < c < d
+Would return true if and only if a < b < c < d
 
 ## aequalis
-Return Verum if all the values are equals :
+Returns Verum if all the values are equal:
 ```xml
 <aequalis>
 	a
@@ -22,11 +22,11 @@ Return Verum if all the values are equals :
 	d
 </aequalis>
 ```
-will return true if and only if a = b = c = d  
+would return true if and only if a = b = c = d  
 ## Conjectives
-You can even do some logical interpretations:
+You can even do some logical interpretation:
 ### Et
-Return Verum if and only if all keys are Verum:
+Returns Verum if and only if all keys are Verum:
 ```xml
 <et>
 	A
@@ -34,10 +34,10 @@ Return Verum if and only if all keys are Verum:
 	C
 </et>
 ```
-will return verum if and only if A, B and C computes to Verum
+Would return verum if and only if A, B and C compute to Verum
 
 ### Ubi
-Return Verum if one or more in all keys is/are Verum:
+Returns Verum if one or more key is/are Verum:
 ```xml
 <ubi>
 	A
@@ -45,4 +45,4 @@ Return Verum if one or more in all keys is/are Verum:
 	C
 </ubi>
 ```
-will return verum if A, B or C computes to Verum
+Would return verum if A, B or C computes to Verum

@@ -1,6 +1,6 @@
 # Ordinata
 
-Declare an ordered array of items
+Declares an ordered array of items
 ```xml
 <ord>
 	a
@@ -9,7 +9,7 @@ Declare an ordered array of items
 	d
 </ord>
 ```
-will return the array [a,b,c,d].  
+would return the array [a,b,c,d].  
 ## Consult
 You can put this array into a variable and consult the values later with {}:
 ```xml
@@ -27,4 +27,4 @@ You can put this array into a variable and consult the values later with {}:
 	crew{0}
 </loq>
 ```
-will print ` john `
+would print ` john `

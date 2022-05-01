@@ -1,6 +1,6 @@
 # Officium
 
-Declare a function :
+Declares a function:
 ```xml
 </officium>
 	<name_of_the_function/>
@@ -23,9 +23,9 @@ Example:
 	<red> v </red>
 </officium>
 ```
-Is a declaration of a function returning the value given as `x`, squared.  
-If you declare this function, you can use it anywhere after on your script:
+This is the declaration of a function squaring the argument and returning it.  
+If you declare this function, you can use it anywhere in your script:
 ```xml
 <loq> <square> 5 </square> </loq>
 ```
-will print to the terminal 25.
+would print 25 to the terminal.
