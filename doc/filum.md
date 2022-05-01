@@ -26,4 +26,5 @@ In this way, we can also multiply filums:
 ```xml
 <mul> ||hey || 5 </mul>
 ```
-will render `hey hey hey hey hey `
+will render `hey hey hey hey hey `  
+/!\\ Be aware that `<mul> 5 ||hey|| </mul>` won't work !
