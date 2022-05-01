@@ -48,6 +48,8 @@ class Filum(MuValue):
 	def add(self, muvalue):
 		if muvalue.type == MuTypes.FILUM:
 			return Filum(self.getValue() + muvalue.getValue())
+		elif muvalue.type == MuTypes.FILUM or muvalue.type==MuTypes.BOOLEAN:
+			return Filum(self.getValue()+ muvalue.toPrint())
 		else:
 			alert(self,muvalue,'add')
 
@@ -121,7 +123,7 @@ class Boolean(MuValue):
 		super().__init__(MuTypes.BOOLEAN, value)
 
 	def toPrint(self):
-		return self.value
+		return str(self.value)
 
 	def getValue(self):
 		if self.value == "verum":
