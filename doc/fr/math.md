@@ -2,7 +2,7 @@
 Balises pour faire quelques opérations mathématiques
 ## Adderre
 Ajoute toutes les valeurs données :
-```xml
+```XML
 <add>
 	a
 	b
@@ -11,8 +11,8 @@ Ajoute toutes les valeurs données :
 </add>
 ```
 va calculer a+b+c+d.  
-Il est même possible d'ajouter des filums à des numerus ou des booléans
-```xml
+Il est même possible d'ajouter des filum à des numerus ou des Boolean
+```XML
 <add>
 	|| Je sais compter jusqu’à ||
 	42
@@ -22,7 +22,7 @@ Il est même possible d'ajouter des filums à des numerus ou des booléans
 va créer le filum : `Je sais compter jusqu'à 42 et c'est fabuleux`
 ## Multiplicare
 Multiplie toutes les valeurs entre elles
-```xml
+```XML
 <mul>
 	a
 	b
@@ -30,14 +30,14 @@ Multiplie toutes les valeurs entre elles
 </mul>
 ```
 va calculer a\*b\*c.  
-Les filums peuvent aussi être multipliés:
-```xml
+Les filum peuvent aussi être multipliés:
+```XML
 <mul> ||tato|| 5 </mul>
 ```
 va renvoyer `tatotatotatotatotato`
 ## Partiorum
 Fais la division de tous les nombres
-```xml
+```XML
 <partio>
 	a
 	b
@@ -45,5 +45,4 @@ Fais la division de tous les nombres
 </partio>
 ```
 va calculer (a/b)/c.
-
 [retour à la liste](./README.md)

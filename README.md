@@ -9,12 +9,11 @@ python3 main.py path_of_your_file.µ
 ```  
 No needs for extra modules, should work with python>=3.6
 ## Example of code:
-```xml
+```XML
 <µ>
  <loq>
    || Hello world ! ||
  </loq>
 </µ>
 ```
-
-see [docs](./doc/) for more details
+see [docs(english)](./doc/en) or [docs(french)](./doc/fr) for more details

@@ -1,24 +1,23 @@
 # Dum
-Execute le script tant que la condition est vraie:
-```xml
+Exécute le script tant que la condition est vraie:
+```XML
 <dum>
 	condition
 	script
 </dum>
 ```
 Example:
-```xml
-<indo> a 0 </indo>|| set a to 0 ||
-<dum> || while ... ||
-	<inferioris> a 10 </inferioris> || a < 10 ||
+```XML
+<indo> a 0 </indo> 					|| mettre a à 0 ||
+<dum> 								|| tant que ... ||
+	<inferioris> a 10 </inferioris> || a inférieur à 10 ||
 	<indo>
 		a
 		<add>
 			a
 			1
 		</add>
-	</indo> || set a to a + 1 ||
+	</indo> 						|| mettre a à a + 1 ||
 </dum>
 ```
-
 [retour à la liste](./README.md)

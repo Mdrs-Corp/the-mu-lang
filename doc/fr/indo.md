@@ -1,13 +1,13 @@
 # Indo
 Met une valeur dans une variable :
-```xml
+```XML
 <indo>
 	variable
 	valeur
 </indo>
 ```
 Example:
-```xml
+```XML
 <indo>
 	a
 	10
@@ -18,18 +18,18 @@ Example:
 ```
 va écrire `10`.  
 Il est même possible d'assigner plusieurs variables depuis une même balise:
-```xml
+```XML
 <indo>
 	var1
 	valeur_pour_var1
 	var2
-	valeur_pour_var3
+	valeur_pour_var2
 	var3
 	valeur_pour_var3
 </indo>
 ```
 Example:
-```xml
+```XML
 <indo>
 	a
 	10
@@ -42,8 +42,8 @@ Example:
 	|| fromage de chèvre ||
 </indo>
 ```
-Après l'éxécution de cette balise:
-| varibale |type|valeur|
+Après l’exécution de cette balise:
+| variable |type|valeur|
 |:-:|:-|:-:|
 |a|Numerus| 10|
 |b|Numerus| 11|

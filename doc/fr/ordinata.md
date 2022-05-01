@@ -1,6 +1,6 @@
 # Ordinata
 Permet de créer une liste ordonnée d'objets
-```xml
+```XML
 <ord>
 	a
 	b
@@ -11,21 +11,20 @@ Permet de créer une liste ordonnée d'objets
 va créer le tableau [a,b,c,d].  
 ## Consult
 Vous pouvez créer une liste et la consulter après avec des {}:
-```xml
+```XML
 <indo>
 	équipage
 	<ord>
-		|| alphonse ||
-		|| albert ||
-		|| eude ||
-		|| stéphane ||
-		|| jean ||
+		|| Alphonse ||
+		|| Albert ||
+		|| Eudes ||
+		|| Stéphane ||
+		|| Jean ||
 	</ord>
 </indo>
 <loq>
 	équipage{0}
 </loq>
 ```
-renverra ` alphonse `
-
+renverra ` Alphonse `
 [retour à la liste](./README.md)

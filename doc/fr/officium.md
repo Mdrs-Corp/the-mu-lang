@@ -1,20 +1,18 @@
 # Officium
 Déclare une fonction:
-```xml
+```XML
 </officium>
 	<nom_de_la_fonction/>
 	arg1 arg2 arg3
-
 	script
 	<red> valeur_à_renvoyer </red>
 </officium>
 ```
 Example:
-```xml
+```XML
 <officium>
-	<Carré/>
+	<quadrata/>
 	x
-
 	<indo>
 		v
 		<mul> x x </mul>
@@ -24,11 +22,10 @@ Example:
 ```
 Est une fonction qui renvoie le carré de la valeur donné (x).  
 Une fois déclaré, la fonction peut être utilisé n'importe où dans le script:
-```xml
+```XML
 <loq>
-	<Carré> 5 </Carré>
+	<quadrata> 5 </quadrata>
 </loq>
 ```
 va écrire 25.
-
 [retour à la liste](./README.md)
