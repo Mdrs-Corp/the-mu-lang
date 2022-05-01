@@ -101,7 +101,6 @@ class Indo(Node):
 class Identifier(Node):
 	""" Noeud représentant une Variable,
 	c'est une feuille de l'AST du programme"""
-
 	REPR = "Variabilis"
 	def __init__(self, value):
 		super().__init__()
@@ -309,7 +308,8 @@ bigdic={
 	"ord": Ord,
 	"indicium": Ind,
 	"officium": Officium,
-	"red":Red
+	"red":Red,
+	"ind":Ind
 }
 
 

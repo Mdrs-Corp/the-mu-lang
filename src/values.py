@@ -69,7 +69,7 @@ class Filum(MuValue):
 			alert(self,muvalue,'compare')
 
 	def at(self, muvalue):
-		return self.getValue()[int(muvalue.getValue())]
+		return Filum(self.getValue()[int(muvalue.getValue())])
 
 class Numerus(MuValue):
 	REPR="NUMERUS"
