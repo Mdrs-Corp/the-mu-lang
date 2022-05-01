@@ -1,19 +1,20 @@
-# Language µ documentation
-Examples of mu programs are available in the [muPrograms](../muPrograms) folder
+# Documentation du langage µ
+Des exemples de programmes en µ sont disponibles dans le dossier
+[muPrograms](../muPrograms)
 
 ## Keywords table
-| Keyword       |traduction | brief summary                                 |  
+| Mot clef       |traduction JavaScript | Bref Résumé |  
 |:-------------|:--------:|:----------------------------------------------|  
-|[µ](./mu.md)   |mu        |define the boundaries of the document             |  
-|[loq](./loq.md)|print     |print the content to the user, logs the expression|
-|[\|\| \|\|](./filum.md)|" "       |define the boundaries of a filum                   |
-|[add, partio, mul](./math.md) |+,/,x     |basic math operands                                    |  
-|[indo](./indo.md)           |=         |set a value into a variable                       |
-|[si](./conditions.md) |if        |do this part if the condition is true or jump             |
-|[dum](./dum.md)            |while     |while the condition is true, do                  |
-|[inferioris](./tests.md#inferioris)     |<         |conditionnal bloc if a < b                        |
-|[aequalis](./tests.md#aequalis)       |==        |conditionnal bloc if a==b                         |
-|[et,ubi](./tests.md#conjectives)         |and,or    |return true if all/one of conditons are true      |
-|[officium](./officium.md)       |fonction  |                                                  |
-|[ord](./ordinata.md)            |array     |means ordinata, create an array                   |
-|[{}](./ordinata.md#consult)             |[ ]       |to consult the ordinata at a certain index a{2}   |
+|[µ](./mu.md)                       |mu        |définit les limites du script mu |  
+|[loq](./loq.md)                    |print     |renvoie son contenu dans le shell|
+|[\|\| \|\|](./filum.md)            |" "       |Permet de déclarer un filum|
+|[add, partio, mul](./math.md)      |+,/,x     |Opérations mathématiques simples|  
+|[indo](./indo.md)                  |=         |Sauve une valeur dans une variable|
+|[si](./conditions.md)              |if        |Execute son contenu si sa condition est vraie|
+|[dum](./dum.md)                    |while     |Execute son contenu tant que la condition est vraie|
+|[inferioris](./tests.md#inferioris)|<         |Renvoie vrai si les arguments sont dans l'ordre croissant|
+|[aequalis](./tests.md#aequalis)    |==        |Renvoie vrai si tous les blocs sont égaux|
+|[et,ubi](./tests.md#conjectives)   |and,or    |Renvoie vrai si tout/un argument(s) vrai|
+|[officium](./officium.md)          |function  |Permet de créer des fonctions|
+|[ord](./ordinata.md)               |array     |Permet de créer des tableaux|
+|[{}](./ordinata.md#consult)        |[ ]       |Permet de consulter le tableau à un certain index|
