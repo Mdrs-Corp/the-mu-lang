@@ -1,17 +1,16 @@
 # Loq
-Log the content to the user, in the terminal, whenever the type of the arguments
-given:
+Logs the content to the user in the terminal, not matter the type:
 ```xml
 <loq>
 	||Hi, ||
 	||my name is ||
 	my_name
-	|| and i have ||
+	|| and I have ||
 	brothers_number
 	|| brothers ||
 </loq>
 ```
-If my_name is 'jean' and brothers_number is 12, this part will print :
+If my_name is 'jean' and brothers_number is 12, this part would print:
 ```xml
-Hi my name is jean and i have 12 brothers
+Hi my name is jean and I have 12 brothers
 ```

@@ -1,5 +1,5 @@
 # Indo
-set the value into a variable :
+Sets the value into a variable:
 ```xml
 <indo>
 	variable
@@ -16,7 +16,7 @@ Example:
 	a
 </loq>
 ```
-will say `10`.  
+Prints `10`.  
 You can even set multiple variables with one indo tag:
 ```xml
 <indo>
@@ -42,7 +42,7 @@ Example:
 	|| i am groot ||
 </indo>
 ```
-after this :
+After this:
 | var |type|value|
 |:-:|:-|:-:|
 |a|Numerus| 10|
