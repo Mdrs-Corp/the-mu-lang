@@ -51,5 +51,4 @@ Renvoie vrai si au moins une des balises est vraie:
 </ubi>
 ```
 renverra Verum ssi le calcul de A, B **ou** C renvoie Verum
----
 [retour à la liste](./README.md)

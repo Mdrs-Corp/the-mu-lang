@@ -29,5 +29,5 @@ De la même manière, on peut multiplier des filums:
 va créer `hey hey hey hey hey `  
 :warn: Attention, la multiplication ne fonctionne que si le nombre est après
 le filum : `<mul> 5 ||hey|| </mul>` ne va pas fonctionner !
----
+
 [retour à la liste](./README.md)

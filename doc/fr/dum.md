@@ -20,5 +20,5 @@ Example:
 	</indo> || set a to a + 1 ||
 </dum>
 ```
----
+
 [retour à la liste](./README.md)

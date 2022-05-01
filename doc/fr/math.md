@@ -45,5 +45,5 @@ Fais la division de tous les nombres
 </partio>
 ```
 va calculer (a/b)/c.
----
+
 [retour à la liste](./README.md)

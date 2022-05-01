@@ -31,5 +31,4 @@ Ici nous aurons:
 ```
 Es ce que 1 est égal à 2?
 ```
----
 [retour à la liste](./README.md)
