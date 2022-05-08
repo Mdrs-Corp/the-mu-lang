@@ -81,7 +81,7 @@ void action(node * nod, int doBro, var*vars, mess * m){
 					while(c){
 						action(c,0,vars,m);
 						if(m->type==1){
-							printf("%i", m->ival);
+							printf("%g", m->ival);
 						}else{
 							printf("%s", m->cval);
 						}

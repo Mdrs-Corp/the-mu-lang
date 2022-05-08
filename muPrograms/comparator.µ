@@ -7,7 +7,7 @@
 	<dum>
 		<et>
 			<inferioris>a 100</inferioris>
-			<inferioris>b 100</inferioris>
+			<inferioris>b 2</inferioris>
 		</et>
 		<indo>
 			temp a
@@ -20,6 +20,8 @@
 		</indo>
 		<loq>
 			a ||,|| b
+			|| Nombre d'or : ||
+			<partio> a b </partio>
 		</loq>
 	</dum>
 </µ>

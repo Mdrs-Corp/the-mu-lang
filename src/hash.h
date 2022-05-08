@@ -25,7 +25,7 @@ void see_hash(var * vars){
 	char types[][4]={"num\0","fil\0"};
 	for (int i = 0; i < VARS_LEN; i++) {
 		if(vars[i].isFull){
-			printf("%s\t%s\t%i\t%s\n", vars[i].name,
+			printf("%s\t%s\t%g\t%s\n", vars[i].name,
 			types[vars[i].content.type-1],
 			vars[i].content.ival,
 			vars[i].content.cval);

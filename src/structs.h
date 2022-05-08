@@ -39,7 +39,7 @@ typedef struct bloc{
 //La communication entre balise
 typedef struct mess {
     int type;// 1 pour int 2 pour char*
-    int ival;// La valeur en int si c'est un int sinon la longeur de la chaine
+    float ival;// La valeur en int si c'est un int sinon la longeur de la chaine
     char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
 }mess;
 
