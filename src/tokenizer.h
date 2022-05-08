@@ -14,7 +14,7 @@ token * tokenize(char text[],int len){
 		if(c==' ' || c=='\n' || c=='\t'){
 			index++;
         }else if(c=='<'){
-			char name[100];
+			char name[MAX_STRING_LEN];
 			int e=0;
             index++;
 			while(index<len && text[index] !='>'){
@@ -28,7 +28,7 @@ token * tokenize(char text[],int len){
 			name[e]='\0';
 			strcpy(using->value,name);
         }else if(isnumber(c)){
-			char name[100];
+			char name[MAX_STRING_LEN];
 			int e=0;
 			while(index<len && isnumber(text[index])){
 				name[e++]=text[index++];
@@ -40,7 +40,7 @@ token * tokenize(char text[],int len){
 			name[e]='\0';
 			strcpy(using->value,name);
 		}else if(isletter(c)){
-			char name[100];
+			char name[MAX_STRING_LEN];
 			index++;
 			int e=0;
 			while(index<len && isletter(text[index])){
@@ -56,7 +56,7 @@ token * tokenize(char text[],int len){
 			strcpy(using->value,name);
         }else if(c=='|'){
 			int lenOfStr=0;
-            char name[100];
+            char name[MAX_STRING_LEN];
             index+=2;
 			while(!(text[index]=='|' && text[index+1]== '|')){
 				name[lenOfStr++]=text[index++];
@@ -99,7 +99,7 @@ token * tokenizeFromFile(const char *path){
 		if(c==' ' || c=='\n' || c=='\t'){
 			move();
         }else if(c=='<'){
-			char name[100];
+			char name[MAX_STRING_LEN];
 			int e=0;
 			while(nc!=EOF && nc !='>'){
 				name[e++]=move();
@@ -114,7 +114,7 @@ token * tokenizeFromFile(const char *path){
 			strcpy(using->value,name);
 
         }else if(isnumber(c)){
-			char name[100];
+			char name[MAX_STRING_LEN];
 			int e=0;
 			while(nc!=EOF && isnumber(c)){
 				name[e]=c;
@@ -129,7 +129,7 @@ token * tokenizeFromFile(const char *path){
 			strcpy(using->value, name);
 
 		}else if(isletter(c)){
-			char name[100];
+			char name[MAX_STRING_LEN];
 			int e=0;
 			while(nc!=EOF && isletter(nc)){
 				name[e++]=move();
@@ -143,7 +143,7 @@ token * tokenizeFromFile(const char *path){
 
         }else if(c=='|'){
 			int lenOfStr=0;
-            char name[100];
+            char name[MAX_STRING_LEN];
 			move();
 			move();
 			do{

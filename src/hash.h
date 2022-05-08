@@ -4,11 +4,35 @@ int baliseEncoder(char * str){
 	int result=8; // la clef qui permet un chiffrage clean :)
 	int i=0;
 	char c;
-	while(c=str[i++]){
+	while((c=str[i++])){
 		result += c;
 		result = (result*c)%1000;
 	}
 	return result;
+}
+int varshasher(char * str){
+	int result=0;
+	int i=0;
+	char c;
+	while((c=str[i++])){
+		result += c;
+		result = (result*c)%VARS_LEN;
+	}
+	return result;
+}
+mess getVar(char * str){
+	int location=varshasher(str);
+	while(strcmp(muvars[location].name,str)!=0){
+		location=(location+1)%VARS_LEN;
+	}
+	return muvars[location].content;
+}
+void setVar(char * str, mess micode){
+	int location=varshasher(str);
+	while(strcmp(muvars[location].name,"0")){
+		location=(location+1)%VARS_LEN;
+	}
+	muvars[location].content=micode;
 }
 /*int test(){
 	char * name[]={"loq",

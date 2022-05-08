@@ -1,16 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MAX_STRING_LEN 100
+#define VARS_LEN 100
 /* Ordre importants, le compileur va vraiment yank les contenus à la suite
 Et les mettres dans ce fichier afin d'executer un gros */
 #include "structs.h"
+var muvars[VARS_LEN];
 #include "tokenizer.h"
 #include "parser.h"
+#include "hash.h"
 #include "action.h"
-
 char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
-
 int main(int argc, char const *argv[]){
+	for (size_t i = 0; i < VARS_LEN; i++) {
+		strcpy(muvars[i].name,"0");
+	}
 	printf("-->Lexing : ");
 	token * T;
 	if(argc==2){

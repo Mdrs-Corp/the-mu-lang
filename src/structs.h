@@ -16,7 +16,7 @@ Fichier qui contient toutes les structures utilisées
 //Les tokens
 typedef struct token {
   int type;
-  char value[100]; // Les valeurs des tokens sont ainsi limités à 100 caractères
+  char value[MAX_STRING_LEN]; // Les valeurs des tokens
   int size;
   struct token * next;
 }token;
@@ -24,7 +24,7 @@ typedef struct token {
 //Les noeds de l'AST
 typedef struct node{
     int type;
-    char content[100];
+    char content[MAX_STRING_LEN];
     int size;
     struct node * child;
     struct node * bro;
@@ -37,8 +37,13 @@ typedef struct bloc{
 }bloc;
 
 //La communication entre balise
-typedef struct mess{
+typedef struct mess {
     int type;// 1 pour int 2 pour char*
     int ival;// La valeur en int si c'est un int sinon la longeur de la chaine
-    char cval[100];// Le stockage de la chaine de char
+    char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
 }mess;
+
+typedef struct var{
+	char name[MAX_STRING_LEN];
+	mess content;
+}var;

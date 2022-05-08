@@ -8,7 +8,7 @@
 
 # les nodes:
 int type;
-char content[100];
+char content[MAX_STRING_LEN];
 struct node * child;
 struct node * bro;
 */
@@ -36,61 +36,111 @@ int parseInt(const char *num,int len){
   return result;
 }
 
-
-const char *Loqum="loq";
-const char *Addere="add";
-const char *Partiorum="partio";
-const char *Multiplicare="mul";
+/*
+0	 name: loq 	 code: 746
+1	 name: µ 	 code: -475
+2	 name: add 	 code: 0
+3	 name: partio 	 code: 936
+4	 name: mul 	 code: 984
+5	 name: inferioris 	 code: 100
+6	 name: aequalis 	 code: 400
+7	 name: dum 	 code: 382
+8	 name: si 	 code: 250
+9	 name: indo 	 code: 321
+10	 name: verum 	 code: 668
+11	 name: falsum 	 code: 227
+12	 name: et 	 code: 500
+13	 name: ubi 	 code: 695
+14	 name: ord 	 code: 200
+15	 name: indicium 	 code: 747
+16	 name: officium 	 code: 147
+17	 name: red 	 code: 900
+18	 name: aeq 	 code: 887
+19	 name: qua 	 code: 119
+*/
 mess action(node * nod,int doBro){
-    mess m;
-    m.type=0;// Null
-    m.ival=0;
+    mess m={.type=0,.ival=0}; // le message à renvoyer
+	int s;// lorsqu'on fait des sommes, ou l'equivalent
+	int good=1; // lorsqu'on fait du Verum/Falsum
+	node * c = nod->child; // le premier enfant amen
 	switch (nod->type){
 		case 0: // String
             m.type=2;
             strcpy(m.cval,nod->content);
 			break;
-
 		case 1://Balise
-			if(strcmp(nod->content, Loqum)==0){
-                if(nod->child){
-					node * parcour=nod->child;
-					while(parcour){
-						mess a = action(parcour,0);
+			switch (baliseEncoder(nod->content)) {
+				case 746://loq
+					while(c){
+						mess a = action(c,0);
 						if(a.type==1){
 							printf("%i\n", a.ival);
 						}else{
 							printf("%s\n", a.cval);
 						}
-						parcour=parcour->bro;
+						c=c->bro;
+	                }
+					break;
+				case 0://Addere
+					m.type=1;
+	                s=0;
+	                do{
+	                    s+=action(c,0).ival;
+	                }while((c=c->bro));
+	                m.ival=s;
+					break;
+				case 984://Multiplicare
+                	m.type=1;
+                	s=1;
+                	do{
+                    	s*=action(c,0).ival;
+                	}while((c=c->bro));
+                	m.ival=s;
+					break;
+				case 936://Partiorum
+                	m.type=1;
+					s = action(c,0).ival;
+                	while((c=c->bro)){
+                    	s=s/action(c,0).ival;
+                	};
+                	m.ival=s;
+					break;
+				case 100://inferioris
+					m.type=1;
+					s = action(c,0).ival;
+					while((c=c->bro) && good){
+						if (s>action(c,0).ival) {
+							good=0;
+						}
+						s=action(c,0).ival;
+					};
+					m.ival=good;
+					break;
+				case 400://aequalis
+					m.type=1;
+					s = action(c,0).ival;
+					while((c=c->bro) && good){
+						if (s!=action(c,0).ival) {
+							good=0;
+						}
+						s=action(c,0).ival;
+					};
+					m.ival=good;
+					break;
+				case 382://dum
+					while(action(c,0).ival){
+						action(c->bro,1);
 					}
-                }
-            }else if(strcmp(nod->content, Addere)==0){
-                m.type=1;
-                int s=0;
-                node * c = nod->child;
-                do{
-                    s+=action(c,0).ival;
-                }while((c=c->bro));
-                m.ival=s;
-			}else if(strcmp(nod->content, Multiplicare)==0){
-                m.type=1;
-                int s=1;
-                node * c = nod->child;
-                do{
-                    s*=action(c,0).ival;
-                }while((c=c->bro));
-                m.ival=s;
-			}else if(strcmp(nod->content, Partiorum)==0){
-                m.type=1;
-                node * c = nod->child;
-				int s = action(c,0).ival;
-                while((c=c->bro)){
-                    s=s/action(c,0).ival;
-                };
-                m.ival=s;
-			}else{// Balise inconnue ou inutile (µ par exemple)
-				if(nod->child){action(nod->child,1);}
+					break;
+				case 250://si
+					if(action(c,0).ival){
+						action(c->bro,1);
+					}
+					break;
+				case 321://indo
+					setVar(c->content,action(c->bro,0));
+				default:// Balise inconnue ou inutile (µ par exemple)
+					if(c){action(c,1);}
 			}
 			break;
         case 2://Numerus
@@ -98,6 +148,8 @@ mess action(node * nod,int doBro){
             m.ival=parseInt(nod->content,nod->size);
             strcpy(m.cval,nod->content);
             break;
+		case 3:
+			m=getVar(nod->content);
 		default:
 			break;
 	}
