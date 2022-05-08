@@ -17,15 +17,15 @@ Fichier qui contient toutes les structures utilisées
 typedef struct token {
   int type;
   char value[MAX_STRING_LEN]; // Les valeurs des tokens
-  int size;
+  unsigned int size;
   struct token * next;
 }token;
 
 //Les noeds de l'AST
 typedef struct node{
-    int type;
+    unsigned int type;
     char content[MAX_STRING_LEN];
-    int size;
+    unsigned int size;
     struct node * child;
     struct node * bro;
 }node;
@@ -45,5 +45,6 @@ typedef struct mess {
 
 typedef struct var{
 	char name[MAX_STRING_LEN];
+	unsigned int isFull:1;
 	mess content;
 }var;

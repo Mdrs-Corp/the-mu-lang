@@ -20,19 +20,39 @@ int varshasher(char * str){
 	}
 	return result;
 }
-mess getVar(char * str){
+
+mess getVar(char * str,var*vars){
 	int location=varshasher(str);
-	while(strcmp(muvars[location].name,str)!=0){
+	while(strcmp(str,vars[location].name)!=0){
 		location=(location+1)%VARS_LEN;
 	}
-	return muvars[location].content;
+	return vars[location].content;
 }
-void setVar(char * str, mess micode){
+void see_hash(var * vars){
+	printf("NAME\ttype\tival\tcval\n");
+	for (int i = 0; i < VARS_LEN; i++) {
+		if(vars[i].isFull){
+			printf("%s\t%i\t%i\t%s\n", vars[i].name,
+						vars[i].content.type,
+					vars[i].content.ival,
+					vars[i].content.cval);
+		}else{
+			printf("---\t---\t---\t---\n");
+		}
+	}
+	printf("\n");
+}
+
+void setVar(char * str, mess micode,var*vars){
 	int location=varshasher(str);
-	while(strcmp(muvars[location].name,"0")){
+	while(vars[location].isFull){
 		location=(location+1)%VARS_LEN;
 	}
-	muvars[location].content=micode;
+	vars[location].isFull=1;
+	strcpy(vars[location].name,str);
+	vars[location].content.type=micode.type;
+	vars[location].content.ival=micode.ival;
+	strcpy(vars[location].content.cval,micode.cval);
 }
 /*int test(){
 	char * name[]={"loq",

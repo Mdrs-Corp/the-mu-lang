@@ -24,12 +24,11 @@ node * NodefromToken(token * tok){
 void addSon(node * mom, node * new){
 	if(mom->child == 0){ // si il n'y en avait pas
 		mom->child = new;// il devient l'ainé
-		printf("l'ainé est né: %s\n",new->content);
+
 	}else{
 		node * c = mom->child;
 		while(c->bro) {// Chercher le tout petit
 			c=c->bro;
-			printf("hey\n");
 		}
 		c->bro=new;// Devenir plus petit que le petit
 	};
@@ -44,20 +43,17 @@ node * parse(token *  tok){
 	token * new;
     while (tok) {
 		currentNode = pile->node;
-		printf("ON LOOP\n");
+
         if (tok->type == 1) { // si c'est une balise
-			printf("c'est une balise ! uwu \n");
+
             if(tok->value[0] == '/') { // si elle se ferme
                 pile = depiler(pile);
             }else{ // sinon on en ouvre une autre
 				node * new = NodefromToken(tok);
-				printf("hj\n");
 				addSon(currentNode, new);
 				pile = empiler(pile, new);
             }
-			printf("balise fin\n");
         }else{ // sinon c'est une feuille de l'AST
-			printf("et c'est une feuille !\n");
 			node * n = NodefromToken(tok);
             addSon(currentNode,n);
         }

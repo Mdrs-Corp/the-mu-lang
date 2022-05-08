@@ -131,15 +131,17 @@ token * tokenizeFromFile(const char *path){
 		}else if(isletter(c)){
 			char name[MAX_STRING_LEN];
 			int e=0;
-			while(nc!=EOF && isletter(nc)){
-				name[e++]=move();
+			while(nc!=EOF && isletter(c)){
+				name[e]=c;
+				e++;
+				move();
 			}
-			using->next=(token*) toknsize;
-			using=using->next;
-			using->type=3;
-			using->size=e;
-			name[e+1]='\0';
-			strcpy(using->value,name);
+			using->next = (token *) toknsize;
+			using = using->next;
+			using->type = 3;
+			using->size = e;
+			name[e] = '\0';
+			strcpy(using->value, name);
 
         }else if(c=='|'){
 			int lenOfStr=0;

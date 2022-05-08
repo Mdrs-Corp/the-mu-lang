@@ -58,7 +58,7 @@ int parseInt(const char *num,int len){
 18	 name: aeq 	 code: 887
 19	 name: qua 	 code: 119
 */
-mess action(node * nod,int doBro){
+mess action(node * nod, int doBro, var*vars){
     mess m={.type=0,.ival=0}; // le message à renvoyer
 	int s;// lorsqu'on fait des sommes, ou l'equivalent
 	int good=1; // lorsqu'on fait du Verum/Falsum
@@ -70,9 +70,12 @@ mess action(node * nod,int doBro){
 			break;
 		case 1://Balise
 			switch (baliseEncoder(nod->content)) {
+				case -475://µ
+					if(c){action(c,1,vars);}
+					break;
 				case 746://loq
 					while(c){
-						mess a = action(c,0);
+						mess a = action(c,0,vars);
 						if(a.type==1){
 							printf("%i\n", a.ival);
 						}else{
@@ -85,7 +88,7 @@ mess action(node * nod,int doBro){
 					m.type=1;
 	                s=0;
 	                do{
-	                    s+=action(c,0).ival;
+	                    s+=action(c,0,vars).ival;
 	                }while((c=c->bro));
 	                m.ival=s;
 					break;
@@ -93,54 +96,56 @@ mess action(node * nod,int doBro){
                 	m.type=1;
                 	s=1;
                 	do{
-                    	s*=action(c,0).ival;
+                    	s*=action(c,0,vars).ival;
                 	}while((c=c->bro));
                 	m.ival=s;
 					break;
 				case 936://Partiorum
                 	m.type=1;
-					s = action(c,0).ival;
+					s = action(c,0,vars).ival;
                 	while((c=c->bro)){
-                    	s=s/action(c,0).ival;
+                    	s=s/action(c,0,vars).ival;
                 	};
                 	m.ival=s;
 					break;
 				case 100://inferioris
 					m.type=1;
-					s = action(c,0).ival;
+					s = action(c,0,vars).ival;
 					while((c=c->bro) && good){
-						if (s>action(c,0).ival) {
+						if (s>action(c,0,vars).ival) {
 							good=0;
 						}
-						s=action(c,0).ival;
+						s=action(c,0,vars).ival;
 					};
 					m.ival=good;
 					break;
 				case 400://aequalis
 					m.type=1;
-					s = action(c,0).ival;
+					s = action(c,0,vars).ival;
 					while((c=c->bro) && good){
-						if (s!=action(c,0).ival) {
+						if (s!=action(c,0,vars).ival) {
 							good=0;
 						}
-						s=action(c,0).ival;
+						s=action(c,0,vars).ival;
 					};
 					m.ival=good;
 					break;
 				case 382://dum
-					while(action(c,0).ival){
-						action(c->bro,1);
+					while(action(c,0,vars).ival){
+						action(c->bro,1,vars);
 					}
 					break;
 				case 250://si
-					if(action(c,0).ival){
-						action(c->bro,1);
+					if(action(c,0,vars).ival){
+						action(c->bro,1,vars);
 					}
 					break;
 				case 321://indo
-					setVar(c->content,action(c->bro,0));
+					setVar(c->content,action(c->bro,0,vars),vars);
+					break;
 				default:// Balise inconnue ou inutile (µ par exemple)
-					if(c){action(c,1);}
+					printf("Unknnow hashed: %i\n",baliseEncoder(nod->content));
+					if(c){action(c,1,vars);}
 			}
 			break;
         case 2://Numerus
@@ -148,11 +153,11 @@ mess action(node * nod,int doBro){
             m.ival=parseInt(nod->content,nod->size);
             strcpy(m.cval,nod->content);
             break;
-		case 3:
-			m=getVar(nod->content);
+		case 3://identifier
+			m=getVar(nod->content,vars);
 		default:
 			break;
 	}
-	if(nod->bro && doBro){action(nod->bro,1);}
+	if(nod->bro && doBro){action(nod->bro,1,vars);}
     return m;
 }
