@@ -20,22 +20,15 @@ int varshasher(char * str){
 	}
 	return result;
 }
-
-mess getVar(char * str,var*vars){
-	int location=varshasher(str);
-	while(strcmp(str,vars[location].name)!=0){
-		location=(location+1)%VARS_LEN;
-	}
-	return vars[location].content;
-}
 void see_hash(var * vars){
 	printf("NAME\ttype\tival\tcval\n");
+	char types[][4]={"num\0","fil\0"};
 	for (int i = 0; i < VARS_LEN; i++) {
 		if(vars[i].isFull){
-			printf("%s\t%i\t%i\t%s\n", vars[i].name,
-						vars[i].content.type,
-					vars[i].content.ival,
-					vars[i].content.cval);
+			printf("%s\t%s\t%i\t%s\n", vars[i].name,
+			types[vars[i].content.type-1],
+			vars[i].content.ival,
+			vars[i].content.cval);
 		}else{
 			printf("---\t---\t---\t---\n");
 		}
@@ -43,16 +36,27 @@ void see_hash(var * vars){
 	printf("\n");
 }
 
-void setVar(char * str, mess micode,var*vars){
+void getVar(char * str, var * vars, mess * m){
 	int location=varshasher(str);
-	while(vars[location].isFull){
+	while(strcmp(str,vars[location].name)!=0){
+		location=(location+1)%VARS_LEN;
+	}
+	m->type=vars[location].content.type;
+	m->ival=vars[location].content.ival;
+	strcpy(m->cval,vars[location].content.cval);
+}
+
+void setVar(char * str, mess * micode, var * vars){
+	int location=varshasher(str);
+	while((strcmp(vars[location].name,str)==0)^vars[location].isFull){
 		location=(location+1)%VARS_LEN;
 	}
 	vars[location].isFull=1;
 	strcpy(vars[location].name,str);
-	vars[location].content.type=micode.type;
-	vars[location].content.ival=micode.ival;
-	strcpy(vars[location].content.cval,micode.cval);
+
+	vars[location].content.type=micode->type;
+	vars[location].content.ival=micode->ival;
+	strcpy(vars[location].content.cval,micode->cval);
 }
 /*int test(){
 	char * name[]={"loq",

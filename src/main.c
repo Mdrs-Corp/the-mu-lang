@@ -38,9 +38,10 @@ int main(int argc, char const *argv[]){
     printFamilly(R,0);
 
 	printf("-->Interpreting : \n");
-	action(R,0,vars);
+	mess * resultat =(mess*) malloc(sizeof(mess));
+	action(R,0,vars,resultat);
 
-	printf("-->Variables :\n");
+	printf("\n-->Variables :\n");
 	see_hash(vars);
 	return 0;
 }

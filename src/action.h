@@ -12,7 +12,7 @@ char content[MAX_STRING_LEN];
 struct node * child;
 struct node * bro;
 */
-
+#define msgcpy(a, b) strcpy(a.cval,b.cval);a.type=b.type;a.ival=b.ival
 int parseInt(const char *num,int len){
   int result=0;
   int current;
@@ -58,106 +58,134 @@ int parseInt(const char *num,int len){
 18	 name: aeq 	 code: 887
 19	 name: qua 	 code: 119
 */
-mess action(node * nod, int doBro, var*vars){
-    mess m={.type=0,.ival=0}; // le message à renvoyer
+void action(node * nod, int doBro, var*vars, mess * m){
 	int s;// lorsqu'on fait des sommes, ou l'equivalent
-	int good=1; // lorsqu'on fait du Verum/Falsum
 	node * c = nod->child; // le premier enfant amen
+	// On fait le ménage quand même:
+	m->type=0;
+	m->ival=0;
+	mess * a = (mess*) calloc(1,sizeof(mess));// va se faire charcuter par les gosses
+
 	switch (nod->type){
 		case 0: // String
-            m.type=2;
-            strcpy(m.cval,nod->content);
+            m->type=2;
+			m->ival=nod->size;
+            strcpy(m->cval,nod->content);
 			break;
 		case 1://Balise
 			switch (baliseEncoder(nod->content)) {
 				case -475://µ
-					if(c){action(c,1,vars);}
+					if(c){action(c,1,vars,m);}
 					break;
 				case 746://loq
 					while(c){
-						mess a = action(c,0,vars);
-						if(a.type==1){
-							printf("%i\n", a.ival);
+						action(c,0,vars,m);
+						if(m->type==1){
+							printf("%i", m->ival);
 						}else{
-							printf("%s\n", a.cval);
+							printf("%s", m->cval);
 						}
 						c=c->bro;
 	                }
+					printf("\n");
 					break;
 				case 0://Addere
-					m.type=1;
-	                s=0;
+					m->type=1;
+	                m->ival=0;
 	                do{
-	                    s+=action(c,0,vars).ival;
+						action(c,0,vars,a);
+	                    m->ival+=a->ival;
 	                }while((c=c->bro));
-	                m.ival=s;
 					break;
 				case 984://Multiplicare
-                	m.type=1;
-                	s=1;
+                	m->type=1;
+                	m->ival=1;
                 	do{
-                    	s*=action(c,0,vars).ival;
+						action(c,0,vars,a);
+                    	m->ival*=a->ival;
                 	}while((c=c->bro));
-                	m.ival=s;
+
 					break;
 				case 936://Partiorum
-                	m.type=1;
-					s = action(c,0,vars).ival;
+                	m->type=1;
+					action(c,0,vars,m);
                 	while((c=c->bro)){
-                    	s=s/action(c,0,vars).ival;
+						action(c,0,vars,a);
+                    	m->ival/=a->ival;
                 	};
-                	m.ival=s;
+
 					break;
 				case 100://inferioris
-					m.type=1;
-					s = action(c,0,vars).ival;
-					while((c=c->bro) && good){
-						if (s>action(c,0,vars).ival) {
-							good=0;
+					m->type=1;
+					m->ival=1;
+					action(c,0,vars,a);
+					s=a->ival;
+					while((c=c->bro) && m->ival){
+						action(c,0,vars,a);
+						if (s>a->ival) {
+							m->ival=0;
 						}
-						s=action(c,0,vars).ival;
+						action(c,0,vars,a);
+						s=a->ival;
 					};
-					m.ival=good;
 					break;
 				case 400://aequalis
-					m.type=1;
-					s = action(c,0,vars).ival;
-					while((c=c->bro) && good){
-						if (s!=action(c,0,vars).ival) {
-							good=0;
+					m->type=1;
+					action(c,0,vars,a);
+					s = a->ival;
+					m->ival=0;
+					while((c=c->bro) && m->ival){
+						action(c,0,vars,a);
+						if (s!=a->ival) {
+							m->ival=0;
 						}
-						s=action(c,0,vars).ival;
+						action(c,0,vars,a);
+						s=a->ival;
 					};
-					m.ival=good;
 					break;
 				case 382://dum
-					while(action(c,0,vars).ival){
-						action(c->bro,1,vars);
+					action(c,0,vars,m);
+					while(m->ival){
+						action(c->bro,1,vars,a);
+						action(c,0,vars,m);
 					}
 					break;
 				case 250://si
-					if(action(c,0,vars).ival){
-						action(c->bro,1,vars);
+					action(c,0,vars,m);
+					if(m->ival){
+						action(c->bro,1,vars,a);
 					}
 					break;
 				case 321://indo
-					setVar(c->content,action(c->bro,0,vars),vars);
+					while(c){
+						char * variablename=c->content;
+						action(c->bro,0,vars,m);
+						setVar(variablename,m,vars);
+						c=c->bro->bro;
+					}
+					break;
+				case 500://et
+					m->type=1;
+					m->ival=1;
+					do{
+						action(c,0,vars,a);
+						m->ival=a->ival && m->ival;
+					}while((c=c->bro));
 					break;
 				default:// Balise inconnue ou inutile (µ par exemple)
 					printf("Unknnow hashed: %i\n",baliseEncoder(nod->content));
-					if(c){action(c,1,vars);}
+					if(c){action(c,1,vars,m);}
 			}
 			break;
         case 2://Numerus
-            m.type=1;
-            m.ival=parseInt(nod->content,nod->size);
-            strcpy(m.cval,nod->content);
+            m->type=1;
+            m->ival=parseInt(nod->content,nod->size);
+            strcpy(m->cval,nod->content);
             break;
 		case 3://identifier
-			m=getVar(nod->content,vars);
+			getVar(nod->content,vars,m);
 		default:
 			break;
 	}
-	if(nod->bro && doBro){action(nod->bro,1,vars);}
-    return m;
+	if(nod->bro && doBro){action(nod->bro,1,vars,a);}
 }
