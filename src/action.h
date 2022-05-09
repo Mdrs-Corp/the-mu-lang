@@ -55,7 +55,6 @@ int parseInt(const char *num,int len){
 15	 name: indicium 	 code: 747
 16	 name: officium 	 code: 147
 17	 name: red 	 code: 900
-18	 name: aeq 	 code: 887
 19	 name: qua 	 code: 119
 */
 void action(node * nod, int doBro, var*vars, mess * m){
@@ -77,18 +76,7 @@ void action(node * nod, int doBro, var*vars, mess * m){
 				case -475://µ
 					if(c){action(c,1,vars,m);}
 					break;
-				case 746://loq
-					while(c){
-						action(c,0,vars,m);
-						if(m->type==1){
-							printf("%g", m->ival);
-						}else{
-							printf("%s", m->cval);
-						}
-						c=c->bro;
-	                }
-					printf("\n");
-					break;
+
 				case 0://Addere
 					m->type=1;
 	                m->ival=0;
@@ -172,8 +160,61 @@ void action(node * nod, int doBro, var*vars, mess * m){
 						m->ival=a->ival && m->ival;
 					}while((c=c->bro));
 					break;
+				case 695://ubi
+					m->type=1;
+					m->ival=0;
+					do{
+						action(c,0,vars,a);
+						m->ival=a->ival || m->ival;
+					}while((c=c->bro));
+					break;
+				case 227: //verum
+					m->type=1;
+					m->ival=1;
+					break;
+				case 668: //falusm
+					m->type=1;
+					m->ival=1;
+					break;
+				case 746://loq
+					while(c){
+						action(c,0,vars,m);
+						if(m->type==1){
+							printf("%g", m->ival);
+						}else{
+							printf("%s", m->cval);
+						}
+						c=c->bro;
+					}
+					printf("\n");
+					break;
+				case 119:
+					m->type=2;
+					while(c){
+						action(c,0,vars,a);
+						if(a->type==1){
+							printf("%g", a->ival);
+						}else{
+							printf("%s", a->cval);
+						}
+						c=c->bro;
+					}
+					scanf("%[^\n]", m->cval);
+					char k;
+					s=1;
+					m->ival=0;
+					while((k=m->cval[(int)m->ival])){
+						s=isnumber(k) && s;
+						m->ival++;
+					}
+					if(s){
+						m->type=1;
+						m->ival=parseInt(m->cval,m->ival);
+					}
+					break;
+
 				default:// Balise inconnue ou inutile (µ par exemple)
-					printf("Unknnow hashed: %i\n",baliseEncoder(nod->content));
+					printf("Unknnow hashed: %i (%s)\n",baliseEncoder(nod->content),nod->content);
 					if(c){action(c,1,vars,m);}
 			}
 			break;

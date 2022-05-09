@@ -3,12 +3,15 @@
 	<indo>
 		a 1
 		b 1
+		conteur 0
 	</indo>
 	<dum>
-		<et>
-			<inferioris>a 100</inferioris>
-			<inferioris>b 2</inferioris>
-		</et>
+		<inferioris>conteur 10</inferioris>
+		<loq>
+			conteur
+			|| Nombre d'or : ||
+			<partio> a b </partio>
+		</loq>
 		<indo>
 			temp a
 			a
@@ -17,11 +20,12 @@
 				b
 			</add>
 			b temp
+			conteur
+			<add>
+			conteur
+			1
+			</add>
 		</indo>
-		<loq>
-			a ||,|| b
-			|| Nombre d'or : ||
-			<partio> a b </partio>
-		</loq>
+
 	</dum>
 </µ>

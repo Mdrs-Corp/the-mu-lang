@@ -44,8 +44,8 @@ node * parse(token *  tok){
     while (tok) {
 		currentNode = pile->node;
 
-        if (tok->type == 1) { // si c'est une balise
-
+        if (tok->type == 1 && tok->value[tok->size-1]!='/') {
+			// si c'est une balise, et qu'elle n'est pas autofermante
             if(tok->value[0] == '/') { // si elle se ferme
                 pile = depiler(pile);
             }else{ // sinon on en ouvre une autre
