@@ -1,36 +1,26 @@
 
-/*
-# les types:
-0: string
-1: balise
-2: number
-3: identifier
-
-# les nodes:
-int type;
-char content[MAX_STRING_LEN];
-struct node * child;
-struct node * bro;
-*/
-#define msgcpy(a, b) strcpy(a.cval,b.cval);a.type=b.type;a.ival=b.ival
-int parseInt(const char *num,int len){
-  int result=0;
+float parseInt(const char *num,int len){
+  float result=0;
   int current;
   int puis=1;
+  int n;
   for(int i = len;i>0;i--){
     current=69;
-    for (int n = 48; n < 58; n++) {
-      if (n==num[i-1]) {
-        current=n-48;
-        n=69; // On a trouvé qui c'était, on sort
-      }
-    }
-    if (current==69) {
-      //printf("Not a Number (on fait pas du JS non plus)\n");
-      //i=-1; // On a pas trouvé, ce n'est pas un chiffre, on sort :(
-    }else{
-      result+=current*puis;
-      puis*=10;
+	if (num[i-1]==46) {// si on tombe sur un point
+		result/=puis;
+		puis=1;
+	} else {//sinon c'est un chiffre
+		for (n = 48; n < 58; n++) {
+	      if (n==num[i-1]) {
+	        current=n-48;
+	        n=420; // On a trouvé qui c'était, on sort
+	      }
+	    }
+	}
+
+	if (current!=69) {
+	    result+=current*puis;
+	    puis*=10;
     }
   }
   return result;
@@ -55,7 +45,9 @@ int parseInt(const char *num,int len){
 15	 name: indicium 	 code: 747
 16	 name: officium 	 code: 147
 17	 name: red 	 code: 900
+18	 name: qua/		code: 802
 19	 name: qua 	 code: 119
+20 	 name: variabilis/ code :9
 */
 void action(node * nod, int doBro, var*vars, mess * m){
 	int s;// lorsqu'on fait des sommes, ou l'equivalent
@@ -72,7 +64,7 @@ void action(node * nod, int doBro, var*vars, mess * m){
             strcpy(m->cval,nod->content);
 			break;
 		case 1://Balise
-			switch (baliseEncoder(nod->content)) {
+			switch (baliseEncoder(nod->content)) {//Quel type ?
 				case -475://µ
 					if(c){action(c,1,vars,m);}
 					break;
@@ -188,7 +180,7 @@ void action(node * nod, int doBro, var*vars, mess * m){
 					}
 					printf("\n");
 					break;
-				case 119:
+				case 119:case 802://qua et qua/
 					m->type=2;
 					while(c){
 						action(c,0,vars,a);
@@ -212,7 +204,9 @@ void action(node * nod, int doBro, var*vars, mess * m){
 						m->ival=parseInt(m->cval,m->ival);
 					}
 					break;
-
+				case 9:// variabilis
+					see_hash(vars);
+					break;
 				default:// Balise inconnue ou inutile (µ par exemple)
 					printf("Unknnow hashed: %i (%s)\n",baliseEncoder(nod->content),nod->content);
 					if(c){action(c,1,vars,m);}

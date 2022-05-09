@@ -1,5 +1,5 @@
 all: src/main.c
 	gcc -g -Wall -o dicke src/main.c
-	./dicke ./muPrograms/autoclosing.µ
+	./dicke ./muPrograms/numberus.µ
 clean:
 	$(RM) dicke

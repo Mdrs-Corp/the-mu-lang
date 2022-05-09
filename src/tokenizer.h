@@ -9,8 +9,7 @@ token * tokenize(char text[],int len){
 	token * using = tokens -> next;
 	int index=0;
 	char c;
-	while(index < len-1){
-		c=text[index];
+	while((c=text[index])){
 		if(c==' ' || c=='\n' || c=='\t'){
 			index++;
         }else if(c=='<'){
@@ -78,8 +77,8 @@ token * tokenize(char text[],int len){
 
 
 token * tokenizeFromFile(const char *path){
-	char c=0;//Current char
-	char nc=0;//Next char
+	char c=1;//Current char
+	char nc=1;//Next char
 	FILE *filePointer;
 	char move(){ // Oui, c'est mal...
 		c = nc;
@@ -95,7 +94,8 @@ token * tokenizeFromFile(const char *path){
 	tokens -> next = (token*) toknsize;
 	token * using = tokens -> next;
 	move();
-	while(c!= EOF){
+	move();
+	while(nc!=EOF && c){
 		if(c==' ' || c=='\n' || c=='\t'){
 			move();
         }else if(c=='<'){
@@ -161,7 +161,7 @@ token * tokenizeFromFile(const char *path){
 			name[lenOfStr]='\0';
 			strcpy(using->value,name);
 		}else{
-			printf("Pas compris : %c ( place dans utf : %i)\n",c,c );
+			printf("Pas compris : '%c' ( place dans utf : %i)\n",c,c);
 			move();
 		}
 	}
