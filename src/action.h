@@ -59,16 +59,25 @@ void action(node * nod, int doBro, var*vars, mess * m){
 
 	switch (nod->type){
 		case 0: // String
-            m->type=2;
-			m->ival=nod->size;
-            strcpy(m->cval,nod->content);
+			if(nod->getElement){
+				m->type=2;
+				m->ival=1;
+				action(c,0,vars,a);
+				m->cval[0]=nod->content[(int)a->ival];
+				m->cval[1]='\0';
+
+			}else{
+				m->type=2;
+				m->ival=nod->size;
+				strcpy(m->cval,nod->content);
+
+			}
 			break;
 		case 1://Balise
 			switch (baliseEncoder(nod->content)) {//Quel type ?
-				case -475://µ
+				case -475:case 747://µ, indicium
 					if(c){action(c,1,vars,m);}
 					break;
-
 				case 0://Addere
 					m->type=1;
 	                m->ival=0;
@@ -219,6 +228,11 @@ void action(node * nod, int doBro, var*vars, mess * m){
             break;
 		case 3://identifier
 			getVar(nod->content,vars,m);
+			if(nod->getElement){
+				action(c,0,vars,a);
+				m->cval[0]=m->cval[(int)a->ival];
+				m->cval[1]='\0';
+			}
 		default:
 			break;
 	}

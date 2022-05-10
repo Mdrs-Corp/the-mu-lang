@@ -28,6 +28,7 @@ typedef struct node{
     unsigned int size;
     struct node * child;
     struct node * bro;
+	int getElement; // si la node est consulté
 }node;
 
 //Les blocs pour la pile lors de la fabrication de l'AST

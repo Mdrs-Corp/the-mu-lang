@@ -160,6 +160,20 @@ token * tokenizeFromFile(const char *path){
 			using->size=lenOfStr;
 			name[lenOfStr]='\0';
 			strcpy(using->value,name);
+		}else if(c=='{'){
+			move();
+			using->next=(token*) toknsize;
+			using=using->next;
+			using->type=1;
+			using->size=8;
+			strcpy(using->value,"indicium");
+		}else if(c=='}'){
+			move();
+			using->next=(token*) toknsize;
+			using=using->next;
+			using->type=1;
+			using->size=9;
+			strcpy(using->value,"/indicium");
 		}else{
 			printf("Pas compris : '%c' ( place dans utf : %i)\n",c,c);
 			move();

@@ -20,7 +20,13 @@ node * NodefromToken(token * tok){
 	strcpy(c->content, tok->value);
 	return c;
 }
-
+node * lastSon(node * mom){
+	node * c = mom->child;
+	while(c->bro) {// Chercher le tout petit
+		c=c->bro;
+	}
+	return c;
+}
 void addSon(node * mom, node * new){
 	if(mom->child == 0){ // si il n'y en avait pas
 		mom->child = new;// il devient l'ainé
@@ -40,26 +46,32 @@ node * parse(token *  tok){
     pile->node = root;
 	tok = tok->next;
 	node * currentNode = pile->node;
-	token * new;
+	token * newTok;
+	node * newNod;
     while (tok) {
 		currentNode = pile->node;
-
         if (tok->type == 1 && tok->value[tok->size-1]!='/') {
 			// si c'est une balise, et qu'elle n'est pas autofermante
             if(tok->value[0] == '/') { // si elle se ferme
                 pile = depiler(pile);
             }else{ // sinon on en ouvre une autre
-				node * new = NodefromToken(tok);
-				addSon(currentNode, new);
-				pile = empiler(pile, new);
+				newNod = NodefromToken(tok);
+				if(!strcmp(newNod->content,"indicium")){
+					lastSon(currentNode)->child=newNod;
+					lastSon(currentNode)->getElement=1;
+				}else{
+					addSon(currentNode, newNod);
+				}
+				pile = empiler(pile, newNod);
+
             }
         }else{ // sinon c'est une feuille de l'AST
-			node * n = NodefromToken(tok);
-            addSon(currentNode,n);
+			newNod = NodefromToken(tok);
+            addSon(currentNode,newNod);
         }
-        new = tok->next;
+        newTok = tok->next;
 		free(tok);
-		tok=new;
+		tok=newTok;
     }
     return root;
 }

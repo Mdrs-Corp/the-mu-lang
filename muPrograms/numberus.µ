@@ -1,4 +1,16 @@
 <µ>
-	<indo> a 5 </indo>
-	<variabilis/>
+	<indo> a ||squidgame|| b 0</indo>
+	<dum>
+		<inferioris>b a</inferioris>
+		<loq>
+			a{b}
+		</loq>
+		<indo>
+			b
+			<add>
+				b
+				1
+			</add>
+		</indo>
+	</dum>
 </µ>
