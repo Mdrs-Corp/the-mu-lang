@@ -30,24 +30,24 @@ int main(int argc, char const *argv[]){
 		}
 	}
 	if(devmode){
-		printf("-->Lexing : \n");
+		printf("\033[1;1m-->\033[0m Lexing : \n");
 		token * t=T;
 		printf("type\ttaille\tvaleur\n");
 		char * types[]={"string","balise","number","identifier"};
 		while(t){
+			printf("\033[0;3%im",t->type+1);
 			printf("%s\t%i\t%s\n",types[t->type], t->size, t->value);
 			t=t->next;
 		}
 
-		printf("-->Parsing : \n");
+		printf("\033[1;37m-->\033[0m Parsing : \n");
 		node * R = parse(T);
 		printFamilly(R,0);
 
-		printf("-->Interpreting : \n");
+		printf("\033[1;1m-->\033[0m Interpreting : \n");
 		mess * resultat =(mess*) malloc(sizeof(mess));
 		action(R,0,vars,resultat);
-
-		printf("\n-->Variables :\n");
+		printf("\n\033[1;1m-->\033[0m Variables :\n");
 		see_hash(vars);
 	}else{
 		mess * resultat =(mess*) malloc(sizeof(mess));
@@ -56,5 +56,6 @@ int main(int argc, char const *argv[]){
 	}
 
 
+	printf("\033[0m"); //Resets the text to default color
 	return 0;
 }

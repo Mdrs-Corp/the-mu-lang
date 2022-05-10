@@ -56,6 +56,7 @@ void action(node * nod, int doBro, var*vars, mess * m){
 	m->type=0;
 	m->ival=0;
 	mess * a = (mess*) calloc(1,sizeof(mess));// va se faire charcuter par les gosses
+	mess * first; // Pour se souvenir du premier membre d'une liste
 
 	switch (nod->type){
 		case 0: // String
@@ -180,14 +181,30 @@ void action(node * nod, int doBro, var*vars, mess * m){
 				case 746://loq
 					while(c){
 						action(c,0,vars,m);
-						if(m->type==1){
-							printf("%g", m->ival);
-						}else{
-							printf("%s", m->cval);
-						}
+						do {
+							if(m->type==1){
+								printf("%g", m->ival);
+							}else{
+								printf("%s", m->cval);
+							}
+						} while((m=m->next));
 						c=c->bro;
 					}
 					printf("\n");
+					break;
+				case 200:
+					first=m;
+					action(c,0,vars,m);
+					while((c=c->bro)){
+						action(c,0,vars,a);
+						printf("%i",(int)a->ival);
+						m->next=a;
+						m=a;
+						a = (mess*)malloc(sizeof(mess));
+
+					}
+					m=first;
+
 					break;
 				case 119:case 802://qua et qua/
 					m->type=2;

@@ -77,8 +77,9 @@ node * parse(token *  tok){
 }
 
 void printFamilly(node * root, int niv){
-    for (size_t i = 0; i < niv; i++)printf("---|");
-    printf("%i: %s\n",root->type, root->content ? root->content : "Empty node wth");
+    for (int i = 0; i < niv; i++)printf("\033[1;3%im--|",root->type+1);
+	printf("\033[0m");
+    printf("%s\n",root->content ? root->content : "Empty node wth");
     node * curChild = root->child;
     while (curChild){
         printFamilly(curChild,niv+1);

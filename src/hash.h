@@ -21,11 +21,12 @@ int varshasher(char * str){
 	return result;
 }
 void see_hash(var * vars){
-	printf("NAME\ttype\tival\tcval\n");
+	printf("\033[0;33mNAME\t\033[0;34mTYPE\t\033[0;35mIVAL\t\033[0;36mCVAL\n\033[0m");
 	char types[][4]={"num\0","fil\0"};
 	for (int i = 0; i < VARS_LEN; i++) {
 		if(vars[i].isFull){
-			printf("%s\t%s\t%g\t%s\n", vars[i].name,
+			printf("\033[0;33m%s\t\033[0;34m%s\t\033[0;35m%g\t\033[0;36m%s\n\033[0m",
+			vars[i].name,
 			types[vars[i].content.type-1],
 			vars[i].content.ival,
 			vars[i].content.cval);

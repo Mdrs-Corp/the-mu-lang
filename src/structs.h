@@ -23,12 +23,12 @@ typedef struct token {
 
 //Les noeds de l'AST
 typedef struct node{
-    unsigned int type;
+    unsigned int type:2;
     char content[MAX_STRING_LEN];
     unsigned int size;
     struct node * child;
     struct node * bro;
-	int getElement; // si la node est consulté
+	unsigned int getElement:1; // si la node est consulté
 }node;
 
 //Les blocs pour la pile lors de la fabrication de l'AST
@@ -39,11 +39,12 @@ typedef struct bloc{
 
 //La communication entre balise
 typedef struct mess {
-    int type;// 1 pour int 2 pour char*
     float ival;// La valeur en int si c'est un int sinon la longeur de la chaine
     char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
+	struct mess * next;//pour les listes
+	int type:2;// 1 pour int 2 pour char*
 }mess;
-
+// les variables
 typedef struct var{
 	char name[MAX_STRING_LEN];
 	unsigned int isFull:1;
