@@ -49,6 +49,7 @@ float parseInt(const char *num,int len){
 19	 name: qua 	 code: 119
 20 	 name: variabilis/ code :9
 */
+
 void action(node * nod, int doBro, var*vars, mess * m){
 	int s;// lorsqu'on fait des sommes, ou l'equivalent
 	node * c = nod->child; // le premier enfant amen
@@ -181,30 +182,29 @@ void action(node * nod, int doBro, var*vars, mess * m){
 				case 746://loq
 					while(c){
 						action(c,0,vars,m);
-						do {
-							if(m->type==1){
-								printf("%g", m->ival);
-							}else{
-								printf("%s", m->cval);
-							}
-						} while((m=m->next));
+						if(m->type==1){
+							printf("%g", m->ival);
+						}else{
+							printf("%s", m->cval);
+						}
 						c=c->bro;
 					}
 					printf("\n");
 					break;
 				case 200:
 					first=m;
-					action(c,0,vars,m);
-					while((c=c->bro)){
-						action(c,0,vars,a);
-						printf("%i",(int)a->ival);
-						m->next=a;
-						m=a;
-						a = (mess*)malloc(sizeof(mess));
-
-					}
+					do{
+						action(c,0,vars,m);
+						//a = (mess*) malloc(sizeof(mess));
+						m->next = a;
+						m = a;
+					}while((c=c->bro));
 					m=first;
-
+					while(m->next){
+						//printf("%i",(int)m->ival);
+						m=m->next;
+					}
+					//printf("Le second vaut : %g\n",m->next->ival);
 					break;
 				case 119:case 802://qua et qua/
 					m->type=2;
@@ -233,7 +233,7 @@ void action(node * nod, int doBro, var*vars, mess * m){
 				case 9:// variabilis
 					see_hash(vars);
 					break;
-				default:// Balise inconnue ou inutile (µ par exemple)
+				default:// Balise inconnue ou mal hashé (par mentié)
 					printf("Unknnow hashed: %i (%s)\n",baliseEncoder(nod->content),nod->content);
 					if(c){action(c,1,vars,m);}
 			}

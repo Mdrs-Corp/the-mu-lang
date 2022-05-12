@@ -44,6 +44,7 @@ void getVar(char * str, var * vars, mess * m){
 	}
 	m->type=vars[location].content.type;
 	m->ival=vars[location].content.ival;
+	m->next=vars[location].content.next;
 	strcpy(m->cval,vars[location].content.cval);
 }
 
@@ -57,6 +58,8 @@ void setVar(char * str, mess * micode, var * vars){
 
 	vars[location].content.type=micode->type;
 	vars[location].content.ival=micode->ival;
+	vars[location].content.next=micode->next;
+
 	strcpy(vars[location].content.cval,micode->cval);
 }
 /*int test(){

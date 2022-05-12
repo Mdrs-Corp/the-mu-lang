@@ -1,8 +1,8 @@
 all: src/main.c
 	@gcc -g -Wall -o dicke src/main.c
-	@./dicke ./muPrograms/ordiniat.µ
+	@./dicke ./muPrograms/helloworld.µ
 dev:
 	@gcc -g -Wall -o dicke src/main.c
-	@./dicke ./muPrograms/ordiniat.µ -dev
+	@./dicke ./muPrograms/helloworld.µ -dev
 clean:
 	$(RM) dicke
