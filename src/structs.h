@@ -41,7 +41,7 @@ typedef struct mess {
 	struct mess * next;//pour les listes
     float ival;// La valeur en int si c'est un int sinon la longeur de la chaine
 	char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
-	int type:2;// 1 pour int 2 pour char*
+	unsigned int type:2;// 1 pour int 2 pour char* 3 pour ordinata
 }mess;
 
 //Les variables, contenues dans la liste des variables (hashés)
@@ -50,3 +50,14 @@ typedef struct var{
 	char name[MAX_STRING_LEN];
 	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
 }var;
+
+typedef struct fun{
+	node * args;
+	char name[MAX_STRING_LEN];
+	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
+}fun;
+
+struct memory{
+	fun * funs;
+	var * vars;
+};

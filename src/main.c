@@ -4,6 +4,7 @@
 
 #define MAX_STRING_LEN 100
 #define VARS_LEN 10
+#define FUNS_LEN 10
 /* Ordre importants, le compileur va vraiment yank les contenus à la suite
 Et les mettres dans ce fichier afin d'executer un gros */
 #include "structs.h"
@@ -14,7 +15,9 @@ Et les mettres dans ce fichier afin d'executer un gros */
 char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
 
 int main(int argc, char const *argv[]){
-	var * vars = (var*) calloc(VARS_LEN,sizeof(var));
+	struct memory  mem;
+	mem.vars = (var*) calloc(VARS_LEN,sizeof(var));
+	mem.funs = (fun*) calloc(FUNS_LEN,sizeof(fun));
 	token * T;
 
 	if(argc>=2 && argv[1][0]!='-'){
@@ -48,14 +51,16 @@ int main(int argc, char const *argv[]){
 
 		printf("\033[1;1m-->\033[0m Interpreting : \n");
 		mess * resultat = (mess*) malloc(sizeof(mess));
-		action(R, 0, vars, resultat);
+		action(R, 0, mem, resultat);
 
 		printf("\n\033[1;1m-->\033[0m Variables :\n");
-		see_hash(vars);
+		see_hash(mem.vars);
 	}
 	else{
 		mess * resultat = (mess*) malloc(sizeof(mess));
-		action(parse(T),0,vars,resultat);
+		resultat->ival=181;
+		strcpy(resultat->cval,"µ\0");
+		action(parse(T),0,mem,resultat);
 	}
 
 	printf("\033[0m"); //Reset the text to default color

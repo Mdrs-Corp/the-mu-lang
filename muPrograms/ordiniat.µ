@@ -1,5 +1,13 @@
 <µ>
-	
-	<ord> 1 2 3 4 </ord>
-
+	<indo>
+		list
+		<ord>
+			69
+			420
+		</ord>{1}
+		a
+		list{1}
+	</indo>
+	<variabilis/>
+	<loq><mul> list{1} 1 </mul></loq>
 </µ>

@@ -24,7 +24,7 @@ int varshasher(char * str){
 
 void see_hash(var * vars){
 	printf("\033[0;33mNAME\t\033[0;34mTYPE\t\033[0;35mIVAL\t\033[0;36mCVAL\n\033[0m");
-	char types[][4] = {"num\0","fil\0"};
+	char types[][4]={"num","fil","ord"};
 	for (int i = 0; i < VARS_LEN; i++) {
 		if(vars[i].isFull){
 			printf("\033[0;33m%s\t\033[0;34m%s\t\033[0;35m%g\t\033[0;36m%s\n\033[0m",
@@ -63,6 +63,25 @@ void setVar(char * str, mess * micode, var * vars){
 	vars[location].content.next = micode->next;
 	strcpy(vars[location].content.cval,micode->cval);
 }
+
+void setFun(node * c, fun * funs){
+	int location = varshasher(c->content);
+	while((strcmp(funs[location].name,c->content)==0)^funs[location].isFull){
+		location = (location+1)%VARS_LEN;
+	}
+	funs[location].isFull = 1;
+	strcpy(funs[location].name,c->content);
+	funs[location].args = c->bro;
+}
+fun getFun(node * nod, fun * funs){
+	int location = varshasher(nod->content);
+	while(strcmp(nod->content,funs[location].name)!=0){
+		location = (location+1)%VARS_LEN;
+	}
+	return funs[location];
+}
+
+
 /*int test(){ // pour vérifier si deux balises ont le même hash
 	char * name[]={"loq",
 	"µ",
