@@ -36,8 +36,8 @@ void consulted(mess * m, node * c, mess * a,  struct memory mem, char * string){
 
 /*
 0	 name: loq 	 code: 746
-1	 name: µ 	 code: -475
-2	 name: add 	 code: 0
+1	 name: µ 	 code: 821
+2	 name: add 	 code: 1
 3	 name: partio 	 code: 936
 4	 name: mul 	 code: 984
 5	 name: inferioris 	 code: 100
@@ -65,7 +65,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 
 	fun  f;// Les fonctions
 	node * fc;// Les arguments de la fonction
-
+	//printf("Action on ''%s''\n", nod->content);
 	switch (nod->type){
 		case 0: // String
 		m->type = 2;
@@ -78,7 +78,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 		break;
 		case 1://Balise
 		switch (baliseEncoder(nod->content)) {//Quel type ?
-			case -475://µ
+			case 821://µ
 			if(c){action(c,1,mem,m);}
 			break;
 			case 747://indicium
@@ -87,7 +87,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			case 147://officium
 			setFun(c,mem.funs);
 			break;
-			case 0://Addere
+			case 1://Addere
 			m->type = 1;
 			m->ival = 0;
 			do{
@@ -248,18 +248,21 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			}
 			break;
 			case 9:// variabilis
-			see_hash(mem.vars);
+			see_mmry(mem);
 			break;
-			default:// Balise inconnue ou mal hashé (par mentié)
+			default:// Balise inconnue ou mal hashé (par mentié) ou définie par user
+			//printf("Unknow balise '%s'\n",nod->content);
 			f = getFun(nod,mem.funs);
-			fc = f->args;
-			while(fc->type==3){
+			fc = f.args;
+			do{
 				action(c,0,mem,a);
 				setVar(fc->content,a,mem.vars);
-				fc=fc->bro;
-				c=c->bro;
-			}
-			action(c,1,mem,m);
+			}while(fc->type==3// tant que c'est un identifier
+				 && (fc = fc->bro) // passer à la varibale suivante
+				 && (c = c->bro) // passer à l'input suivante
+			 );
+			action(fc,1,mem,m);
+			break;
 		}
 		break;
 		case 2://Numerus

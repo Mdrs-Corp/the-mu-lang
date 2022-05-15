@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]){
 		action(R, 0, mem, resultat);
 
 		printf("\n\033[1;1m-->\033[0m Variables :\n");
-		see_hash(mem.vars);
+		see_mmry(mem);
 	}
 	else{
 		mess * resultat = (mess*) malloc(sizeof(mess));
