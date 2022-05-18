@@ -50,10 +50,7 @@ void getVar(char * str, var * vars, mess * m){
 	while(strcmp(str,vars[location].name)!=0){
 		location = (location+1)%VARS_LEN;
 	}
-	m->type = vars[location].content.type;
-	m->ival = vars[location].content.ival;
-	m->next = vars[location].content.next;
-	strcpy(m->cval,vars[location].content.cval);
+	memcpy(vars[location].content,m,sizeof(m));
 }
 
 void setVar(char * str, mess * micode, var * vars){
@@ -63,11 +60,7 @@ void setVar(char * str, mess * micode, var * vars){
 	}
 	vars[location].isFull = 1;
 	strcpy(vars[location].name,str);
-
-	vars[location].content.type = micode->type;
-	vars[location].content.ival = micode->ival;
-	vars[location].content.next = micode->next;
-	strcpy(vars[location].content.cval,micode->cval);
+	memcpy(micode,vars[location].content,sizeof(micode));
 	//printf("Setted %s to %i\n", str,(int) micode->ival);
 }
 
@@ -81,6 +74,7 @@ void setFun(node * c, fun * funs){
 	strcpy(funs[location].name,c->content);
 	funs[location].args = c->bro;
 }
+
 fun getFun(node * nod, fun * funs){
 	int location = baliseEncoder(nod->content)%FUNS_LEN;
 	while(strcmp(nod->content,funs[location].name)!=0){
