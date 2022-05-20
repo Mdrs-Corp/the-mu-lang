@@ -260,7 +260,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			}while(fc->type==3// tant que c'est un identifier
 				 && (fc = fc->bro) // passer à la varibale suivante
 				 && (c = c->bro) // passer à l'input suivante
-			 );
+				 );
 			action(fc,1,mem,m);
 			break;
 		}

@@ -55,14 +55,12 @@ int main(int argc, char const *argv[]){
 
 		printf("\n\033[1;1m-->\033[0m Variables :\n");
 		see_mmry(mem);
-	}
-	else{
+	}else{
 		mess * resultat = (mess*) malloc(sizeof(mess));
 		resultat->ival=181;
 		strcpy(resultat->cval,"µ\0");
 		action(parse(T),0,mem,resultat);
 	}
-
 	printf("\033[0m"); //Reset the text to default color
 	return 0;
 }

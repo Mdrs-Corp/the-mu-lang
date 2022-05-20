@@ -50,7 +50,7 @@ void getVar(char * str, var * vars, mess * m){
 	while(strcmp(str,vars[location].name)!=0){
 		location = (location+1)%VARS_LEN;
 	}
-	memcpy(vars[location].content,m,sizeof(m));
+	memcpy(m,&vars[location].content,sizeof(vars[location].content));
 }
 
 void setVar(char * str, mess * micode, var * vars){
@@ -60,7 +60,7 @@ void setVar(char * str, mess * micode, var * vars){
 	}
 	vars[location].isFull = 1;
 	strcpy(vars[location].name,str);
-	memcpy(micode,vars[location].content,sizeof(micode));
+	memcpy(&vars[location].content,micode,sizeof(*micode));
 	//printf("Setted %s to %i\n", str,(int) micode->ival);
 }
 

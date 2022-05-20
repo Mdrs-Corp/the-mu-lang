@@ -1,24 +1,5 @@
 <µ>
-	<indo>
-		name
-		||absc||
 	<loq>
-		||Bonjour le monde ! µwµ||
-		||Programme qui dit bonjour le monde||
-	</loq>
-	<loq>
-		<add>
-			1
-			2
-			3
-			<partio> 4 2</partio>
-		</add>
-		||
-		||
-		<mul> 2 5</mul>
-		||
-		||
-		||ffdqiugivbiib||{0}
-		name{0}
+		|| hello, world||
 	</loq>
 </µ>
