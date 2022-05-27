@@ -42,7 +42,7 @@ void see_mmry(struct memory mem){
 			printf("%s,",mem.funs[i].name);
 		}
 	}
-	printf("\n");
+	printf(";\n");
 }
 
 void getVar(char * str, var * vars, mess * m){

@@ -18,6 +18,7 @@ typedef struct token {
 	char value[MAX_STRING_LEN]; // Les valeurs des tokens
 	unsigned int size;
 	unsigned int type:2;
+	unsigned int line;
 }token;
 
 //Les noeds de l'Abstract Syntax Tree
@@ -27,6 +28,7 @@ typedef struct node{
 	char content[MAX_STRING_LEN];
 	unsigned int size;
 	unsigned int type:2;
+	unsigned int line;
 	unsigned int getElement:1; // si la node est consulté aka {}
 }node;
 
@@ -39,22 +41,24 @@ typedef struct bloc{
 //La communication entre balise, "messages"
 typedef struct mess {
 	struct mess * next;//pour les listes
-    float ival;// La valeur en int si c'est un int sinon la longeur de la chaine
-	char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
 	unsigned int type:2;// 1 pour int 2 pour char* 3 pour ordinata
+    union{
+    	float ival;// La valeur en int si c'est un int sinon la longeur de la chaine
+		char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
+	};
 }mess;
 
 //Les variables, contenues dans la liste des variables (hashés)
 typedef struct var{
-	mess content;
-	char name[MAX_STRING_LEN];
 	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
+	char name[MAX_STRING_LEN];
+	mess content;
 }var;
 
 typedef struct fun{
+	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
 	node * args;
 	char name[MAX_STRING_LEN];
-	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
 }fun;
 
 struct memory{

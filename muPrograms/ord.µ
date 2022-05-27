@@ -4,10 +4,12 @@
 		<ord>
 			69
 			420
-		</ord>{1}
+		</ord>
 		a
 		list{1}
 	</indo>
 	<variabilis/>
-	<loq><mul> list{1} 1 </mul></loq>
+	<loq>
+		<mul> list{1} 1 </mul>
+	</loq>
 </µ>

@@ -2,10 +2,12 @@
 
 int isletter(char s){return ('a'<=s && s<='z') || ('A'<=s && s<='Z');}
 int isnumber(char s){return ('0'<=s && s<='9') || s=='.' || s=='-';}
+#define SET(t) using->next = (token*) toknsize;using = using->next;using->type=t;using->size=e;using->line=line;name[e]='\0';strcpy(using->value,name)
 
 token * tokenizeFromFile(const char *path){
 	char c=1;//Current char
 	char nc=1;//Next char
+	int line = 1;
 	FILE *filePointer;
 	filePointer = fopen(path, "r");
 	if (filePointer == NULL){printf("File is not available \n");}
@@ -17,58 +19,40 @@ token * tokenizeFromFile(const char *path){
 	}
 
 	token * tokens = (token*) toknsize;
-	tokens -> next = (token*) toknsize;
-	token * using = tokens -> next;
+	token * using = tokens;
 	move();
 	move();
 	int e; //longeur du jeton
 	char name[MAX_STRING_LEN]; // Contenu du jeton
 	while(nc!=EOF && c){
+		e=0;
 		if(c==' ' || c=='\n' || c=='\t'){
+			line+=(c=='\n');
 			move();
         }
 		else if(c=='<'){
-			e=0;
 			while(nc!=EOF && nc !='>'){name[e++]=move();}
             move();
 			move();
-			using->next = (token*) toknsize;
-			using = using->next;
-			using->type = 1;
-			using->size = e;
-			name[e] = '\0';
-			strcpy(using->value,name);
+			SET(1);
         }
 		else if(isnumber(c)){
-			e=0;
 			while(nc!=EOF && isnumber(c)){
 				name[e]=c;
 				e++;
 				move();
 			}
-			using->next = (token *) toknsize;
-			using = using->next;
-			using->type = 2;
-			using->size = e;
-			name[e] = '\0';
-			strcpy(using->value, name);
+			SET(2);
 		}
 		else if(isletter(c)){
-			e=0;
 			while(nc!=EOF && isletter(c)){
 				name[e]=c;
 				e++;
 				move();
 			}
-			using->next = (token *) toknsize;
-			using = using->next;
-			using->type = 3;
-			using->size = e;
-			name[e] = '\0';
-			strcpy(using->value, name);
+			SET(3);
         }
 		else if(c=='|'){
-			e=0;
 			move();
 			move();
 			do{
@@ -77,19 +61,15 @@ token * tokenizeFromFile(const char *path){
 			}while(!(c=='|' && nc=='|'));
             move();
 			move();
-			using->next = (token*) toknsize;
-			using = using->next;
-			using->type = 0;
-			using->size = e;
-			name[e]='\0';
-			strcpy(using->value,name);
+			SET(0);
 		}
 		else if(c=='{'){
 			move();
 			using->next = (token*) toknsize;
 			using = using->next;
 			using->type = 1;
-			using->size = 8;//parce que "indicium" fait 8 caractères
+			using->size = 8; //parce que "indicium" fait 8 caractères
+			using->line = line;
 			strcpy(using->value,"indicium");
 		}
 		else if(c=='}'){
@@ -98,6 +78,7 @@ token * tokenizeFromFile(const char *path){
 			using = using->next;
 			using->type = 1;
 			using->size = 9;
+			using->line = line;
 			strcpy(using->value,"/indicium");
 		}
 		else{
@@ -106,7 +87,7 @@ token * tokenizeFromFile(const char *path){
 		}
 	}
 	fclose(filePointer);
-	return tokens->next->next;
+	return tokens->next;
 }
 
 token * tokenize(char text[],int len){

@@ -272,24 +272,26 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 		break;
 		case 3://identifier
 		getVar(nod->content,mem.vars,m);
-		if(nod->getElement){
+		//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
+		if(c){
 			if (m->type == 3) {
 				action(c,0,mem,a);
 				s = (int) a->ival;//La valeur à laquelle on consulte
-				while(s > 0){
-					m = m -> next;
-					s--;
+				while(s-- > 0){
+					a = a -> next;ake
 				}
+				printf("%li %li\n",sizeof(m),sizeof(*a));
+				memcpy(m,a,sizeof(m));
 			}else{
 				consulted(m,c,a,mem,m->cval);
 			}
 		}
-		//printf("La varibale consulté vaut %i %i\n",(int)m->ival,m->type);
+		printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
 		break;
 		default:
 		break;
 	}
-
-	//printf("Red : '%s'\ttype : %i\tival : %i\n",nod->content,m->type,(int)m->ival);
+	//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
+	printf("Red : '%s'\ttype : %i\tival : %i\n",nod->content,m->type,(int)m->ival);
 	if(nod->bro && doBro){action(nod->bro,1,mem,a);}
 }
