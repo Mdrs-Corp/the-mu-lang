@@ -4,13 +4,17 @@
 #define toknsize malloc(sizeof(token))
 #define blocsize malloc(sizeof(bloc))
 #define nodesize calloc(1,sizeof(node))
+// Les types de messages/variables
+#define Numerus 1
+#define Filum 2
+#define Ordinata 3
 
-/* les types:
-0: string
-1: balise
-2: number
-3: identifier
-*/
+// Les types de tokens/nodes:
+#define STRING 0
+#define BALISE 1
+#define CONSTT  2
+#define IDENTIFIER 3
+
 
 //Les tokens, pour Lexer
 typedef struct token {

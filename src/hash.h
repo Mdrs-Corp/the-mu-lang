@@ -61,11 +61,9 @@ void setVar(char * str, mess * micode, var * vars){
 	vars[location].isFull = 1;
 	strcpy(vars[location].name,str);
 	memcpy(&vars[location].content,micode,sizeof(*micode));
-	//printf("Setted %s to %i\n", str,(int) micode->ival);
 }
 
 void setFun(node * c, fun * funs){
-	c->content[c->size-1]='\0';
 	int location = baliseEncoder(c->content)%FUNS_LEN;
 	while((strcmp(funs[location].name,c->content)==0)^funs[location].isFull){
 		location = (location+1)%FUNS_LEN;

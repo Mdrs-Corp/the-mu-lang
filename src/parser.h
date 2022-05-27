@@ -56,11 +56,10 @@ node * parse(token *  tok){
 	node * newNod;
 	token * newTok;
 	pile->node = root;
-	tok = tok->next;
+	tok = tok ->next;
     while (tok) {
 		currentNode = pile->node;
         if (tok->type == 1 && tok->value[tok->size-1]!='/') {
-			// si c'est une balise, et qu'elle n'est pas autofermante
             if(tok->value[0] == '/') { // si elle se ferme
                 pile = depiler(pile);
             }else{ // sinon on en ouvre une autre
@@ -73,7 +72,7 @@ node * parse(token *  tok){
 				}
 				pile = empiler(pile, newNod);
             }
-        }else{ // sinon c'est une feuille de l'AST
+        }else{ // feuille de l'AST
 			newNod = NodefromToken(tok);
             addSon(currentNode,newNod);
         }

@@ -34,7 +34,7 @@ token * tokenizeFromFile(const char *path){
 			while(nc!=EOF && nc !='>'){name[e++]=move();}
             move();
 			move();
-			SET(1);
+			SET(BALISE);
         }
 		else if(isnumber(c)){
 			while(nc!=EOF && isnumber(c)){
@@ -42,7 +42,7 @@ token * tokenizeFromFile(const char *path){
 				e++;
 				move();
 			}
-			SET(2);
+			SET(CONSTT);
 		}
 		else if(isletter(c)){
 			while(nc!=EOF && isletter(c)){
@@ -50,7 +50,7 @@ token * tokenizeFromFile(const char *path){
 				e++;
 				move();
 			}
-			SET(3);
+			SET(IDENTIFIER);
         }
 		else if(c=='|'){
 			move();
@@ -61,13 +61,13 @@ token * tokenizeFromFile(const char *path){
 			}while(!(c=='|' && nc=='|'));
             move();
 			move();
-			SET(0);
+			SET(STRING);
 		}
 		else if(c=='{'){
 			move();
 			using->next = (token*) toknsize;
 			using = using->next;
-			using->type = 1;
+			using->type = BALISE;
 			using->size = 8; //parce que "indicium" fait 8 caractères
 			using->line = line;
 			strcpy(using->value,"indicium");
@@ -76,7 +76,7 @@ token * tokenizeFromFile(const char *path){
 			move();
 			using->next = (token*) toknsize;
 			using = using->next;
-			using->type = 1;
+			using->type = BALISE;
 			using->size = 9;
 			using->line = line;
 			strcpy(using->value,"/indicium");

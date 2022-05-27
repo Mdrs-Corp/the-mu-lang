@@ -2,9 +2,13 @@
 	<indo>
 		name
 		||absc||
+	</indo>
 	<loq>
 		||Bonjour le monde ! µwµ||
-		||Programme qui dit bonjour le monde||
+		<add>
+			||Programme qui dit bonjour le monde||
+			2
+		</add>
 	</loq>
 	<loq>
 		<add>
@@ -13,11 +17,11 @@
 			3
 			<partio> 4 2</partio>
 		</add>
-		||
-		||
-		<mul> 2 5</mul>
-		||
-		||
+	</loq>
+	<loq>
+		<mul>2 5</mul>
+	</loq>
+	<loq>
 		||ffdqiugivbiib||{0}
 		name{0}
 	</loq>

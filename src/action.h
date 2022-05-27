@@ -1,5 +1,7 @@
 // Executer le contenu de l'arbre
+
 void action(node * nod, int doBro, struct memory mem, mess * m);
+#define IwantNumerus(x) if(x->type!=Numerus){alert(Numerus,x->type,c->line,nod->content);break;}
 
 float parseInt(const char * num, int len){
 	float result = 0;
@@ -12,21 +14,22 @@ float parseInt(const char * num, int len){
 			result/=puis;
 			puis=1;
 		}else{//sinon c'est un chiffre
-		for (n = 48; n < 58; n++) {
-			if (n == num[i-1]) {
-				current = n-48;
-				n = 420; // On a trouvé qui c'était, on sort
+			for (n = 48; n < 58; n++) {
+				if (n == num[i-1]) {
+					current = n-48;
+					n = 420; // On a trouvé qui c'était, on sort
+				}
 			}
 		}
+		if (current!=69) {
+			result+=current*puis;
+			puis*=10;
+		}
 	}
-	if (current!=69) {
-		result+=current*puis;
-		puis*=10;
-	}
-}
-return result;
+	return result;
 }
 
+// consulter un filum à un certain indice
 void consulted(mess * m, node * c, mess * a,  struct memory mem, char * string){
 	m->ival = 1;
 	action(c,0,mem,a);
@@ -62,21 +65,20 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 	node * c = nod->child; // le premier enfant amen
 	mess * a = (mess*) calloc(1,sizeof(mess));// va se faire charcuter par les gosses
 	int s;// lorsqu'on fait des sommes, ou l'equivalent
-
-	fun  f;// Les fonctions
-	node * fc;// Les arguments de la fonction
-	//printf("Action on ''%s''\n", nod->content);
+	fun  f;// lorsqu'on traite de fonctions
+	node * fc;// les arguments de la fonction en cours de traitement
+	
 	switch (nod->type){
-		case 0: // String
-		m->type = 2;
-		if(nod->getElement){ // si on le prend à un certain index
+		case STRING:
+		m->type = Filum;
+		if(nod->getElement){ 
 			consulted(m,c,a,mem,nod->content);
 		}else{
 			m->ival = nod->size;
 			strcpy(m->cval,nod->content);
 		}
 		break;
-		case 1://Balise
+		case BALISE://Balise
 		switch (baliseEncoder(nod->content)) {//Quel type ?
 			case 821://µ
 			if(c){action(c,1,mem,m);}
@@ -85,69 +87,82 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			if(c){action(c,0,mem,m);}
 			break;
 			case 147://officium
+			c->content[c->size-1]='\0'; // remove '/' at the end
 			setFun(c,mem.funs);
 			break;
 			case 1://Addere
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 0;
 			do{
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				m->ival += a->ival;
 			}while((c=c->bro));
 			break;
 			case 984://Multiplicare
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 1;
 			do{
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				m->ival *= a->ival;
 			}while((c=c->bro));
 			break;
 			case 936://Partiorum
 			action(c,0,mem,m);
-			m->type = 1;
+			IwantNumerus(m);
 			while((c=c->bro)){
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				m->ival /= a->ival;
 			};
 			break;
 			case 100://inferioris
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 1;
 			action(c,0,mem,a);
+			IwantNumerus(a);
 			s = a->ival;
 			while((c=c->bro) && m->ival){
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				if (s > a->ival) {
 					m->ival = 0;
 				}
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				s = a->ival;
 			};
 			break;
 			case 400://aequalis
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 0;
 			action(c,0,mem,a);
+			IwantNumerus(a);
 			s = a->ival;
 			while((c=c->bro) && m->ival){
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				if (s != a->ival) {
 					m->ival = 0;
 				}
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				s = a->ival;
 			};
 			break;
 			case 382://dum
 			action(c,0,mem,m);
+			IwantNumerus(m);
 			while(m->ival){
 				action(c->bro,1,mem,a);
 				action(c,0,mem,m);
+				IwantNumerus(m);
 			}
 			break;
 			case 250://si
 			action(c,0,mem,m);
+			IwantNumerus(m);
 			if(m->ival){
 				action(c->bro,1,mem,a);
 			}
@@ -160,37 +175,39 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			}
 			break;
 			case 500://et
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 1;
 			do{
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				m->ival = a->ival && m->ival;
 			}while((c = c->bro));
 			break;
 			case 695://ubi
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 0;
 			do{
 				action(c,0,mem,a);
+				IwantNumerus(a);
 				m->ival = a->ival || m->ival;
 			}while((c = c->bro));
 			break;
 			case 227://verum
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 1;
 			break;
 			case 668://falusm
-			m->type = 1;
+			m->type = Numerus;
 			m->ival = 0;
 			break;
 			case 746://loq
 			while(c){
 				action(c,0,mem,m);
-				if(m->type==1){
+				if(m->type==Numerus){
 					printf("%g", m->ival);
-				}else if(m->type==2){
+				}else if(m->type==Filum){
 					printf("%s", m->cval);
-				}else if(m->type==3){
+				}else if(m->type==Ordinata){
 					printf("Ordinata (%i) { ",(int)m->ival);
 					s=m->ival;
 					m=m->next;
@@ -200,7 +217,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 					}
 					printf("}\n");
 				}else{
-					printf("Unkonow type to print %i",m->type);
+					printf("Unknow type to print %i",m->type);
 				}
 				c = c->bro ;
 			}
@@ -211,7 +228,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				printf("Your are not allowed to consult a newly made Ordinata");
 				break;
 			}
-			m->type = 3;
+			m->type = Ordinata;
 			m->next = a;
 			s = 0;
 			do{
@@ -224,10 +241,10 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			break;
 			case 119://qua
 			case 802://qua/
-			m->type = 2;
+			m->type = Filum;
 			while(c){
 				action(c,0,mem,a);
-				if(a->type==1){
+				if(a->type==Numerus){
 					printf("%g", a->ival);
 				}else{
 					printf("%s", a->cval);
@@ -265,33 +282,32 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			break;
 		}
 		break;
-		case 2://Numerus
-		m->type = 1;
+		case CONSTT://Numerus
+		m->type = Numerus;
 		m->ival = parseInt(nod->content,nod->size);
 		strcpy(m->cval,nod->content);
 		break;
-		case 3://identifier
+		case IDENTIFIER://identifier
 		getVar(nod->content,mem.vars,m);
 		//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
 		if(c){
-			if (m->type == 3) {
+			if (m->type == Ordinata) {
 				action(c,0,mem,a);
 				s = (int) a->ival;//La valeur à laquelle on consulte
 				while(s-- > 0){
-					a = a -> next;ake
+					a = a -> next;
 				}
 				printf("%li %li\n",sizeof(m),sizeof(*a));
-				memcpy(m,a,sizeof(m));
 			}else{
 				consulted(m,c,a,mem,m->cval);
 			}
 		}
-		printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
+		//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
 		break;
 		default:
 		break;
 	}
 	//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
-	printf("Red : '%s'\ttype : %i\tival : %i\n",nod->content,m->type,(int)m->ival);
+	//printf("Red : '%s'\ttype : %i\tival : %i\n",nod->content,m->type,(int)m->ival);
 	if(nod->bro && doBro){action(nod->bro,1,mem,a);}
 }

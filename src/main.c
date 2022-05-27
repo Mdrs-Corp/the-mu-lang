@@ -11,11 +11,12 @@ Et les mettres dans ce fichier afin d'executer un gros */
 #include "tokenizer.h"
 #include "parser.h"
 #include "hash.h"
+#include "alerts.h"
 #include "action.h"
 char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
 
 int main(int argc, char const *argv[]){
-	struct memory  mem;
+	struct memory mem;
 	mem.vars = (var*) calloc(VARS_LEN,sizeof(var));
 	mem.funs = (fun*) calloc(FUNS_LEN,sizeof(fun));
 	token * T;
@@ -28,7 +29,7 @@ int main(int argc, char const *argv[]){
 	}
 
 	int devmode = 0;
-	for (size_t i = 0; i < argc; i++) {
+	for (unsigned int i = 0; i < argc; i++) {
 		if (strcmp(argv[i],"-dev")==0) {
 			devmode=1;
 		}
@@ -55,12 +56,14 @@ int main(int argc, char const *argv[]){
 
 		printf("\n\033[1;1m-->\033[0m Variables :\n");
 		see_mmry(mem);
+
+		printf("\033[0m"); //Reset the text to default color
 	}else{
 		mess * resultat = (mess*) malloc(sizeof(mess));
-		resultat->ival=181;
 		strcpy(resultat->cval,"µ\0");
+		resultat->type=Filum;
 		action(parse(T),0,mem,resultat);
 	}
-	printf("\033[0m"); //Reset the text to default color
+	
 	return 0;
-}
+} // nice number of lines ;)
