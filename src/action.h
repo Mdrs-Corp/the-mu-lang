@@ -2,6 +2,7 @@
 
 void action(node * nod, int doBro, struct memory mem, mess * m);
 #define IwantNumerus(x) if(x->type!=Numerus){alert(Numerus,x->type,c->line,nod->content);break;}
+#define IwantFilum(x) if(x->type!=Filum){alert(Filum,x->type,c->line,nod->content);break;}
 
 float parseInt(const char * num, int len){
 	float result = 0;
@@ -31,7 +32,6 @@ float parseInt(const char * num, int len){
 
 // consulter un filum à un certain indice
 void consulted(mess * m, node * c, mess * a,  struct memory mem, char * string){
-	m->ival = 1;
 	action(c,0,mem,a);
 	m->cval[0] = string[(int)a->ival];
 	m->cval[1] = '\0';
@@ -59,6 +59,7 @@ void consulted(mess * m, node * c, mess * a,  struct memory mem, char * string){
 18	 name: qua/		code: 802
 19	 name: qua 	 code: 119
 20 	 name: variabilis/ code :9
+name: long code:479
 */
 
 void action(node * nod, int doBro, struct memory mem, mess * m){
@@ -83,22 +84,39 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 			case 821://µ
 			if(c){action(c,1,mem,m);}
 			break;
+
 			case 747://indicium
 			if(c){action(c,0,mem,m);}
 			break;
+
 			case 147://officium
 			c->content[c->size-1]='\0'; // remove '/' at the end
 			setFun(c,mem.funs);
 			break;
+
 			case 1://Addere
-			m->type = Numerus;
-			m->ival = 0;
-			do{
-				action(c,0,mem,a);
-				IwantNumerus(a);
-				m->ival += a->ival;
-			}while((c=c->bro));
+			action(c,0,mem,a);
+			if(a->type==Numerus){
+				m->type = Numerus;
+				m->ival = a->ival;
+				c=c->bro;
+				do{
+					action(c,0,mem,a);
+					IwantNumerus(a);
+					m->ival += a->ival;
+				}while((c=c->bro));
+			}else if(a->type==Filum){
+				m->type = Filum;
+				strcpy(m->cval,"");
+				c=c->bro;
+				do{
+					action(c,0,mem,a);
+					IwantFilum(a);
+					strcat(m->cval,a->cval);
+				}while((c=c->bro));
+			}
 			break;
+
 			case 984://Multiplicare
 			m->type = Numerus;
 			m->ival = 1;
@@ -108,6 +126,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				m->ival *= a->ival;
 			}while((c=c->bro));
 			break;
+
 			case 936://Partiorum
 			action(c,0,mem,m);
 			IwantNumerus(m);
@@ -117,6 +136,14 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				m->ival /= a->ival;
 			};
 			break;
+
+			case 479://longitudo
+			m->type = Numerus;
+			action(c,0,mem,a);
+			IwantFilum(a);
+			m->ival=strlen(a->cval);
+			break;
+			
 			case 100://inferioris
 			m->type = Numerus;
 			m->ival = 1;
@@ -134,6 +161,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				s = a->ival;
 			};
 			break;
+
 			case 400://aequalis
 			m->type = Numerus;
 			m->ival = 0;
@@ -151,6 +179,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				s = a->ival;
 			};
 			break;
+
 			case 382://dum
 			action(c,0,mem,m);
 			IwantNumerus(m);
@@ -160,6 +189,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				IwantNumerus(m);
 			}
 			break;
+
 			case 250://si
 			action(c,0,mem,m);
 			IwantNumerus(m);
@@ -167,6 +197,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				action(c->bro,1,mem,a);
 			}
 			break;
+
 			case 321://indo
 			while(c){
 				action(c->bro,0,mem,m);
@@ -174,6 +205,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 				c = c->bro->bro;
 			}
 			break;
+
 			case 500://et
 			m->type = Numerus;
 			m->ival = 1;
@@ -287,23 +319,26 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 		m->ival = parseInt(nod->content,nod->size);
 		strcpy(m->cval,nod->content);
 		break;
+
 		case IDENTIFIER://identifier
 		getVar(nod->content,mem.vars,m);
-		//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
-		if(c){
-			if (m->type == Ordinata) {
+		if (m->type == Ordinata) {
+			action(c,0,mem,a);
+			s = (int) a->ival;//La valeur à laquelle on consulte
+			while(s-- > 0){
+				a = a -> next;
+			}
+			printf("%li %li\n",sizeof(m),sizeof(*a));
+		}else{
+			if(nod->getElement){
 				action(c,0,mem,a);
-				s = (int) a->ival;//La valeur à laquelle on consulte
-				while(s-- > 0){
-					a = a -> next;
-				}
-				printf("%li %li\n",sizeof(m),sizeof(*a));
-			}else{
-				consulted(m,c,a,mem,m->cval);
+				m->cval[0] = m->cval[(int)a->ival];
+				m->cval[1] = '\0';
 			}
 		}
 		//printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
 		break;
+
 		default:
 		break;
 	}

@@ -13,7 +13,6 @@ Et les mettres dans ce fichier afin d'executer un gros */
 #include "hash.h"
 #include "alerts.h"
 #include "action.h"
-char exemple[]="<µ> <loq> ||jean|| </loq><loq><add>1 2</add></loq></µ>";
 
 int main(int argc, char const *argv[]){
 	struct memory mem;
@@ -24,8 +23,8 @@ int main(int argc, char const *argv[]){
 	if(argc>=2 && argv[1][0]!='-'){
 		T = tokenizeFromFile(argv[1]);
 	}else{
-		printf("Interpreting from exemple : %s\n",exemple);
-		T = tokenize(exemple,sizeof(exemple)/sizeof(exemple[0]));
+		printf("Interpreting from built-in exemple : \n");
+		T = tokenizeFromFile("./src/exemple.µ");
 	}
 
 	int devmode = 0;

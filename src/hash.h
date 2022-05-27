@@ -75,8 +75,13 @@ void setFun(node * c, fun * funs){
 
 fun getFun(node * nod, fun * funs){
 	int location = baliseEncoder(nod->content)%FUNS_LEN;
+	int loopAt = location;
 	while(strcmp(nod->content,funs[location].name)!=0){
 		location = (location+1)%FUNS_LEN;
+		if (loopAt==location){
+			printf("Unknow balise : %s, %i",nod->content,loopAt);
+			return funs[location];
+		}
 	}
 	return funs[location];
 }

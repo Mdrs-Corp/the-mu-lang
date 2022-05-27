@@ -1,9 +1,10 @@
 // Fichier qui contient toutes les structures utilisées
 
-
+// Shortcut, flemme de me répéter
 #define toknsize malloc(sizeof(token))
 #define blocsize malloc(sizeof(bloc))
 #define nodesize calloc(1,sizeof(node))
+
 // Les types de messages/variables
 #define Numerus 1
 #define Filum 2
@@ -14,7 +15,6 @@
 #define BALISE 1
 #define CONSTT  2
 #define IDENTIFIER 3
-
 
 //Les tokens, pour Lexer
 typedef struct token {
@@ -44,25 +44,26 @@ typedef struct bloc{
 
 //La communication entre balise, "messages"
 typedef struct mess {
-	struct mess * next;//pour les listes
-	unsigned int type:2;// 1 pour int 2 pour char* 3 pour ordinata
+	struct mess * next;//pour les ordinata
+	unsigned int type:2;
     union{
-    	float ival;// La valeur en int si c'est un int sinon la longeur de la chaine
-		char cval[MAX_STRING_LEN];// Le stockage de la chaine de char
+    	float ival;
+		char cval[MAX_STRING_LEN];
 	};
 }mess;
 
-//Les variables, contenues dans la liste des variables (hashés)
+//Les variables
 typedef struct var{
-	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
+	unsigned int isFull:1;
 	char name[MAX_STRING_LEN];
 	mess content;
 }var;
 
+//Les fonctions
 typedef struct fun{
-	unsigned int isFull:1; //Si la mémoire à cet endroit est vide
-	node * args;
+	unsigned int isFull:1;
 	char name[MAX_STRING_LEN];
+	node * args;
 }fun;
 
 struct memory{

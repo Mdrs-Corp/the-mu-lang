@@ -1,10 +1,24 @@
 <µ>
-	<indo> a ||squidgame|| b 0</indo>
+	<indo> 
+		a 
+		||squidgame||
+		b
+		0
+		l
+		<long>
+			a
+		</long>
+	</indo>
+	<loq>
+		l
+	</loq>
 	<dum>
-		<inferioris>b a</inferioris>
+		<inferioris>b l</inferioris>
+		
 		<loq>
 			a{b}
 		</loq>
+
 		<indo>
 			b
 			<add>
