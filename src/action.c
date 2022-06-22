@@ -1,6 +1,7 @@
 // Executer le contenu de l'arbre
 
 void action(node * nod, int doBro, struct memory mem, mess * m);
+
 #define IwantNumerus(x) if(x->type!=Numerus){alert(Numerus,x->type,c->line,nod->content);break;}
 #define IwantFilum(x) if(x->type!=Filum){alert(Filum,x->type,c->line,nod->content);break;}
 

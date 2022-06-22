@@ -3,16 +3,17 @@
 #include <string.h>
 
 #define MAX_STRING_LEN 100
-#define VARS_LEN 10
-#define FUNS_LEN 10
-/* Ordre importants, le compileur va vraiment yank les contenus à la suite
+#define VARS_LEN 10 // Nombre de variables
+#define FUNS_LEN 10 // Nombre de fonctions
+
+/* Ordre important, le compileur va vraiment yank les contenus à la suite
 Et les mettres dans ce fichier afin d'executer un gros */
-#include "structs.h"
-#include "tokenizer.h"
-#include "parser.h"
-#include "hash.h"
-#include "alerts.h"
-#include "action.h"
+#include "structs.c"
+#include "tokenizer.c"
+#include "parser.c"
+#include "hash.c"
+#include "alerts.c"
+#include "action.c"
 
 int main(int argc, char const *argv[]){
 	struct memory mem;
