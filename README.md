@@ -11,5 +11,3 @@ Now that's it's compiled you just need to run the interpreter with:
 ```bash
 dicket your_script.µ
 ```
-
-
