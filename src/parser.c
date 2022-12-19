@@ -38,7 +38,7 @@ void addSon(node * mom, node * new){
 };
 
 void printFamilly(node * root, int niv){
-	printf("%i",root->line);
+	printf("%02d ",root->line);
 	for (int i = 0; i < niv; i++)printf("\033[1;3%im--|",root->type+1);
 	printf("\033[0m");
 	printf("%s\n",root->content ? root->content : "Empty node wth");

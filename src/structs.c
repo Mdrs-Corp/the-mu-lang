@@ -18,55 +18,55 @@
 
 //Les tokens, pour Lexer
 typedef struct token {
-	struct token * next;
-	char value[MAX_STRING_LEN]; // Les valeurs des tokens
-	unsigned int size;
-	unsigned int type:2;
-	unsigned int line;
+    struct token * next;
+    char value[MAX_STRING_LEN]; // Les valeurs des tokens
+    unsigned int size;
+    unsigned int type:2;
+    unsigned int line;
 }token;
 
 //Les noeds de l'Abstract Syntax Tree
 typedef struct node{
     struct node * child;
     struct node * bro;
-	char content[MAX_STRING_LEN];
-	unsigned int size;
-	unsigned int type:2;
-	unsigned int line;
-	unsigned int getElement:1; // si la node est consulté aka {}
+    char content[MAX_STRING_LEN];
+    unsigned int size;
+    unsigned int type:2;
+    unsigned int line;
+    unsigned int getElement:1; // si la node est consulté aka {}
 }node;
 
 //Les blocs pour la pile lors de la fabrication de l'AST
 typedef struct bloc{
-	struct bloc * prev;
+    struct bloc * prev;
     node * node;
 }bloc;
 
 //La communication entre balise, "messages"
 typedef struct mess {
-	struct mess * next;//pour les ordinata
-	unsigned int type:2;
+    struct mess * next;//pour les ordinata
+    unsigned int type:2;
     union{
-    	float ival;
-		char cval[MAX_STRING_LEN];
-	};
+        float ival;
+        char cval[MAX_STRING_LEN];
+    };
 }mess;
 
 //Les variables
 typedef struct var{
-	unsigned int isFull:1;
-	char name[MAX_STRING_LEN];
-	mess content;
+    unsigned int isFull:1;
+    char name[MAX_STRING_LEN];
+    mess content;
 }var;
 
 //Les fonctions
 typedef struct fun{
-	unsigned int isFull:1;
-	char name[MAX_STRING_LEN];
-	node * args;
+    unsigned int isFull:1;
+    char name[MAX_STRING_LEN];
+    node * args;
 }fun;
 
 struct memory{
-	fun * funs;
-	var * vars;
+    fun * funs;
+    var * vars;
 };

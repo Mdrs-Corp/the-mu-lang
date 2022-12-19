@@ -5,30 +5,8 @@ void action(node * nod, int doBro, struct memory mem, mess * m);
 #define IwantNumerus(x) if(x->type!=Numerus){alert(Numerus,x->type,c->line,nod->content);break;}
 #define IwantFilum(x) if(x->type!=Filum){alert(Filum,x->type,c->line,nod->content);break;}
 
-float parseInt(const char * num, int len){
-    float result = 0;
-    int puis = 1;
-    int current; // Le caractère actuel
-    int n; // Le nombre auquel cela correspond
-    for(int i = len; i>0; i--){
-        current =69;
-        if (num[i-1]==46) {// si on tombe sur un point
-            result/=puis;
-            puis=1;
-        }else{//sinon c'est un chiffre
-            for (n = 48; n < 58; n++) {
-                if (n == num[i-1]) {
-                    current = n-48;
-                    n = 420; // On a trouvé qui c'était, on sort
-                }
-            }
-        }
-        if (current!=69) {
-            result+=current*puis;
-            puis*=10;
-        }
-    }
-    return result;
+float parseInt(char * num, int len){
+    return (float)atoi(num);
 }
 
 // consulter un filum à un certain indice
@@ -85,7 +63,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
             switch (baliseEncoder(nod->content)) {//Quel type ?
 
                 case 821://µ
-                    if(c){action(c,1,mem,m);}
+                    if(c) action(c,1,mem,m);
                     break;
 
                 case 747://indicium
@@ -99,6 +77,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
 
                 case 1://Addere
                     action(c,0,mem,a);
+
                     if(a->type==Numerus){// basiq addition
                         m->type = Numerus;
                         m->ival = a->ival;
@@ -108,6 +87,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                             IwantNumerus(a);
                             m->ival += a->ival;
                         }while((c=c->bro));
+
                     }else if(a->type==Filum){// string concatenation
                         m->type = Filum;
                         strcpy(m->cval,"");
@@ -196,9 +176,8 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                 case 250://si
                     action(c,0,mem,m);
                     IwantNumerus(m);
-                    if(m->ival){
-                        action(c->bro,1,mem,a);
-                    }
+                    if(m->ival)
+                        action(c->bro,1,mem,a); 
                     break;
 
                 case 321://indo
@@ -234,7 +213,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     m->ival = 1;
                     break;
 
-                case 668://falusm
+                case 668://falsum
                     m->type = Numerus;
                     m->ival = 0;
                     break;
@@ -250,7 +229,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                                 printf("%s", m->cval);
                                 break;
                             case Ordinata:
-                                printf("Ordinata (%i) { ",(int)m->ival);
+                                printf("(%i){ ",(int)m->ival);
                                 s = m->ival;
                                 m = m->next;
                                 while(s--){
@@ -269,20 +248,6 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     break;
 
                 case 200://ord
-                    if (nod->getElement) {
-                        printf("Your are not allowed to consult a newly made Ordinata");
-                        break;
-                    }
-                    m->type = Ordinata;
-                    m->next = a;
-                    s = 0;
-                    do{
-                        action(c,0,mem,a);
-                        a->next = (mess*) calloc(1,sizeof(mess));
-                        a = a->next;
-                        s++;
-                    }while((c = c->bro));
-                    m->ival = s;
                     break;
 
                 case 119://qua
@@ -334,35 +299,30 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
             strcpy(m->cval,nod->content);
             break;
 
-        case IDENTIFIER://identifier
+        case IDENTIFIER://variable refered by it's name
             getVar(nod->content,mem.vars,m);
             switch(m->type){
-        case Ordinata:
-                action(c,0,mem,a);
-
-                s = (int) a->ival;//La valeur à laquelle on consulte
-                if(m->ival<=s)printf("Error : trying to get value out of range");
-                while(s--){
-                    a = a -> next;
-                }
-                printf("length %f\n",m->ival);
-                memcpy(m, a);
-                break;
-        case Filum:
-                if(nod->getElement){
-                    action(c,0,mem,a);
-                    m->cval[0] = m->cval[(int)a->ival];
-                    m->cval[1] = '\0';
-                }
+                case Ordinata:
+                    break;
+                case Filum:
+                    if(nod->getElement){
+                        action(c,0,mem,a);
+                        m->cval[0] = m->cval[(int)a->ival];
+                        m->cval[1] = '\0';
+                    }
+                    break;
+                case Numerus:
+                    break;
+                default:
+                    error(nod,"Can't get the content of the variable");
             }
             //printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
             break;
         default:
-            printf("Unknown error, remember: only ASCII allowed\n");
+            error(nod,"Unknown error, remember: only ASCII allowed");
             break;
     }
-    //printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
-    //printf("Red : '%s'\ttype : %i\tival : %i\n",nod->content,m->type,(int)m->ival);
+    //printf("Red : '%s'\ttype : %i\tival : %f\n",nod->content,m->type,m->ival);
     if(nod->bro && doBro)
         action(nod->bro,1,mem,a);
 }

@@ -1,18 +1,11 @@
 <µ>
-	<indo>
-		list
-		<ord>
-			69
-			420
-      4871
-      8317
-      6471
-		</ord>
-		a
-		list{2}
-	</indo>
-	<variabilis/>
-	<loq>
-		<mul> list{1} 1 </mul>
-	</loq>
+<indo>
+  list
+  <ord> 69 420 4871 8317 6471 </ord>
+  a
+  list{2}
+</indo>
+<loq>
+  a
+</loq>
 </µ>
