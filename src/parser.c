@@ -1,5 +1,4 @@
-// Pour transformer les tokens en AST
-
+// Construction de l'AST
 bloc * empiler(bloc * head, node * new) {
     bloc * n = (bloc*) blocsize;
     n->node = new;
@@ -23,18 +22,17 @@ node * NodefromToken(token * tok){
     return c;
 }
 
-node * lastSon(node * mom){// Chercher le tout petit
+node * lastSon(node * mom){
     node * c = mom->child;
     while(c->bro) c = c->bro;
     return c;
 }
 
 void addSon(node * mom, node * new){
-    if(mom->child == NULL) // si il n'y en avait pas
-        mom->child = new;// il devient l'ainé
+    if(mom->child == NULL) 
+        mom->child = new;
     else
-        lastSon(mom)->bro = new;// Devenir plus petit que le petit
-   
+        lastSon(mom)->bro = new;
 }
 
 void printFamilly(node * rt, int niv){
@@ -56,23 +54,27 @@ node * parse(token *  tok){
     node * newNod;
     token * newTok;
     pile->node = root;
-    tok = tok ->next;
-    while (tok) {
+    tok = tok -> next;
+    while (tok)
+    {
         currentNode = pile->node;
-        if (tok->type == 1 && tok->value[tok->size-1]!='/') {
-            if(tok->value[0] == '/') { // si elle se ferme
+        if (tok->type == BALISE && tok->value[tok->size-1]!='/') 
+        {
+            if(tok->value[0] == '/') 
                 pile = depiler(pile);
-            }else{ // sinon on en ouvre une autre
+            else
+            {
                 newNod = NodefromToken(tok);
-                if(!strcmp(newNod->content,"indicium")){
+                if(!strcmp(newNod->content,"indicium"))
+                {
                     lastSon(currentNode)->child = newNod;
                     lastSon(currentNode)->getElement = 1;
-                }else{
-                    addSon(currentNode, newNod);
                 }
+                else
+                    addSon(currentNode, newNod);
                 pile = empiler(pile, newNod);
             }
-        }else{ // feuille de l'AST
+        }else{
             newNod = NodefromToken(tok);
             addSon(currentNode,newNod);
         }

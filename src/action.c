@@ -76,9 +76,9 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
     switch (nod->type){
         case STRING:
             m->type = Filum;
-            if(nod->getElement){ 
+            if(nod->getElement) 
                 consulted(m,c,a,mem,nod->content);
-            }else{
+            else{
                 m->ival = nod->size;
                 strcpy(m->cval,nod->content);
             }
@@ -107,21 +107,22 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                         m->type = Numerus;
                         m->ival = a->ival;
                         c=c->bro;
-                        do{
+                        while(c){
                             action(c,0,mem,a);
                             IwantNumerus(a);
                             m->ival += a->ival;
-                        }while((c=c->bro));
+                            c=c->bro;
+                        }
 
                     }else if(a->type==Filum){// string concatenation
                         m->type = Filum;
-                        strcpy(m->cval,"");
                         c=c->bro;
-                        do{
+                        while(c){
                             action(c,0,mem,a);
                             IwantFilum(a);
                             strcat(m->cval,a->cval);
-                        }while((c=c->bro));
+                            c=c->bro;
+                        }
                     }
                     break;
 
@@ -161,7 +162,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     while((c=c->bro) && m->ival){
                         action(c,0,mem,a);
                         IwantNumerus(a);
-                        if (s > a->ival) {
+                        if (s >= a->ival) {
                             m->ival = 0;
                         }
                         action(c,0,mem,a);
@@ -276,12 +277,11 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     }
                     scanf("%[^\n]", m->cval);
                     char k;
+                    int i;
+                    i = 0;
                     s = 1;// es ce que c'est un Numerus ?
-                    m->ival = 0;
-                    while((k = m->cval[(int)m->ival])){
+                    while((k = m->cval[i++]))
                         s &= isnumber(k);
-                        m->ival++;
-                    }
                     if(s){
                         m->type = Numerus;
                         m->ival = parseInt(m->cval,m->ival);

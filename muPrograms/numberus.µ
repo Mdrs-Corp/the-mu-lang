@@ -7,7 +7,7 @@
 
   <loq> ||la taille de la chaine est : || l </loq>
   <dum>
-    <inferioris> b <add>l -1</add> </inferioris>
+    <inferioris> b l </inferioris>
     <loq> a{b} </loq>
     <indo> b <add> b 1 </add> </indo>
   </dum>

@@ -1,6 +1,6 @@
 make: src/main.c
 	@gcc -Wall -o dicke src/main.c
-	./dicke muPrograms/ord.µ -dev
+	./dicke muPrograms/quaestio.µ  -dev
 
 compile:
 	gcc -Wall -o dicke src/main.c

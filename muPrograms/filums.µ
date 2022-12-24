@@ -6,18 +6,10 @@
 <loq>
   ||Bonjour le monde ! µwµ||
   69 420 596
-  <add>
-    ||Programme qui dit bonjour le monde||
-    2
-  </add>
+  ||Programme qui dit bonjour le monde||
 </loq>
 <loq>
-  <add>
-    1
-    2
-    3
-    <partio> 4 2</partio>
-  </add>
+  <add> 1 2 3 <partio> 4 2</partio> </add>
 </loq>
 <loq>
   <mul>2 5</mul>
@@ -25,5 +17,8 @@
 <loq>
   ||ffdqiugivbiib||{0}
   name{0}
+</loq>
+<loq>
+  name
 </loq>
 </µ>
