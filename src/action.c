@@ -5,8 +5,9 @@ void action(node * nod, int doBro, struct memory mem, mess * m);
 #define IwantNumerus(x) if(x->type!=Numerus){alert(Numerus,x->type,c->line,nod->content);break;}
 #define IwantFilum(x) if(x->type!=Filum){alert(Filum,x->type,c->line,nod->content);break;}
 
-float parseInt(char * num, int len){
-    return (float)atoi(num);
+int parseInt(char * num, int len){
+    int v=atoi(num);
+    return v;
 }
 
 // consulter un filum à un certain indice
@@ -14,6 +15,30 @@ void consulted(mess * m, node * c, mess * a,  struct memory mem, char * string){
     action(c,0,mem,a);
     m->cval[0] = string[(int)a->ival];
     m->cval[1] = '\0';
+}
+
+void print(mess *m){
+    int s;
+    switch(m->type){
+        case Numerus:
+            printf("%d", m->ival);
+            break;
+        case Filum:
+            printf("%s", m->cval);
+            break;
+        case Ordinata:
+            printf("(%i){ ",(int)m->ival);
+            s = m->ival;
+            m = m->next;
+            while(s--){
+                printf("%i ",(int)m->ival);
+                m = m->next;
+            }
+            printf("}\n");
+            break;
+        default:
+            break;
+    }
 }
 
 /*
@@ -221,33 +246,24 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                 case 746://loq
                     while(c){
                         action(c,0,mem,m);
-                        switch(m->type){
-                            case Numerus:
-                                printf("%g", m->ival);
-                                break;
-                            case Filum:
-                                printf("%s", m->cval);
-                                break;
-                            case Ordinata:
-                                printf("(%i){ ",(int)m->ival);
-                                s = m->ival;
-                                m = m->next;
-                                while(s--){
-                                    printf("%i ",(int)m->ival);
-                                    m = m->next;
-                                }
-                                printf("}\n");
-                                break;
-                            default:
-                                printf("Unknow type to print %i",m->type);
-                                break;
-                        }
+                        print(m);
                         c = c->bro ;
                     }
                     printf("\n");
                     break;
 
                 case 200://ord
+                    s=0;
+                    m->next=a;
+                    while(c){
+                        action(c,0,mem,a);
+                        a->next=malloc(sizeof(mess));
+                        a=a->next;
+                        c=c->bro;
+                        s++;
+                    }
+                    m->type=Ordinata;
+                    m->ival=s;
                     break;
 
                 case 119://qua
@@ -255,11 +271,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     m->type = Filum;
                     while(c){
                         action(c,0,mem,a);
-                        if(a->type==Numerus){
-                            printf("%g", a->ival);
-                        }else{
-                            printf("%s", a->cval);
-                        }
+                        print(a);
                         c = c->bro;
                     }
                     scanf("%[^\n]", m->cval);
@@ -271,7 +283,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                         m->ival++;
                     }
                     if(s){
-                        m->type = 1;
+                        m->type = Numerus;
                         m->ival = parseInt(m->cval,m->ival);
                     }
                     break;
@@ -281,7 +293,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     break;
 
                 default:// Balise inconnue ou mal hashé (par mentié) ou définie par user
-                    //printf("Unknow balise '%s'\n",nod->content);
+                        //printf("Unknow balise '%s'\n",nod->content);
                     f = getFun(nod,mem.funs);
                     fc = f.args;
                     do{
@@ -296,13 +308,24 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
         case CONSTT://Numerus
             m->type = Numerus;
             m->ival = parseInt(nod->content,nod->size);
-            strcpy(m->cval,nod->content);
             break;
 
         case IDENTIFIER://variable refered by it's name
             getVar(nod->content,mem.vars,m);
             switch(m->type){
                 case Ordinata:
+                    if(nod->getElement){
+                        action(c,0,mem,a);
+                        s=a->ival;
+                        if(s>m->ival || s<0){
+                            error(nod,"list index beyond what's possible");
+                            break;
+                       }
+                        memcpy(m,m->next,sizeof(mess));
+                        while(s--)
+                            memcpy(m,m->next,sizeof(mess));
+                       
+                    }
                     break;
                 case Filum:
                     if(nod->getElement){
@@ -311,10 +334,8 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                         m->cval[1] = '\0';
                     }
                     break;
-                case Numerus:
+               default:
                     break;
-                default:
-                    error(nod,"Can't get the content of the variable");
             }
             //printf("La varibale consulté vaut %i (type %i)\n",(int)m->ival,m->type);
             break;

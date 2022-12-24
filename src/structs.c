@@ -46,8 +46,9 @@ typedef struct bloc{
 typedef struct mess {
     struct mess * next;//pour les ordinata
     unsigned int type:2;
+    // attention ! soit Numerus, soit Filum, pas les deux!
     union{
-        float ival;
+        int ival;
         char cval[MAX_STRING_LEN];
     };
 }mess;

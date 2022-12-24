@@ -27,7 +27,7 @@ void see_mmry(struct memory mem){
 	char types[][4]={"num","fil","ord"};
 	for (int i = 0; i < VARS_LEN; i++) {
 		if(mem.vars[i].isFull){
-			printf("\033[0;33m%s\t\033[0;34m%s\t\033[0;35m%g\t\033[0;36m%s\n\033[0m",
+			printf("\033[0;33m%s\t\033[0;34m%s\t\033[0;35m%i\t\033[0;36m%s\n\033[0m",
 			mem.vars[i].name,
 			types[mem.vars[i].content.type-1],
 			mem.vars[i].content.ival,
