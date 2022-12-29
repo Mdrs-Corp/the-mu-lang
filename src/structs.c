@@ -11,17 +11,17 @@
 #define Ordinata 3
 
 // Les types de tokens/nodes:
-#define STRING 0
-#define BALISE 1
-#define CONSTT  2
-#define IDENTIFIER 3
+#define STRING 1
+#define BALISE 2
+#define CONSTT  3
+#define IDENTIFIER 4
 
 //Les tokens, pour Lexer
 typedef struct token {
     struct token * next;
     char value[MAX_STRING_LEN]; // Les valeurs des tokens
     unsigned int size;
-    unsigned int type:2;
+    unsigned int type:3;
     unsigned int line;
 }token;
 
@@ -31,7 +31,7 @@ typedef struct node{
     struct node * bro;
     char content[MAX_STRING_LEN];
     unsigned int size;
-    unsigned int type:2;
+    unsigned int type:3;
     unsigned int line;
     unsigned int getElement:1; // si la node est consulté aka {}
 }node;

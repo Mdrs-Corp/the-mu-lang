@@ -1,0 +1,12 @@
+<µ>
+  <officium>
+    <carre/> a
+    <mul> a a</mul>
+  </officium>
+  <loq>
+    <add> 
+      <carre> 13 </carre>
+      <mul> -1 <carre> 10 </carre> </mul>
+    </add>
+  </loq>
+</µ>

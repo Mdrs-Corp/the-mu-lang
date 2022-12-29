@@ -3,7 +3,7 @@
 int isletter(char s){return ('a'<=s && s<='z') || ('A'<=s && s<='Z');}
 int isnumber(char s){return ('0'<=s && s<='9') || s=='.' || s=='-';}
 
-#define SET(t) using->next = (token*) toknsize;using = using->next;using->type=t;using->size=e;using->line=line;name[e]='\0';strcpy(using->value,name)
+#define SET(t) 
 
 token * tokenizeFromFile(const char *path){
     char c;//Current char
@@ -24,18 +24,16 @@ token * tokenizeFromFile(const char *path){
     move();
     move();
     int e; //longeur du jeton
+    int t; //type du jeton
     char name[MAX_STRING_LEN]; // Contenu du jeton
     while(nc!=EOF && c){
         e=0;
-        if(c == ' ' || c == '\n' || c == '\t'){
-            line+=(c=='\n');
-            move();
-        }
-        else if(c=='<'){
+        t=0;
+        if(c=='<'){
             while(nc!=EOF && nc !='>'){name[e++]=move();}
             move();
             move();
-            SET(BALISE);
+            t=BALISE;
         }
         else if(isnumber(c)){
             while(nc!=EOF && isnumber(c)){
@@ -43,7 +41,7 @@ token * tokenizeFromFile(const char *path){
                 e++;
                 move();
             }
-            SET(CONSTT);
+            t=CONSTT;
         }
         else if(isletter(c)){
             while(nc!=EOF && isletter(c)){
@@ -51,7 +49,7 @@ token * tokenizeFromFile(const char *path){
                 e++;
                 move();
             }
-            SET(IDENTIFIER);
+            t=IDENTIFIER;
         }
         else if(c=='|'){
             move();
@@ -62,7 +60,16 @@ token * tokenizeFromFile(const char *path){
             }while(!(c=='|' && nc=='|'));
             move();
             move();
-            SET(STRING);
+            t=STRING;
+        }
+        if(t){
+            using->next = (token*) toknsize;
+            using = using->next;
+            using->type=t;
+            using->size=e;
+            using->line=line;
+            name[e]='\0';
+            strcpy(using->value,name);
         }
         else if(c=='{'){
             move();
@@ -83,8 +90,14 @@ token * tokenizeFromFile(const char *path){
             strcpy(using->value,"/indicium");
         }
         else{
+            if(c == ' ' || c == '\n' || c == '\t'){
+                line+=(c=='\n');
+              move();
+            }else{
+
             printf("Pas compris : '%c' ( place dans utf : %i)\n",c,c);
             move();
+            }
         }
     }
     fclose(filePointer);

@@ -299,7 +299,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m){
                     do{
                         action(c,0,mem,a);
                         setVar(fc->content,a,mem.vars);
-                    }while(fc->type==3 && (fc = fc->bro) && (c = c->bro));
+                    }while(fc->type==IDENTIFIER && (fc = fc->bro) && (c = c->bro));
                     action(fc,1,mem,m);
                     break;
             }

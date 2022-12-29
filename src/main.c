@@ -42,8 +42,8 @@ int main(int argc, char const *argv[]){
         char * types[] = {"string","balise","number","identif"};
         token * t = T;
         while(t){
-            printf("\033[0;3%im", t->type+1);
-            printf("%s\t%i\t%s\n", types[t->type], t->size, t->value);
+            printf("\033[0;3%im", t->type);
+            printf("%s\t%i\t%s\n", types[t->type-1], t->size, t->value);
             t = t->next;
         }
 

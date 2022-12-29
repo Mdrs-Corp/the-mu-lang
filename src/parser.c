@@ -37,7 +37,7 @@ void addSon(node * mom, node * new){
 
 void printFamilly(node * rt, int niv){
     printf("%02d ",rt->line);
-    for (int i = 0; i < niv; i++)printf("\033[1;3%im--|",rt->type+1);
+    for (int i = 0; i < niv; i++)printf("\033[1;3%im--|",rt->type);
     printf("\033[0m");
     printf("%s\n",rt->content);
     node * curChild = rt->child;
