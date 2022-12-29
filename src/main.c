@@ -12,8 +12,8 @@
 #include "structs.c"
 #include "tokenizer.c"
 #include "parser.c"
-#include "hash.c"
 #include "alerts.c"
+#include "hash.c"
 #include "action.c"
 
 int main(int argc, char const *argv[]){
