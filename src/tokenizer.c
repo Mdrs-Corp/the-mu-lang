@@ -3,26 +3,25 @@
 int isletter(char s){return ('a'<=s && s<='z') || ('A'<=s && s<='Z');}
 int isnumber(char s){return ('0'<=s && s<='9') || s=='.' || s=='-';}
 
-#define SET(t) 
+char move(char *c,char *nc,FILE* file){
+    *c=*nc;
+    *nc=fgetc(file);
+    return *c;
+}
+
 
 token * tokenizeFromFile(const char *path){
     char c;//Current char
     char nc;//Next char
     int line = 1;
-    FILE *filePointer;
-    filePointer = fopen(path, "r");
-    if (filePointer == NULL){printf("File is not available \n");}
-
-    char move(){ // Oui, c'est mal...
-        c = nc;
-        nc = fgetc(filePointer);
-        return c;
-    }
+    FILE *f; //file pointeur
+    f = fopen(path, "r");
+    if (f == NULL){printf("File is not available :,( \n");}
 
     token * tokens = (token*) toknsize;
     token * using = tokens;
-    move();
-    move();
+    move(&c,&nc,f);
+    move(&c,&nc,f);
     int e; //longeur du jeton
     int t; //type du jeton
     char name[MAX_STRING_LEN]; // Contenu du jeton
@@ -30,16 +29,17 @@ token * tokenizeFromFile(const char *path){
         e=0;
         t=0;
         if(c=='<'){
-            while(nc!=EOF && nc !='>'){name[e++]=move();}
-            move();
-            move();
+            while(nc!=EOF && nc !='>')
+                name[e++]=move(&c,&nc,f);
+            move(&c,&nc,f);
+            move(&c,&nc,f);
             t=BALISE;
         }
         else if(isnumber(c)){
             while(nc!=EOF && isnumber(c)){
                 name[e]=c;
                 e++;
-                move();
+                move(&c,&nc,f);
             }
             t=CONSTT;
         }
@@ -47,19 +47,19 @@ token * tokenizeFromFile(const char *path){
             while(nc!=EOF && isletter(c)){
                 name[e]=c;
                 e++;
-                move();
+                move(&c,&nc,f);
             }
             t=IDENTIFIER;
         }
         else if(c=='|'){
-            move();
-            move();
+            move(&c,&nc,f);
+            move(&c,&nc,f);
             do{
                 name[e++]=c;
-                move();
+                move(&c,&nc,f);
             }while(!(c=='|' && nc=='|'));
-            move();
-            move();
+            move(&c,&nc,f);
+            move(&c,&nc,f);
             t=STRING;
         }
         if(t){
@@ -71,8 +71,8 @@ token * tokenizeFromFile(const char *path){
             name[e]='\0';
             strcpy(using->value,name);
         }
-        else if(c=='{'){
-            move();
+        else if(c=='{'){//enft { et } c'est des ***macro***
+            move(&c,&nc,f);
             using->next = (token*) toknsize;
             using = using->next;
             using->type = BALISE;
@@ -81,7 +81,7 @@ token * tokenizeFromFile(const char *path){
             strcpy(using->value,"indicium");
         }
         else if(c=='}'){
-            move();
+            move(&c,&nc,f);
             using->next = (token*) toknsize;
             using = using->next;
             using->type = BALISE;
@@ -92,14 +92,13 @@ token * tokenizeFromFile(const char *path){
         else{
             if(c == ' ' || c == '\n' || c == '\t'){
                 line+=(c=='\n');
-              move();
+                move(&c,&nc,f);
             }else{
-
-            printf("Pas compris : '%c' ( place dans utf : %i)\n",c,c);
-            move();
+                printf("Pas compris : '%c' ( place dans utf : %i)\n",c,c);
+                move(&c,&nc,f);
             }
         }
     }
-    fclose(filePointer);
+    fclose(f);
     return tokens->next;
 }
