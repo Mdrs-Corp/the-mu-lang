@@ -179,7 +179,7 @@ void action(node * nod, int doBro, struct memory mem, mess * m)
 
     case 400:                  //aequalis
       m->type = Numerus;
-      m->ival = 0;
+      m->ival = 1;
       action(c, 0, mem, a);
       IwantNumerus(a);
       s = a->ival;
