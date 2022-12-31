@@ -7,4 +7,5 @@ compile:
 clean:
 	$(RM) dicke
 	$(RM) */a.out
+	$(RM) .repl.*
 

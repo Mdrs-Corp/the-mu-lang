@@ -6,6 +6,10 @@
 #define VARS_LEN 10 // Nombre de variables
 #define FUNS_LEN 10 // Nombre de fonctions
 
+// paramètres d'execution
+#define DEVMODE 1
+#define PRINTRETURN 2
+
 /* Ordre important, le compileur va vraiment yank les contenus à la suite
    Et les mettres dans ce fichier afin d'executer un gros */
 
@@ -29,14 +33,20 @@ int main(int argc, char const *argv[]){
         T = tokenizeFromFile("./src/exemple.µ");
     }
 
-    int devmode = 0;
+    int params = 0;
     for (size_t i = 0; i < argc; i++) {
         if (strcmp(argv[i],"-dev")==0) {
-            devmode = 1;
+            params |= DEVMODE ;
+        }else if(strcmp(argv[i],"-µ")==0){
+            params |= PRINTRETURN;
         }
     }
 
-    if(devmode){
+    mess * resultat = (mess*) malloc(sizeof(mess));
+
+    strcpy(resultat->cval,"µ\0");
+    resultat->type=Filum;
+    if(params & DEVMODE){
         printf("\033[1;1m-->\033[0m Lexing : \n");
         printf("type\ttaille\tvaleur\n");
         char * types[] = {"string","balise","number","identif"};
@@ -52,7 +62,6 @@ int main(int argc, char const *argv[]){
         printFamilly(R,0);
 
         printf("\033[1;1m-->\033[0m Interpreting : \n");
-        mess * resultat = (mess*) malloc(sizeof(mess));
         action(R, 0, mem, resultat);
 
         printf("\n\033[1;1m-->\033[0m Variables :\n");
@@ -60,11 +69,13 @@ int main(int argc, char const *argv[]){
 
         printf("\033[0m"); //Reset the text to default color
     }
-    else{
-        mess * resultat = (mess*) malloc(sizeof(mess));
-        strcpy(resultat->cval,"µ\0");
-        resultat->type=Filum;
+    else
         action(parse(T),0,mem,resultat);
-      }
+
+    if(params & PRINTRETURN) {
+        print(resultat);
+        printf("\n");
+     }
+
     return 0;
 } // nice number of lines ;)
