@@ -351,5 +351,5 @@ void action(node * nod, int doBro, struct memory mem, mess * m)
   }
   //printf("Red : '%s'\ttype : %i\tival : %f\n",nod->content,m->type,m->ival);
   if (nod->bro && doBro)
-    action(nod->bro, 1, mem, a);
+    action(nod->bro, 1, mem, m);
 }

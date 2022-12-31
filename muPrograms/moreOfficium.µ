@@ -1,0 +1,34 @@
+<µ>
+
+<officium>
+  <test/>
+  a
+  b
+  <µ>
+    <loq>
+      a
+      || and ||
+      b
+    </loq>
+    <add>b 100</add>
+  </µ>
+</officium>
+
+<loq>
+  <test>
+    ||ooooh||
+    5
+  </test>
+</loq>
+
+<loq>
+  <µ>
+    902390293029
+    <add>5 22 1</add>
+    9
+  </µ>
+</loq>
+
+
+
+</µ>
