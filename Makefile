@@ -4,8 +4,13 @@ make: src/main.c
 
 compile:
 	gcc -Wall -o dicke src/main.c
+
 clean:
+
 	$(RM) dicke
 	$(RM) */a.out
 	$(RM) .repl.*
 
+indent:
+	indent src/*.c -linux -nut -i2
+	rm src/*.c~
