@@ -19,4 +19,4 @@ You can also use our Read Execute Print Loop with
 ```bash
 rlwrap ./REPL.bash
 ```
-> you may need to install rlwrap (availble on aptitude)
+> you may need to install rlwrap (availble in aptitude and pacman)
