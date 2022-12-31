@@ -11,6 +11,8 @@
 			conteur
 			|| Nombre d'or : ||
 			<partio> a b </partio>
+      || nth Fib ||
+      a
 		</loq>
 		<indo>
 			temp a
