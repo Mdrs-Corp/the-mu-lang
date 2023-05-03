@@ -1,3 +1,13 @@
+||  The program initializes two variables, a and b,
+to 1 and then proceeds to print out the first 10 numbers
+in the Fibonacci sequence. The loop is controlled by the conteur variable, 
+which is incremented by 1 on each iteration until it reaches 10.
+On each iteration, the program prints out the current value of conteur,
+the ratio of a to b (which approaches the golden ratio as the sequence progresses),
+and the value of a, which is the current number in the Fibonacci sequence. ||
+
+The loop is controlled by the conteur variable, which is incremented by 1 on each iteration until it reaches 10. On each iteration, the program prints out the current value of conteur, the ratio of a to b (which approaches the golden ratio as the sequence progresses), and the value of a, which is the current number in the Fibonacci sequence.
+
 <µ>
 	<loq>|| Programme qui écrit la suite de fibonnacci ||</loq>
 	<indo>

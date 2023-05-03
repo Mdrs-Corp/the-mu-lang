@@ -1,4 +1,4 @@
-# Tests
+# Comparasions
 Tag to compare values:
 ## Inferioris
 Returns Verum (True) if all the values are in ascending order:
@@ -23,6 +23,8 @@ Returns Verum if all the values are equal:
 </aequalis>
 ```
 would return true if and only if a = b = c = d  
+
+
 ## Conjectives
 You can even do some logical interpretation:
 ### Et

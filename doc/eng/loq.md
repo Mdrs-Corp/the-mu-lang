@@ -1,5 +1,10 @@
 # Loq
-Logs the content to the user in the terminal, not matter the type:
+Logs the content to the user in the terminal, whatever it's type:
+```xml
+<loq>
+||  content to print  ||
+</loq>
+it works also well with multiple Filums and variables :
 ```xml
 <loq>
 	||Hi, ||
